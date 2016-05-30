@@ -1,12 +1,27 @@
 <html>
-<head>
-
+<head><!--referensi data-->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 </head>
+	 
+<style>	 
+	 #mapid { height: 480px; }	<!-- tinggi peta-->
+</style>
 
 <body>
-	<p>
-		terserah
-	</p>
+	<div id="mapid"></div> <!-- ini def peta-->
+	<script>
+	var mymap = L.map('mapid').setView([-7.79558, 110.36949], 13);<!--var = variabel, L.map = perintah memanggil map, .setView itu method, . itu connector dengan objeknya-->
+									<!--[lat, long], scale-->
+	
+	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		maxZoom: 10 //maksimum zoom
+	}).addTo(mymap);
+	//L.tileLayer buat manggil tile map
+	//harus nyantumin attribution buat 
+	</script>
+	
 </body>
 
 </html>
