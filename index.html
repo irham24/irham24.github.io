@@ -20,6 +20,11 @@
 	}).addTo(mymap);
 	//L.tileLayer buat manggil tile map
 	//harus nyantumin attribution buat 
+	
+	//marker
+	var marker = L.marker([-7.62940, 110.19982]).addTo(mymap);
+	//popup
+	marker.bindPopup("<b>Borobudur</b><br>Itu di sini loh!").openPopup();
 	</script>
 	
 </body>
