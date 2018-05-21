@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+	<title>Peta Potensi Wisata Gunungkidul</title> 
+	<meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<!-- Highchart -->
+	<script src="assets/js/highcharts.js"></script>
+	<script src="assets/js/exporting.js"></script>
+	<script src="assets/js/export-data.js"></script>
+	<!-- Chart -->
+	<script src="assets/js/stacked.js"></script>
+	<!-- EChart -->
+	<script src="assets/js/echarts.min.js"></script>
+	<script src="assets/js/pieechart.js"></script>
+	
+    <style type="text/css"> 
+	html, body, .container, iframe { 
+		position:relative; 
+		width: 100%;
+		padding: 0; 
+		margin: 0; 
+	}	
+	.side-button{
+		position:fixed;
+		top:3%;
+		right:3%;
+		z-index:998;
+	}
+	</style>
+</head>
+<body>
+<iframe width="100%" height="656" frameborder="0" src="https://mirhamakbar.carto.com/builder/efaf6b38-8244-4bfc-b877-8f67a136b59c/embed" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+	<div class="container">
+		
+		<div class="side-button">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Grafik Statistik</button>
+		</div>
+		<!--  Modal untuk Grafik  -->
+		<!-- The Modal -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+			  <div class="modal-content">
+			  
+				<!-- Modal Header -->
+				<div class="modal-header">
+				  <h4 class="modal-title">Grafik Statistik</h4>
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				
+				<!-- Modal body -->
+				<div class="modal-body">
+
+					<div class="container">
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs nav-justified" role="tablist">
+						<li class="nav-item">
+						  <a class="nav-link active" data-toggle="tab" href="#home">Tipe Wisata</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" data-toggle="tab" href="#menu1">Hari</a>
+						</li>
+					  </ul>
+
+					  <!-- Tab panes -->
+					  <div class="tab-content">
+						<div id="home" class="container tab-pane active"><br>
+						  <!-- <div id="pie" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
+						  <div id="pieechart" style="width: 600px;height:400px; margin: 0 auto"></div>
+						</div>
+						<div id="menu1" class="container tab-pane fade"><br>
+						  <div id="stacked" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						</div>
+					  </div>
+					</div>			  
+
+				</div>
+				
+			  </div>
+			</div>
+		</div>
+		
+		
+		
+	</div>
+</body>
+</html>
