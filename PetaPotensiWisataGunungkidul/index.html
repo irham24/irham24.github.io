@@ -30,6 +30,18 @@
 		right:3%;
 		z-index:998;
 	}
+	.fixed-bar-name{
+			position:fixed;
+			top:0;
+			right:35%;
+			width:30%;
+			background: rgba(0,0,0,0.2);
+	}
+	.legenda{
+			position:fixed;
+			top:3%;
+			left:2%;
+	}
 	</style>
 </head>
 <body>
@@ -39,7 +51,8 @@
 		<div class="side-button">
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Grafik Statistik</button>
 		</div>
-		<!--  Modal untuk Grafik  -->
+		<div class="fixed-bar-name text-center" style="color:white;">Peta Potensi Wisata Kab. Gunungkidul</div> <!-- <br>M. irham Akbar &copy;2018 -->
+		<div class="shadow p-3 mb-5 bg-white rounded legenda"><img class="img-fluid" style="height:400px;" src="assets/img/legenda_peta.jpg"></div>
 		<!-- The Modal -->
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog modal-dialog-centered modal-lg">
