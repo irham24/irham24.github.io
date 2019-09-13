@@ -9,7 +9,7 @@
     
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' renderer="precision: mediump;">
+        <a-scene embedded arjs renderer="precision: mediump;">
 
         <a-assets>
             <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
@@ -33,15 +33,11 @@
             <a-box position='0 0.5 0' color="yellow"></a-box>
         </a-marker>
         <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt">
-                <a-box position='0 0.5 0' depth="2" height="4" src="#teksturcrate"></a-box>
+                <a-box position='0 0.5 0' depth="2" src="#teksturcrate"></a-box>
         </a-marker>
 
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
         <a-entity camera></a-entity>
         </a-scene>
-        <script>
-        var ambientlight = new THREE.AmbientLight( 0xffffff, 5 );
-            scene1.add(ambientlight);
-    </script>
     </body>
 </html>
