@@ -33,13 +33,15 @@
             <a-box position='0 0.5 0' color="yellow"></a-box>
         </a-marker>
         <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt">
-            <a-entity light="type: ambient">
                 <a-box position='0 0.5 0' depth="2" height="4" src="#teksturcrate"></a-box>
-            </a-entity>
         </a-marker>
 
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
         <a-entity camera></a-entity>
         </a-scene>
+        <script>
+        var ambientlight = new THREE.AmbientLight( 0xffffff, 5 );
+            scene1.add(ambientlight);
+    </script>
     </body>
 </html>
