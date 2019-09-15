@@ -13,7 +13,6 @@
 
         <a-assets>
             <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
-             
             <img id="teksturbox" src="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/Textures/Planks%20(Seamless)%20from%20Texture101.jpg"></img>
             <!--<a-asset-item id="teksturcrate" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/wood/crate.gif"></a-asset-item>
             -->
@@ -31,7 +30,7 @@
         </a-marker>
             
         <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/a.patt">
-            <a-box position='0 0.5 0' color="yellow"></a-box>
+            <a-entity gltf-model="url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.glb)" scale="0.2 0.2 0.2">
         </a-marker>
         <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt">
             <a-box position='0 0.5 1' animation="property: rotation; to: 0 360 0; dur: 3000; loop: true" src="#teksturbox">
