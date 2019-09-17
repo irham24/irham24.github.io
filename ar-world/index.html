@@ -7,6 +7,33 @@
     <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     
+    <!-- script yg tau apakah kamera sedang bidik marker atau tidak -->
+    <script>
+        window.addEventListener('camera-init', (data) => {
+            console.log('camera-init', data);
+        })
+        window.addEventListener('camera-error', (error) => {
+            console.log('camera-error', error);
+        })
+        AFRAME.registerComponent('registerevents', {
+            init: function () {
+                var marker = this.el;
+                marker.addEventListener('markerFound', function() {
+                    var markerId = marker.id;
+                    console.log('markerFound', markerId);
+                    // TODO: Add your own code here to react to the marker being found.
+                    document.querySelector('.scanningSpinner').style.display = 'none'
+                });
+                marker.addEventListener('markerLost', function() {
+                    var markerId = marker.id;
+                    console.log('markerLost', markerId);
+                    // TODO: Add your own code here to react to the marker being lost.
+                    document.querySelector('.scanningSpinner').style.display = ''
+                });
+            }
+        });
+    </script>
+
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; renderer="gammaOutput: true"'>
@@ -18,21 +45,21 @@
             -->
         </a-assets>
 
-        <a-marker type='barcode' value='7'>
+        <a-marker type='barcode' value='7' registerevents>
             <a-box position='0 0.5 0' color="yellow"></a-box>
         </a-marker>
 
-        <a-marker id="animated-marker" type='barcode' value='6'>
+        <a-marker id="animated-marker" type='barcode' value='6' registerevents>
             <a-entity
                 gltf-model="#animated-asset"
                 scale="2">
             </a-entity>
         </a-marker>
             
-        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/a.patt">
+        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/a.patt" registerevents>
             <a-entity gltf-model="url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.glb)" rotation="270 0 0">
         </a-marker>
-        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt">
+        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt" registerevents>
             <a-box position='0 0.5 1' animation="property: rotation; to: 0 360 0; dur: 3000; loop: true" src="#teksturbox">
             </a-box>
         </a-marker>
@@ -40,5 +67,57 @@
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
         <a-entity camera></a-entity>
         </a-scene>
+        
+        <!-- Scanning animation when the marker are not visible -->
+        <div class="scanningSpinner">
+            <label>
+                Scanning
+            </label>
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+        </div>
+        <style>
+        .scanningSpinner {
+            margin: 100px auto;
+            height: 40px;
+            text-align: center;
+        }
+        .scanningSpinner label {
+            display: block;
+            color: #333;
+            font-size: 200%;
+        }
+        .scanningSpinner > div {
+            background-color: #333;
+            height: 100%;
+            width: 6px;
+            display: inline-block;
+            -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+            animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        }
+        .scanningSpinner .rect2 {
+            -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s;
+        }
+        .scanningSpinner .rect3 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+        @-webkit-keyframes sk-stretchdelay {
+            0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+            20% { -webkit-transform: scaleY(1.0) }
+        }
+        @keyframes sk-stretchdelay {
+            0%, 40%, 100% {
+                transform: scaleY(0.4);
+                -webkit-transform: scaleY(0.4);
+                }
+            20% {
+                transform: scaleY(1.0);
+                -webkit-transform: scaleY(1.0);
+            }
+        }
+        </style>
     </body>
 </html>
