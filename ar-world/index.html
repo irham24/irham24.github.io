@@ -35,39 +35,6 @@
     </script>
 
     <body style='margin : 0px; overflow: hidden;'>
-        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; renderer="gammaOutput: true"'>
-
-        <a-assets>
-            <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
-            <img id="teksturbox" src="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/Textures/Planks%20(Seamless)%20from%20Texture101.jpg"></img>
-            <!--<a-asset-item id="teksturcrate" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/wood/crate.gif"></a-asset-item>
-            -->
-        </a-assets>
-
-        <a-marker type='barcode' value='7' registerevents>
-            <a-box position='0 0.5 0' color="yellow"></a-box>
-        </a-marker>
-
-        <a-marker id="animated-marker" type='barcode' value='6' registerevents>
-            <a-entity
-                gltf-model="#animated-asset"
-                scale="2">
-            </a-entity>
-        </a-marker>
-            
-        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/a.patt" registerevents>
-            <a-entity gltf-model="url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.glb)" rotation="270 0 0">
-        </a-marker>
-        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt" registerevents>
-            <a-box position='0 0.5 1' animation="property: rotation; to: 0 360 0; dur: 3000; loop: true" src="#teksturbox">
-            </a-box>
-        </a-marker>
-
-        <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
-        <a-entity camera></a-entity>
-        </a-scene>
-        
         <!-- Scanning animation when the marker are not visible -->
         <div class="scanningSpinner">
             <label>
@@ -119,5 +86,38 @@
             }
         }
         </style>
+
+        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; renderer="gammaOutput: true"'>
+
+        <a-assets>
+            <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
+            <img id="teksturbox" src="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/Textures/Planks%20(Seamless)%20from%20Texture101.jpg"></img>
+            <!--<a-asset-item id="teksturcrate" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/wood/crate.gif"></a-asset-item>
+            -->
+        </a-assets>
+
+        <a-marker type='barcode' value='7' registerevents>
+            <a-box position='0 0.5 0' color="yellow"></a-box>
+        </a-marker>
+
+        <a-marker id="animated-marker" type='barcode' value='6' registerevents>
+            <a-entity
+                gltf-model="#animated-asset"
+                scale="2">
+            </a-entity>
+        </a-marker>
+            
+        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/a.patt" registerevents>
+            <a-entity gltf-model="url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.glb)" rotation="270 0 0">
+        </a-marker>
+        <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt" registerevents>
+            <a-box position='0 0.5 1' animation="property: rotation; to: 0 360 0; dur: 3000; loop: true" src="#teksturbox">
+            </a-box>
+        </a-marker>
+
+        <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
+        <a-entity camera></a-entity>
+        </a-scene>
     </body>
 </html>
