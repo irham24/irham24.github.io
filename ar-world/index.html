@@ -35,9 +35,6 @@
     </script>
 
     <body style='margin : 0px; overflow: hidden;'>
-        <div class="diode">
-              <div class="laser"></div>
-         </div>
         <!-- Scanning animation when the marker are not visible -->
         <div class="scanningSpinner">
             <label>
@@ -87,37 +84,6 @@
                 transform: scaleY(1.0);
                 -webkit-transform: scaleY(1.0);
             }
-        }
-            
-        /* Efek scanning */     
-          .laser {
-            width: 150%;
-            margin-left: 0;
-            background-color: tomato;
-            height: 1px;
-            position: absolute;
-            top: 0%;
-            z-index: 2;
-            box-shadow: 0 0 4px red;
-            animation: scanning 2s infinite;
-          }
-
-          .diode {
-            animation: beam .01s infinite;
-          }
-
-        }
-
-        @keyframes beam {
-          50% {
-            opacity: 0;
-          }
-        }
-
-        @keyframes scanning {
-          50% {
-            transform: translateY(100%);
-          }
         }
         </style>
 
