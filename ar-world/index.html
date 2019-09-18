@@ -109,7 +109,13 @@
         </a-marker>
             
         <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/a.patt" registerevents>
-            <a-entity gltf-model="url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.glb)" rotation="270 0 0">
+            <!-- <a-entity gltf-model="url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.glb)" rotation="270 0 0">
+            Adding an OBJ file to an AR Project-->
+            <a-entity 
+                obj-model=”obj: url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.obj); 
+                mtl: url(https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/models/chiby.mtl)”>
+            </a-entity>
+
         </a-marker>
         <a-marker type="pattern" preset="custom" url="https://raw.githubusercontent.com/irham24/irham24.github.io/master/ar-world/assets/patterns/ilm.patt" registerevents>
             <a-box position='0 0.5 1' animation="property: rotation; to: 0 360 0; dur: 3000; loop: true" src="#teksturbox">
