@@ -45,7 +45,7 @@
 	}).addTo(map);
 	
 	// Menambah file GPX
-	var gpx = 'https://raw.githubusercontent.com/irham24/irham24.github.io/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx'; // URL to your GPX file or the GPX itself
+	var gpx = 'http://github.com/irham24/leaflet-gpx/raw/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx'; // URL to your GPX file or the GPX itself
 	new L.GPX(gpx, {async: true}).on('loaded', function(e) {
 	  map.fitBounds(e.target.getBounds());
 	}).addTo(map);
