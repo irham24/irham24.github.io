@@ -47,12 +47,7 @@
 	// Menambah file GPX
 	var gpx = 'http://github.com/irham24/leaflet-gpx/raw/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx'; // URL to your GPX file or the GPX itself
 	new L.GPX(gpx, {
-		async: true,
-		marker_options: {
-		    startIconUrl: 'http://github.com/mpetazzoni/leaflet-gpx/raw/master/pin-icon-start.png',
-		    endIconUrl:   'http://github.com/mpetazzoni/leaflet-gpx/raw/master/pin-icon-end.png',
-		    shadowUrl:    'http://github.com/mpetazzoni/leaflet-gpx/raw/master/pin-shadow.png',
-		  },
+		async: true
 		}).on('loaded', function(e) {
 	  map.fitBounds(e.target.getBounds());
 	}).addTo(map);
