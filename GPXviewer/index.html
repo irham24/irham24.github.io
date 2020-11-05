@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
-	<script src="https://raw.githubusercontent.com/hallahan/LeafletPlayback/master/dist/LeafletPlayback.min.js"></script>
+	<script src="https://rawcdn.githack.com/hallahan/LeafletPlayback/5fc4568173fe6a5d47ccbd07040a04fb2cf9d093/dist/LeafletPlayback.min.js"></script>
 
 
 	<style>
@@ -71,8 +71,8 @@
         
     // Initialize playback
 	var url = 'https://raw.githubusercontent.com/irham24/irham24.github.io/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx';
-	//var gpx = L.Playback.Util.ParseGPX(url);
-    var playback = new L.Playback(map, null, null, playbackOptions);
+	var gpx = L.Playback.Util.ParseGPX(url);
+	var playback = new L.Playback(map, gpx, null, playbackOptions);
 </script>
 
 
