@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Gavination Citi</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+
+
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 768px;
+			height: 288px;
+		}
+	</style>
+	
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+	// Variabel map
+	var map = L.map('map', {
+		center: [-6.2409473242, 106.834124],
+		zoom: 2,
+		//layers: [satellite, cities]
+	});
+	
+	// Basemap map
+	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+	}).addTo(map);
+	
+	// Menambah file GPX
+	var gpx = 'Lebong_hitam_04112020.gpx'; // URL to your GPX file or the GPX itself
+	new L.GPX(gpx, {async: true}).on('loaded', function(e) {
+	  map.fitBounds(e.target.getBounds());
+	}).addTo(map);
+	
+</script>
+
+
+
+</body>
+</html>
