@@ -46,33 +46,33 @@
 	}).addTo(map);
 	
 	// Menambah file GPX
-	//var gpx = 'https://raw.githubusercontent.com/irham24/irham24.github.io/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx'; // URL to your GPX file or the GPX itself
-	//new L.GPX(gpx, {
-	//	async: true,
-	//	marker_options: {
-	//	    startIconUrl: 'http://github.com/mpetazzoni/leaflet-gpx/raw/main/pin-icon-start.png',
-	//	    endIconUrl:   'http://github.com/mpetazzoni/leaflet-gpx/raw/main/pin-icon-end.png',
-	//	    shadowUrl:    'http://github.com/mpetazzoni/leaflet-gpx/raw/main/pin-shadow.png',
-	//	  },
-	//	}).on('loaded', function(e) {
-	//  map.fitBounds(e.target.getBounds());
-	//}).addTo(map);
+	var gpx = 'https://raw.githubusercontent.com/irham24/irham24.github.io/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx'; // URL to your GPX file or the GPX itself
+	new L.GPX(gpx, {
+		async: true,
+		marker_options: {
+		    startIconUrl: 'http://github.com/mpetazzoni/leaflet-gpx/raw/main/pin-icon-start.png',
+		    endIconUrl:   'http://github.com/mpetazzoni/leaflet-gpx/raw/main/pin-icon-end.png',
+		    shadowUrl:    'http://github.com/mpetazzoni/leaflet-gpx/raw/main/pin-shadow.png',
+		  },
+		}).on('loaded', function(e) {
+	  map.fitBounds(e.target.getBounds());
+	}).addTo(map);
 	
-	// =====================================================
+    // =====================================================
     // =============== Playback ============================
     // =====================================================
     
     // Playback options
-    var playbackOptions = {
-        playControl: true,
-        dateControl: true,
-        sliderControl: true     
-    };
+    // var playbackOptions = {
+    //     playControl: true,
+    //     dateControl: true,
+    //     sliderControl: true     
+    // };
         
     // Initialize playback
-	var url = 'https://raw.githubusercontent.com/irham24/irham24.github.io/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx';
-	var gpx = L.Playback.Util.ParseGPX(url);
-	var playback = new L.Playback(map, gpx, null, playbackOptions);
+	// var url = 'https://raw.githubusercontent.com/irham24/irham24.github.io/master/GPXviewer/assets/gpx/Lebong_hitam_04112020.gpx';
+	// var gpx = L.Playback.Util.ParseGPX(url);
+	// var playback = new L.Playback(map, gpx, null, playbackOptions);
 </script>
 
 
