@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="Okt_w5" id="Okt_w5">
+	<SimpleField name="keyid" type="string"></SimpleField>
+	<SimpleField name="Keyid_1" type="string"></SimpleField>
+	<SimpleField name="Species" type="string"></SimpleField>
+	<SimpleField name="Land_Type" type="string"></SimpleField>
+	<SimpleField name="Reporting" type="string"></SimpleField>
+	<SimpleField name="Period" type="string"></SimpleField>
+	<SimpleField name="Activity" type="string"></SimpleField>
+	<SimpleField name="Plant_Date" type="string"></SimpleField>
+	<SimpleField name="Last_Prog" type="string"></SimpleField>
+	<SimpleField name="UAV_Start" type="string"></SimpleField>
+	<SimpleField name="UAV_End" type="string"></SimpleField>
+	<SimpleField name="End_Add" type="string"></SimpleField>
+	<SimpleField name="Age_Days" type="float"></SimpleField>
+	<SimpleField name="Est_Stratu" type="string"></SimpleField>
+	<SimpleField name="Target_AOI" type="string"></SimpleField>
+	<SimpleField name="Area_Ha" type="float"></SimpleField>
+	<SimpleField name="Est_Stra_1" type="string"></SimpleField>
+	<SimpleField name="Est_Stra_2" type="string"></SimpleField>
+	<SimpleField name="Vendor" type="string"></SimpleField>
+</Schema>
+<Folder><name>Okt_w5</name>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">03A2001601</SimpleData>
+		<SimpleData name="Keyid_1">03A2001601</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.LEBONG_HITAM</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">08/02/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/22/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/05/2020</SimpleData>
+		<SimpleData name="UAV_End">11/12/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/15</SimpleData>
+		<SimpleData name="Age_Days">102.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">12.97050000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.630723091,-2.91184126499996 105.630725667,-2.91183933399998 105.631546578,-2.91013051899996 105.636534667,-2.912577 105.636536667,-2.91257866699994 105.6357335,-2.9142915 105.635734333,-2.91429433299993 105.630723091,-2.91184126499996</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">03A2006501</SimpleData>
+		<SimpleData name="Keyid_1">03A2006501</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.LEBONG_HITAM</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">07/28/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/21/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/04/2020</SimpleData>
+		<SimpleData name="UAV_End">11/11/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/14</SimpleData>
+		<SimpleData name="Age_Days">106.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">2.93490000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.63343092,-2.90828875699998 105.632501092,-2.91032732199994 105.631536449,-2.90986286 105.63248866,-2.90781562599994 105.63343092,-2.90828875699998</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">03B2005700</SimpleData>
+		<SimpleData name="Keyid_1">03B2005700</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.LEBONG_HITAM</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 3 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">05/22/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/21/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/04/2020</SimpleData>
+		<SimpleData name="UAV_End">11/11/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/14</SimpleData>
+		<SimpleData name="Age_Days">173.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 6m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">9.32395000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_6M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_6M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.659536386,-2.91741651599995 105.65941616,-2.92179185399993 105.659366038,-2.92179089799993 105.6578134,-2.92176130499997 105.657663313,-2.91740223399994 105.659490261,-2.91741616399997 105.659536386,-2.91741651599995</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">03B2005900</SimpleData>
+		<SimpleData name="Keyid_1">03B2005900</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.LEBONG_HITAM</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 3 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">05/10/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/21/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/04/2020</SimpleData>
+		<SimpleData name="UAV_End">11/11/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/14</SimpleData>
+		<SimpleData name="Age_Days">185.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 6m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">23.93140000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_6M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_6M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.668894203,-2.92476291499997 105.668894958,-2.92633900399994 105.664505455,-2.92631683699994 105.659413911,-2.92629110299992 105.659401457,-2.92628054899996 105.659401819,-2.92624913199995 105.659424632,-2.92427340899996 105.664483454,-2.92425965099994 105.664541558,-2.92425949299997 105.668889379,-2.9242476499999 105.668893957,-2.92424763799994 105.668894203,-2.92476291499997</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">03B5000800</SimpleData>
+		<SimpleData name="Keyid_1">03B5000800</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.LEBONG_HITAM</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">07/30/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/21/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/04/2020</SimpleData>
+		<SimpleData name="UAV_End">11/11/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/14</SimpleData>
+		<SimpleData name="Age_Days">104.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">20.58940000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.647891413,-2.93048842099994 105.655905486,-2.93476373699996 105.655163,-2.9363085 105.6470335,-2.93227233299996 105.647891413,-2.93048842099994</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>105.655905486,-2.93476373699996 105.655906,-2.93476266699997 105.655908167,-2.9347655 105.655905667,-2.93476383299998 105.655905486,-2.93476373699996</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">03K5000600</SimpleData>
+		<SimpleData name="Keyid_1">03K5000600</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.LEBONG_HITAM</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">09/15/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/08/2020</SimpleData>
+		<SimpleData name="UAV_End">11/15/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/18</SimpleData>
+		<SimpleData name="Age_Days">61.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">5.13080000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.729672167,-3.116462 105.727596187,-3.11646769199995 105.727594702,-3.11401700099997 105.72892879,-3.11401483099996 105.729672167,-3.116462</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">03K5000900</SimpleData>
+		<SimpleData name="Keyid_1">03K5000900</SimpleData>
+		<SimpleData name="Species">EPEL</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.LEBONG_HITAM</SimpleData>
+		<SimpleData name="Period">Periode 43 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">08/12/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/12/2020</SimpleData>
+		<SimpleData name="UAV_Start">10/22/2020</SimpleData>
+		<SimpleData name="UAV_End">11/01/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/04</SimpleData>
+		<SimpleData name="Age_Days">82.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">13.52030000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.705173051,-3.11652890799997 105.705168841,-3.11405322399998 105.709620833,-3.11404607099996 105.709622023,-3.1165168 105.705173051,-3.11652890799997</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04B7001300</SimpleData>
+		<SimpleData name="Keyid_1">04B7001300</SimpleData>
+		<SimpleData name="Species">EPEL</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 44 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">01/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/21/2020</SimpleData>
+		<SimpleData name="UAV_Start">10/31/2020</SimpleData>
+		<SimpleData name="UAV_End">11/10/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/13</SimpleData>
+		<SimpleData name="Age_Days">285.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 9m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">13.98610000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_9M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_9M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.790629423,-3.06481156699993 105.7864208,-3.0648973 105.78642209,-3.06455005299995 105.786423322,-3.06421836799995 105.7864309,-3.062178 105.790649771,-3.06215461199998 105.790661796,-3.06215454499994 105.79066177,-3.06390398299994 105.79066177,-3.06390403299996 105.790661765,-3.06423730299996 105.790661761,-3.06454672299998 105.790661757,-3.06481090799997 105.790655336,-3.06481103899994 105.790629423,-3.06481156699993</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04C5001301</SimpleData>
+		<SimpleData name="Keyid_1">04C5001301</SimpleData>
+		<SimpleData name="Species">EPEL</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/24/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/03/2020</SimpleData>
+		<SimpleData name="UAV_End">11/13/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/16</SimpleData>
+		<SimpleData name="Age_Days">75.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">10.53850000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.809157624,-3.04158330399997 105.80915,-3.04158333299995 105.809150833,-3.04158183299995 105.8091495,-3.04157916699995 105.8091445,-3.03972433299999 105.809141667,-3.03972066699993 105.809240981,-3.03946218499994 105.809282833,-3.039428 105.809279167,-3.03942133299995 105.813129904,-3.03941500199993 105.813130167,-3.03941633299996 105.8131315,-3.04156383299994 105.813131,-3.041568 105.81172619,-3.04157341199993 105.809157624,-3.04158330399997</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04C6001600</SimpleData>
+		<SimpleData name="Keyid_1">04C6001600</SimpleData>
+		<SimpleData name="Species">EPEL</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 43 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">06/30/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/12/2020</SimpleData>
+		<SimpleData name="UAV_Start">10/22/2020</SimpleData>
+		<SimpleData name="UAV_End">11/01/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/04</SimpleData>
+		<SimpleData name="Age_Days">125.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">10.31580000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.849146167,-3.04170016699993 105.853391333,-3.041693 105.853372833,-3.0437105 105.849169167,-3.04365816699993 105.849146167,-3.04170016699993</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04C6002100</SimpleData>
+		<SimpleData name="Keyid_1">04C6002100</SimpleData>
+		<SimpleData name="Species">EPEL</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 3 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">06/29/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/04/2020</SimpleData>
+		<SimpleData name="UAV_End">11/14/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/17</SimpleData>
+		<SimpleData name="Age_Days">139.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">12.20310000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.8533995,-3.04397783299992 105.853398833,-3.04623516699997 105.848992,-3.046215 105.848997,-3.043962 105.8533995,-3.04397783299992</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G3002201</SimpleData>
+		<SimpleData name="Keyid_1">04G3002201</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/08/2020</SimpleData>
+		<SimpleData name="UAV_End">11/15/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/18</SimpleData>
+		<SimpleData name="Age_Days">76.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">5.62036000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.833943854,-3.12069219099994 105.833455833,-3.12071083299997 105.833459833,-3.11186083299998 105.8340065,-3.11185283299994 105.833943854,-3.12069219099994</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G4000600</SimpleData>
+		<SimpleData name="Keyid_1">04G4000600</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">09/15/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/23/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/06/2020</SimpleData>
+		<SimpleData name="UAV_End">11/13/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/16</SimpleData>
+		<SimpleData name="Age_Days">59.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">11.45280000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.822105667,-3.09837083299993 105.822127333,-3.10297783299996 105.820103,-3.10295933299995 105.82009,-3.09833683299995 105.820088167,-3.098335 105.822105667,-3.09837083299993</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G4000700</SimpleData>
+		<SimpleData name="Keyid_1">04G4000700</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/08/2020</SimpleData>
+		<SimpleData name="UAV_End">11/15/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/18</SimpleData>
+		<SimpleData name="Age_Days">76.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">12.84470000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.824616791,-3.09829838299992 105.824605333,-3.10297021199995 105.822411409,-3.10297685299997 105.822362833,-3.102977 105.822363305,-3.10034923499996 105.822363667,-3.09834116699994 105.822366,-3.098342 105.822365,-3.09834516699993 105.824616791,-3.09829838299992</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G4000800</SimpleData>
+		<SimpleData name="Keyid_1">04G4000800</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/08/2020</SimpleData>
+		<SimpleData name="UAV_End">11/15/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/18</SimpleData>
+		<SimpleData name="Age_Days">76.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">11.30500000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.826616333,-3.09830816699997 105.826628333,-3.10296183299995 105.824667625,-3.10295981499996 105.82464191,-3.10295935699998 105.824649794,-3.09830106499993 105.826616333,-3.09830816699997</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G4000900</SimpleData>
+		<SimpleData name="Keyid_1">04G4000900</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/08/2020</SimpleData>
+		<SimpleData name="UAV_End">11/15/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/18</SimpleData>
+		<SimpleData name="Age_Days">76.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">13.22000000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.829013616,-3.09830929399993 105.829010799,-3.10316782199993 105.826805544,-3.10316477 105.826785995,-3.09831200099995 105.827180281,-3.09831169199993 105.828937545,-3.09830971299993 105.829013616,-3.09830929399993</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G4001300</SimpleData>
+		<SimpleData name="Keyid_1">04G4001300</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/23/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/06/2020</SimpleData>
+		<SimpleData name="UAV_End">11/13/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/16</SimpleData>
+		<SimpleData name="Age_Days">74.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">21.36360000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.826641833,-3.10297866699994 105.826630667,-3.1090035 105.824629335,-3.10896638 105.824647725,-3.10297708399998 105.826641833,-3.10297866699994</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>105.826681,-3.109159 105.826627833,-3.1117865 105.824596667,-3.11177883299996 105.824599833,-3.111776 105.824602833,-3.11177566699996 105.8246305,-3.109122 105.824631167,-3.1091205 105.826682333,-3.10915533299994 105.826681,-3.109159</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G4001400</SimpleData>
+		<SimpleData name="Keyid_1">04G4001400</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/08/2020</SimpleData>
+		<SimpleData name="UAV_End">11/15/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/18</SimpleData>
+		<SimpleData name="Age_Days">76.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">23.28160000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.824604333,-3.10299466599998 105.824575524,-3.10898013599995 105.823348211,-3.10896981299994 105.822399667,-3.10896183299997 105.822361667,-3.10299333299998 105.823194491,-3.10299382899996 105.824604333,-3.10299466599998</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>105.824551438,-3.11177322299994 105.822408321,-3.11178950399995 105.822423,-3.10910233299995 105.824591833,-3.1091285 105.824551438,-3.11177322299994</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04G4001500</SimpleData>
+		<SimpleData name="Keyid_1">04G4001500</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/23/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/06/2020</SimpleData>
+		<SimpleData name="UAV_End">11/13/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/16</SimpleData>
+		<SimpleData name="Age_Days">74.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">21.41290000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.822121673,-3.10299197799998 105.822135,-3.108944 105.820117833,-3.108938 105.820089333,-3.10298233299995 105.820093,-3.10298366699993 105.822121673,-3.10299197799998</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>105.8201425,-3.10908983299992 105.822148333,-3.10909183399997 105.822149,-3.109091 105.822167333,-3.11177383299998 105.8201555,-3.11176116699994 105.8201425,-3.10908983299992</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">04L4002000</SimpleData>
+		<SimpleData name="Keyid_1">04L4002000</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_RIDING</SimpleData>
+		<SimpleData name="Period">Periode 45 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">08/31/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/25/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/08/2020</SimpleData>
+		<SimpleData name="UAV_End">11/15/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/18</SimpleData>
+		<SimpleData name="Age_Days">76.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">23.03230000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.856114698,-3.14868326399994 105.856115516,-3.15726888099993 105.85596661,-3.15726854599996 105.854019833,-3.15726416699994 105.854005666,-3.148354 105.854000833,-3.14834933299993 105.856098574,-3.14834387699994 105.856099932,-3.14837246 105.856114698,-3.14868326399994</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">07D2001900</SimpleData>
+		<SimpleData name="Keyid_1">07D2001900</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_BEYUKU</SimpleData>
+		<SimpleData name="Period">Periode 46 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">06/29/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/26/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/09/2020</SimpleData>
+		<SimpleData name="UAV_End">11/16/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/19</SimpleData>
+		<SimpleData name="Age_Days">140.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">24.52900000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.520499075,-2.92718115599997 105.515789876,-2.93090479899996 105.51377075,-2.92991521699997 105.513807947,-2.92988597199997 105.513807993,-2.92988593599996 105.51873099,-2.92601549699998 105.518736234,-2.92601137499997 105.519878683,-2.92511317899994 105.521703758,-2.92367829899995 105.52195423,-2.92384973199996 105.522110953,-2.92395699799994 105.522112458,-2.92395802799995 105.522548664,-2.92425658499997 105.522549826,-2.92425738099996 105.523407339,-2.92484429399996 105.523407399,-2.92484433699996 105.523432583,-2.92486157299993 105.520499075,-2.92718115599997</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">07D4001300</SimpleData>
+		<SimpleData name="Keyid_1">07D4001300</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_BEYUKU</SimpleData>
+		<SimpleData name="Period">Periode 46 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">05/07/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/27/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/10/2020</SimpleData>
+		<SimpleData name="UAV_End">11/17/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/20</SimpleData>
+		<SimpleData name="Age_Days">194.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 6m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">23.01490000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_6M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_6M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.511234539,-2.94027738199997 105.509162888,-2.94027862299992 105.509144653,-2.93152599299997 105.509144572,-2.93148782499998 105.509144177,-2.93129793099996 105.51116503,-2.93129708 105.511165146,-2.93129708 105.511244868,-2.93129704699992 105.511234539,-2.94027738199997</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">07D5001400</SimpleData>
+		<SimpleData name="Keyid_1">07D5001400</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_BEYUKU</SimpleData>
+		<SimpleData name="Period">Periode 46 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">06/28/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/26/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/09/2020</SimpleData>
+		<SimpleData name="UAV_End">11/16/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/19</SimpleData>
+		<SimpleData name="Age_Days">141.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">23.57760000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.530481664,-2.91926623899997 105.523451998,-2.92478233499997 105.523443359,-2.92478911399997 105.523045974,-2.92452437399993 105.522741667,-2.92432164199994 105.52164308,-2.92358975399998 105.529033728,-2.91772648599993 105.529033798,-2.91772643099995 105.529082717,-2.91768762 105.530481664,-2.91926623899997</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">07E4000800</SimpleData>
+		<SimpleData name="Keyid_1">07E4000800</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_BEYUKU</SimpleData>
+		<SimpleData name="Period">Periode 46 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 2 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">07/30/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/26/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/09/2020</SimpleData>
+		<SimpleData name="UAV_End">11/16/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/19</SimpleData>
+		<SimpleData name="Age_Days">109.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 4m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">12.27810000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_4M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_4M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.455785874,-2.91768653299993 105.453292578,-2.91769944899994 105.452905357,-2.91770145499993 105.452905395,-2.91769649699994 105.452921842,-2.91552639599996 105.452939214,-2.9155250099999 105.45693918,-2.91520585299998 105.457209182,-2.91518430899992 105.457209102,-2.91519181099994 105.4571822,-2.91767929699994 105.455785874,-2.91768653299993</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">07O2000700</SimpleData>
+		<SimpleData name="Keyid_1">07O2000700</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">3</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_BEYUKU</SimpleData>
+		<SimpleData name="Period">Periode 46 2020</SimpleData>
+		<SimpleData name="Activity">Weeding 3 - Chemical</SimpleData>
+		<SimpleData name="Plant_Date">04/29/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/27/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/10/2020</SimpleData>
+		<SimpleData name="UAV_End">11/17/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/20</SimpleData>
+		<SimpleData name="Age_Days">202.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 6m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">21.43350000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_6M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_6M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.531577222,-2.94129094099998 105.531638347,-2.94947824599996 105.531555811,-2.94947796399993 105.531555695,-2.94947796399993 105.529491018,-2.94947089199996 105.529480745,-2.94121144399997 105.531542105,-2.94128960899997 105.531542221,-2.94128961299998 105.531577222,-2.94129094099998</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Okt_w5">
+		<SimpleData name="keyid">07P4002000</SimpleData>
+		<SimpleData name="Keyid_1">07P4002000</SimpleData>
+		<SimpleData name="Species">ACRA</SimpleData>
+		<SimpleData name="Land_Type">2</SimpleData>
+		<SimpleData name="Reporting">D.SUNGAI_BEYUKU</SimpleData>
+		<SimpleData name="Period">Periode 46 2020</SimpleData>
+		<SimpleData name="Activity">Chemical Weeding 1</SimpleData>
+		<SimpleData name="Plant_Date">09/15/2020</SimpleData>
+		<SimpleData name="Last_Prog">10/27/2020</SimpleData>
+		<SimpleData name="UAV_Start">11/10/2020</SimpleData>
+		<SimpleData name="UAV_End">11/17/2020</SimpleData>
+		<SimpleData name="End_Add">2020/11/20</SimpleData>
+		<SimpleData name="Age_Days">63.00000000000</SimpleData>
+		<SimpleData name="Est_Stratu">Cluster 2m</SimpleData>
+		<SimpleData name="Target_AOI">Nov2020</SimpleData>
+		<SimpleData name="Area_Ha">22.71290000000</SimpleData>
+		<SimpleData name="Est_Stra_1">Cluster_2M</SimpleData>
+		<SimpleData name="Est_Stra_2">Cluster_2M</SimpleData>
+		<SimpleData name="Vendor">gav</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>105.5386305,-2.981368 105.5386305,-2.98136634699995 105.540762252,-2.98138577599997 105.540651054,-2.9903349599999 105.538652,-2.99032066699993 105.5386305,-2.98136819299999 105.5386305,-2.981368</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+</Folder>
+</Document></kml>
