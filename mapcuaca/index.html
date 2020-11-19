@@ -77,7 +77,7 @@
 		});
 		
       L.control.layers({'Basemap':baselayer,"Satellite": googleSat}).addTo(map);
-	
+	let apiUrl = 'https://data.bmkg.go.id/datamkg/MEWS/DigitalForecast/DigitalForecast-Indonesia.xml';
 	let date = new Date();
 	let datetime = date.getFullYear()+''+
 				   (date.getMonth()+1).toString().padStart(2,'0')+''+
