@@ -83,7 +83,7 @@
       L.control.layers({'Basemap':baselayer,"Satellite": googleSat},sidelayer).addTo(map);
 	
 	let date = new Date();
-	let datetime = date.getFullYears()+''+;
+	let datetime = date.getFullYears()+''+
 				   (date.getMonth()+1).toString().padStart(2,'0')+''+
 				   (date.getDate()+1).toString().padStart(2,'0')+''+
 				   date.getHours().toString().padStart(2,'0')+'00';
