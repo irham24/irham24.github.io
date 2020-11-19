@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WebGIS Prakiraan Cuaca dari BMKG</title>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+	   crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+	   crossorigin=""></script>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	  <style type="text/css">
+	  	body{
+	  		padding: 0;
+	  		margin: 0;
+	  		font-family: 'Roboto', sans-serif;
+	  	}
+	  	#map{
+	  		height: 100vh;
+	  		width: 100%
+	  	}
+	  	header{
+	  		position: absolute;
+	  		top:10px;
+	  		left:60px;
+	  		z-index: 1000;
+	  		background: #fffd;
+	  		padding: 10px 20px;
+	  		width: calc( 100% - 180px)
+	  	}
+	  	header h1{
+	  		padding: 0;
+	  		margin: 0 0  5px;
+	  		font-size: 22px
+	  	}
+	  	header p{
+	  		padding: 0;
+	  		margin: 0;
+	  		font-size: 14px;
+	  	}
+	  	header .select{
+	  		position: absolute;
+	  		right: 20px;
+	  		top: 1rem
+	  	}
+	  	header .select>select{
+	  		font-size: 1rem;
+	  		padding: .5rem;
+	  		border:1px solid #ddd !important;
+	  	}
+	  </style>
+</head>
+<body>
+	<header>
+		<div class="title">
+			<h1>WebGIS Prakiraan Cuaca dari BMKG</h1>
+			<p>Date : <span class="tanggal"></span></p>
+		</div>
+		<div class="select">
+			<select name="select-tanggal"></select>
+		</div>
+	</header>
+	<div id="map"></div>
+	<script>
+	var map = L.map('map').setView([0.7893, 112.9213], 5.0);
+    var baselayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+			maxZoom: 20,
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+		}).addTo(map);
+	  // Google Satelite Basemap
+	var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+		maxZoom: 20,
+		subdomains:['mt0','mt1','mt2','mt3'],
+		attribution: 'Tiles &copy; Google'
+		});
+		
+      L.control.layers({'Basemap':baselayer,"Satellite": googleSat},sidelayer).addTo(map);
+    })
+	
+	let date = new Date();
+	let datetime = date.getFullYears()+''+;
+				   (date.getMonth()+1).toString().padStart(2,'0')+''+
+				   (date.getDate()+1).toString().padStart(2,'0')+''+
+				   date.getHours().toString().padStart(2,'0')+'00'
+				   ;
+	let kodeCuaca = {
+		'0':['Cerah','clearskies.png'],
+		'1':['Cerah Berawan ','partlycloudy.png'],
+		'2':['Cerah Berawan ','partlycloudy.png'],
+		'3':['Berawan ','mostlycloudy.png'],
+		'4':['Berawan Tebal','overcast.png'],
+		'5':['Udara Kabur','haze.png'],
+		'10':['Asap','smoke.png'],
+		'45':['Kabut','fog.png'],
+		'60':['Hujan Ringan','lightrain.png'],
+		'61':['Hujan Sedang','rain.png'],
+		'63':['Hujan Lebat','heavyrain.png'],
+		'80':['Hujan Lokal','isolatedshower.png'],
+		'95':['Hujan Petir','severethunderstorm.png'],
+		'97':['Hujan Petir','severethunderstorm.png'],
+	};
+
+	
+	getData();
+	
+	async function getData(){
+		Let response = await fetch(apiUrl);
+		let xmlStr = await response.text();
+		let parse = new DOMParser();
+		let xmlData = parse.parseFromString(xmlStr,'text/xml');
+		let areas = xmlData.querySelectorAll('area');
+		areas.forEach((area)=>{
+			let lat = area.getAttribute('latitude');
+			let lng = area.getAttribute('longitude');
+			let nama = area.getAttribute('description');
+			let weathers = area.querySelectorAll('parameter[id="weather" timestamp]');
+			let getTime = false;
+			let idxprakiraan;
+			
+			weathers.forEach((weather,i)=>{
+				let getDateTime = weather.getAttribute('datetime');
+				if(getDateTime>datetime && getTime==false){
+					idxprakiraan = i;
+					getTime = true;
+				}
+			})
+			let prakiraan = weathers[idxprakiraan].querySelector('value').textContent;
+			let iconUrl = 'assets/images/icons/'+kodeCuaca[prakiraan][1];
+			let deskripsi = kodeCuaca[prakiraan][0];
+			
+			let marker = L.marker([lat,lng],{
+					//icon: L.icon({
+					//	iconUrl: 'my-icon.png',
+					//	iconSize: [38, 95],
+					//	iconAnchor: [22, 94],
+					//	popupAnchor: [-3, -76],
+					//	shadowUrl: 'my-icon-shadow.png',
+					//	shadowSize: [68, 95],
+					//	shadowAnchor: [22, 94]
+					//})
+				}).bindPopup('<strong>'+nama+'</strong> : '+deskripsi);
+			marker.addTo(map);
+			
+		})
+	}
+	</script>
+</body>
+</html>
