@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Peta dari GPX</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+		}
+		#map {
+			height: 100vh;
+	  	width: 100%;
+		}
+	</style>
+	
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+	// get Param from URLs
+	var params = {};
+	window.location.href.replace(/[?@&]+([^&]+),([^&]+),([^&]*)z/gi, function(m, lat,lng,z){
+		//params[key] = value;
+		params['lat'] = lat;
+		params['lng'] = lng;
+		params['zoom'] = z;
+	});
+	//console.log(params);
+
+
+	// Basemap map
+	
+	// Esri Basemap
+	//L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	//	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+	//}).addTo(map);
+	
+	// Google Streets Basemap
+	var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3'],
+	attribution: 'Tiles &copy; Google'
+	});
+	// Google Satelite Basemap
+	var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3'],
+	attribution: 'Tiles &copy; Google'
+	});
+	// Google Hybrid Basemap
+	var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3'],
+	attribution: 'Tiles &copy; Google'
+	});
+	
+	// Variabel map
+	var map = L.map('map', {
+		center: [params.lat || -6.269577,
+				 params.lng || 106.705615],
+		zoom: params.zoom || 11,
+		layers: [googleHybrid]
+	});
+	
+	// Marker Mess
+	var marker = L.marker([-6.269577, 106.705615]).addTo(map);
+	marker.bindPopup("Point");//.openPopup();
+	
+	
+	//Variabel untuk Layer Controller
+	var baseMaps = {
+		"Streetview": googleStreets,
+		"Satellite": googleSat,
+		"Hybrid": googleHybrid
+	};
+	
+	var overlayMaps = {
+		"Mess": marker
+	};
+
+  // Use the custom grouped layer control, not "L.control.layers"
+	L.control.layers(baseMaps, overlayMaps).addTo(map);
+	
+	// Change URL after load
+	history.replaceState(null,null,"?@"+map.getCenter().lat+","+map.getCenter().lng+","+map.getZoom()+"z")
+	
+	// give param to URL when panning
+	function onMapAfterClick(e) {
+		//console.log(map.zoom.animate);
+		history.replaceState(null,null,"?@"+map.getCenter().lat+","+map.getCenter().lng+","+map.getZoom()+"z")
+	}
+
+	map.on('moveend', onMapAfterClick);
+	map.on('zoomend', onMapAfterClick);
+</script>
+
+
+
+</body>
+</html>
