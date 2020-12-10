@@ -30,11 +30,20 @@
 <script>
 	// get Param from URLs
 	var params = {};
-	window.location.href.replace(/[?@&]+([^&]+),([^&]+),([^&]*)z/gi, function(m, lat,lng,z){
+	var i = 0;
+	window.location.href.replace(/[?@&]+([^&]*)/gi, function(m, item){
 		//params[key] = value;
-		params['lat'] = lat;
-		params['lng'] = lng;
-		params['zoom'] = z;
+		if (i==0){
+			let item_arr = item.split(",");
+			params['lat'] = item_arr[0];
+			params['lng'] = item_arr[1];
+			params['zoom'] = item_arr[2].replace("z", "");
+			//console.log(item_arr);
+		} else {
+			item_arr = item.split("=");
+			params[item_arr[0]] = item_arr[1];
+		}
+		i+=1;
 	});
 	//console.log(params);
 
@@ -76,6 +85,12 @@
 	// Marker Mess
 	var marker = L.marker([-6.269577, 106.705615]).addTo(map);
 	marker.bindPopup("Point");//.openPopup();
+	
+	// Marked Point
+	if (params.marked){
+		var marked = L.marker(map.getCenter()).addTo(map);
+		marked.bindPopup(decodeURIComponent(params.marked)).openPopup();
+	};
 	
 	
 	//Variabel untuk Layer Controller
