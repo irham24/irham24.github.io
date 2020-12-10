@@ -41,7 +41,20 @@
 			//console.log(item_arr);
 		} else {
 			item_arr = item.split("=");
-			params[item_arr[0]] = item_arr[1];
+			if (item_arr[0]=="marked"){
+				let value = item_arr[1].split("@");
+				params['marked_content'] = value[0];
+				if (value.length > 1){
+					let coord = value[1].split(",");
+					params['marked_lat'] = coord[0];
+					params['marked_lng'] = coord[1];
+				} else {
+					params['marked_lat'] = params['lat'];
+					params['marked_lng'] = params['lng'];
+				}
+			} else {
+				params[item_arr[0]] = item_arr[1];
+			}
 		}
 		i+=1;
 	});
@@ -86,10 +99,22 @@
 	var marker = L.marker([-6.269577, 106.705615]).addTo(map);
 	marker.bindPopup("Point");//.openPopup();
 	
+	// leaflet-color-markers by pointhi
+	var redIcon = new L.Icon({
+	  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	  iconSize: [25, 41],
+	  iconAnchor: [12, 41],
+	  popupAnchor: [1, -34],
+	  shadowSize: [41, 41]
+	});
+	
 	// Marked Point
-	if (params.marked){
-		var marked = L.marker(map.getCenter()).addTo(map);
-		marked.bindPopup(decodeURIComponent(params.marked)).openPopup();
+	if (params.marked_content){
+		var marked = L.marker([params.marked_lat || params.lat || map.getCenter().lat,
+				       params.marked_lng || params.lng || map.getCenter().lng],
+				       {icon: redIcon}).addTo(map);
+		marked.bindPopup(decodeURIComponent(params.marked_content)).openPopup();
 	};
 	
 	
@@ -108,16 +133,23 @@
 	L.control.layers(baseMaps, overlayMaps).addTo(map);
 	
 	// Change URL after load
-	history.replaceState(null,null,"?@"+map.getCenter().lat+","+map.getCenter().lng+","+map.getZoom()+"z")
+	updateURL();
 	
 	// give param to URL when panning
-	function onMapAfterClick(e) {
+	function updateURL(e) {
 		//console.log(map.zoom.animate);
-		history.replaceState(null,null,"?@"+map.getCenter().lat+","+map.getCenter().lng+","+map.getZoom()+"z")
+		text="?@"+map.getCenter().lat+","+map.getCenter().lng+","+map.getZoom()+"z"
+		if (marked){
+			text+="&marked="+encodeURIComponent(marked.getPopup().getContent());
+			if (marked.getLatLng() != map.getCenter()){
+				text+="@"+marked.getLatLng().lat+","+marked.getLatLng().lng
+			}
+		}
+		history.replaceState(null,null,text);
 	}
 
-	map.on('moveend', onMapAfterClick);
-	map.on('zoomend', onMapAfterClick);
+	map.on('moveend', updateURL);
+	map.on('zoomend', updateURL);
 </script>
 
 
