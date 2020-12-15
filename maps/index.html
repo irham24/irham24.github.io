@@ -10,6 +10,16 @@
 	<!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
+	
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	
+	<!-- Leaflet side by side -->
+	<script src="https://ghcdn.rawgit.org/digidem/leaflet-side-by-side/gh-pages/leaflet-side-by-side.js"></script>
+	
+	<!-- Easy Button -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 	<style>
 		html, body {
 			height: 100%;
@@ -18,7 +28,14 @@
 		}
 		#map {
 			height: 100vh;
-	  	width: 100%;
+			width: 100%;
+		}
+		
+		.leaflet-control-layers-header {
+			font-size: larger;
+			font-weight: bold;
+			display: block;
+			position: relative;
 		}
 	</style>
 	
@@ -68,23 +85,27 @@
 	//	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 	//}).addTo(map);
 	
+	// OSM Basemap
+	var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap<\/a> contributors'
+    });
 	// Google Streets Basemap
 	var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3'],
-	attribution: 'Tiles &copy; Google'
+	attribution: 'Basemap &copy; Google'
 	});
 	// Google Satelite Basemap
 	var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3'],
-	attribution: 'Tiles &copy; Google'
+	attribution: 'Basemap &copy; Google'
 	});
 	// Google Hybrid Basemap
 	var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3'],
-	attribution: 'Tiles &copy; Google'
+	attribution: 'Basemap &copy; Google'
 	});
 	
 	// Variabel map
@@ -92,7 +113,7 @@
 		center: [params.lat || -6.269577,
 				 params.lng || 106.705615],
 		zoom: params.zoom || 11,
-		layers: [googleStreets]
+		layers: [osmLayer]
 	});
 	
 	// Marker Mess
@@ -118,19 +139,71 @@
 	};
 	
 	
+	// Google Hybrid Basemap
+	var oldTiles = L.tileLayer('https://maps.georeferencer.com/georeferences/1bc7a3d8-866c-585b-84ba-899a91efabaa/2020-02-11T09:13:45.592512Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Kaart van Nederlands Oostindische bezittingen on Ackersdijck Collection; 1843; Tiles <a href='https://uu.georeferencer.com/maps/5c7f3cbb-51e3-59ba-ba8f-1f9d685ee0ae/'>Utrecht University</a>."
+	});
+	
+	// Google Hybrid Basemap
+	var oldTiles2 = L.tileLayer('https://maps.georeferencer.com/georeferences/2d9a279c-f8ea-5904-a92c-f6b4c6433c23/2019-06-14T08:43:58.218505Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Bevolkingskaart van Nederlandsch Oost-Indië / J. Kuyper on KITLV Heritage Collection; 1890; Tiles <a href='https://leiden.georeferencer.com/maps/7ac9d994-87bc-5b7e-a31c-163dcb1e7486/'>Universiteit Leiden</a>."
+	});
+	
+	// Google Hybrid Basemap
+	var oldTiles3 = L.tileLayer('http://maps.georeferencer.com/georeferences/38b6b69b-b527-564c-a70a-491381428e2e/2018-01-15T10:30:24.598882Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "La presqu'isle de l'Indie au dela du Gange, avec l'archipel des Indes by Bonne, Rigobert; 1787; Tiles <a href='http://cuni.georeferencer.com/maps/7030ed26-ef46-5851-85d2-02bc7777d299/'>staremapy.cz</a>."
+	});
+	
+	// Google Hybrid Basemap
+	var oldTiles4 = L.tileLayer('http://maps.georeferencer.com/georeferences/b575c778-daec-5341-8c15-b2bce7c8561a/2018-01-15T10:30:24.598882Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "CARTE DES INDES ORIENTALES by Mayer, Tobias; 1748; Tiles <a href='http://cuni.georeferencer.com/maps/755be85c-97b4-5f04-b316-0e55347043f2/'>staremapy.cz</a>."
+	});
+	
+	// Google Hybrid Basemap
+	var oldTilesCirebon = L.tileLayer('https://maps.georeferencer.com/georeferences/a0180fff-aa14-51b8-9ae8-1a7adf7eced3/2019-06-07T09:26:36.104379Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "reede Cheribon by Melvill van Carnbee; 1886; Tiles <a href='https://leiden.georeferencer.com/maps/9d27ee86-c300-5359-9855-b7e9bca1099e/'>Universiteit Leiden</a>."
+	});
+	
+	// Google Hybrid Basemap
+	var oldTilesBatavia = L.tileLayer('https://maps.georeferencer.com/georeferences/a0180fff-aa14-51b8-9ae8-1a7adf7eced3/2019-06-07T09:26:36.104379Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Kaart van Batavia en Omstreken by Topographisch Bureau Batavia; 1897; Tiles <a href='https://leiden.georeferencer.com/maps/ac7e7df1-6aea-5748-a315-c09fafd3ac17/'>Universiteit Leiden</a>."
+	});
+	
+	//Other Ver
+	//var oldWMTS = L.tileLayer.wms('https://maps.georeferencer.com/georeferences/69c451b6-0b1a-5315-9e17-88930d099731/2020-04-07T17:48:47.586709Z/wmts?key=sPjsmpzUociMSuMg5BlY&SERVICE=WMTS&REQUEST=GetCapabilities', {
+	//	layers: 'TOPO-WMS,OSM-Overlay-WMS'
+	//}).addTo(map);
+	
+	
 	//Variabel untuk Layer Controller
 	var baseMaps = {
+		"OSM": osmLayer,
 		"Streetview": googleStreets,
 		"Satellite": googleSat,
 		"Hybrid": googleHybrid
 	};
 	
 	var overlayMaps = {
-		"Mess": marker
+		"Mess": marker,
+		"Bevolkingskaart van Nederlandsch Oost-Indië (1890)": oldTiles2,
+		"Kaart van Nederlands Oostindische bezittingen (1843)":oldTiles,
+		"La presqu'isle de l'Indie au dela du Gange, avec l'archipel des Indes (1787)": oldTiles3,
+		"CARTE DES INDES ORIENTALES (1748)": oldTiles4,
+		"reede Cheribon (1886)": oldTilesCirebon,
+		"Kaart van Batavia en Omstreken (1897)": oldTilesBatavia,
 	};
+	
+	// side by side
+	L.control.sideBySide(googleStreets, [oldTiles,oldTiles2,oldTiles3,oldTiles4,oldTilesCirebon,oldTilesBatavia]).addTo(map);
 
-  // Use the custom grouped layer control, not "L.control.layers"
-	L.control.layers(baseMaps, overlayMaps).addTo(map);
+	// Use the custom grouped layer control, not "L.control.layers"
+	var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
 	
 	// Change URL after load
 	updateURL();
@@ -150,6 +223,38 @@
 
 	map.on('moveend', updateURL);
 	map.on('zoomend', updateURL);
+	
+	// patch layerControl to add some titles # inspired from leaflet-openweather
+	var patch = L.DomUtil.create('div', 'leaflet-control-layers-header');
+	patch.innerHTML = "Basemap"; // 'TileLayers';
+	layerControl._form.children[2].parentNode.insertBefore(patch, layerControl._form.children[0]);
+	//patch = L.DomUtil.create('div', 'leaflet-control-layers-separator'); nambah separator
+	//layerControl._form.children[3].children[0].parentNode.insertBefore(patch, layerControl._form.children[3].children[layerControl._form.children[3].children.length-2]);
+	patch = L.DomUtil.create('div', 'leaflet-control-layers-header');
+	patch.innerHTML = "Layers"; // 'Current Weather';
+	layerControl._form.children[3].children[0].parentNode.insertBefore(patch, layerControl._form.children[3].children[0]);
+	
+	L.easyButton( '<i class="fas fa-share-alt"></i>', function(){
+		//let copyText = window.location.href;
+		let copyText = document.createElement('textarea');
+		copyText.value = window.location.href;
+		document.body.appendChild(copyText);
+		/* Select the text field */
+		copyText.select();
+		copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+		document.execCommand("copy");
+		document.body.removeChild(copyText);
+		alert('Link copied to clipboard');
+	}, 'Share').addTo(map);
+	
+	//Group button
+	//var zoomIn = L.easyButton('<i class="fas fa-share-alt"></i>',function(){});
+	//var zoomOut = L.easyButton('<i class="fas fa-share-alt"></i>',function(){});
+	//var zoomOutz = L.easyButton('<i class="fas fa-share-alt"></i>',function(){});
+    //var zoomBar = L.easyBar([ zoomIn, zoomOut, zoomOutz ]).addTo(map);
+	
+	
+	
 </script>
 
 
