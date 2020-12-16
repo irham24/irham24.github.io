@@ -37,14 +37,89 @@
 			display: block;
 			position: relative;
 		}
+		
+				
+		.sidenav {
+		  height: 100%;
+		  width: 400px;
+		  position: fixed;
+		  z-index: 9999;
+		  top: 0;
+		  left: -400px;
+		  background-color: #fff;
+		  overflow-x: hidden;
+		  transition: 0.5s;
+		  padding-top: 60px;
+		}
+
+		.sidenav a {
+		  padding: 8px 8px 8px 32px;
+		  text-decoration: none;
+		  font-size: 25px;
+		  color: #818181;
+		  display: block;
+		  transition: 0.3s;
+		}
+
+		.sidenav a:hover {
+		  color: #111;
+		}
+
+		.sidenav .closebtn {
+		  position: absolute;
+		  top: 0;
+		  right: 25px;
+		  font-size: 36px;
+		  margin-left: 50px;
+		}
+		
+		.btnSidenav {
+		  height: 30px;
+		  width: 10px;
+		  position: fixed;
+		  z-index: 9999;
+		  top: 8px;
+		  left: 0;
+		  background-color: #fff;
+		  transition: 0.5s;
+		  padding-top: 15px;
+		  padding-left: 10px;
+		  padding-right: 5px;
+		  color: #818181;
+		}
+		
+		.btnIcon :hover{
+		  color: #111;
+		}
+		
 	</style>
 	
 </head>
 <body>
 
 <div id='map'></div>
-
+<div id="mySidenav" class="sidenav">
+  isi sidebar
+</div>
+<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i></div>
 <script>
+	// Sidenav
+	function btnNav(){
+	//console.log("start");
+		if(document.getElementById("btnSidenav").style.left < "400px"){
+			document.getElementById("mySidenav").style.left = "0";
+			document.getElementById("btnSidenav").style.left = "400px";
+			document.getElementById("btnSidenav").style.backgroundColor = "#f1f1f1";
+			document.getElementById("btnIcon").className = "fas fa-caret-left";
+		} else {
+		    document.getElementById("mySidenav").style.left = "-400px";
+		    document.getElementById("btnSidenav").style.left = "0";
+			document.getElementById("btnSidenav").style.backgroundColor = "#fff";
+			document.getElementById("btnIcon").className = "fas fa-caret-right";
+		}
+	}
+
+
 	// get Param from URLs
 	var params = {};
 	var i = 0;
@@ -107,37 +182,51 @@
     subdomains:['mt0','mt1','mt2','mt3'],
 	attribution: 'Basemap &copy; Google'
 	});
+	var basemap_default = osmLayer
 	
-	// Variabel map
-	var map = L.map('map', {
-		center: [params.lat || -6.269577,
-				 params.lng || 106.705615],
-		zoom: params.zoom || 11,
-		layers: [osmLayer]
+	// Data
+	
+	// Old Atlas
+	var oldTilesAtlas = L.tileLayer('https://maps.georeferencer.com/georeferences/4d239dd5-e40b-5b47-802a-902f6010704c/2019-11-17T19:53:34.045791Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "(1) Typus Orbis Terrarum. by Ortelius, Abraham, 1527-1598; Tiles <a href='https://davidrumsey.georeferencer.com/maps/4e930a7e-3839-5263-8959-502ee675442a/'>davidrumsey.com</a>."
 	});
 	
-	// Marker Mess
-	var marker = L.marker([-6.269577, 106.705615]).addTo(map);
-	marker.bindPopup("Point");//.openPopup();
-	
-	// leaflet-color-markers by pointhi
-	var redIcon = new L.Icon({
-	  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-	  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-	  iconSize: [25, 41],
-	  iconAnchor: [12, 41],
-	  popupAnchor: [1, -34],
-	  shadowSize: [41, 41]
+	// Old Atlas
+	var oldTilesAtlas2 = L.tileLayer('https://maps.georeferencer.com/georeferences/11a84caa-a653-5b29-9728-93555bebd62f/2020-06-25T21:29:22.834301Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "128-129. Indonesia. The World Atlas by USSR (Union of Soviet Socialist Republics); 1967; Tiles <a href='https://davidrumsey.georeferencer.com/maps/a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d/'>davidrumsey.com</a>."
 	});
 	
-	// Marked Point
-	if (params.marked_content){
-		var marked = L.marker([params.marked_lat || params.lat || map.getCenter().lat,
-				       params.marked_lng || params.lng || map.getCenter().lng],
-				       {icon: redIcon}).addTo(map);
-		marked.bindPopup(decodeURIComponent(params.marked_content)).openPopup();
-	};
+	// Old Atlas
+	var oldTilesAsia = L.tileLayer('https://maps.georeferencer.com/georeferences/3ff3a0c0-c845-5639-916d-5b306ddde711/2020-07-22T11:39:34.827989Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "A New Map of East India. by Speed, John, 1542-1629; 1676; Tiles <a href='https://davidrumsey.georeferencer.com/maps/a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d/'>davidrumsey.com</a>."
+	});
 	
+	// Old Atlas
+	var oldTilesAsia2 = L.tileLayer('https://maps.georeferencer.com/georeferences/7ad0719c-51b7-5e78-bffe-834025435c15/2020-01-27T05:07:24.246354Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "(48) Indiae Orientalis. by Ortelius, Abraham, 1527-1598; 1570; Tiles <a href='https://davidrumsey.georeferencer.com/maps/c015bf3c-c8c7-5ee0-8331-3ed7f4baf716/'>davidrumsey.com</a>."
+	});
+	
+	// Old Atlas
+	var oldTilesIndonesia = L.tileLayer('https://maps.georeferencer.com/georeferences/d711d237-f857-5d7c-a269-d71e2cab8eff/2019-06-14T11:33:58.207353Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Kaart van den Nederlandsch-Indischen Archipel by Topografische Inrichting Batavia; 1920; Tiles <a href='https://leiden.georeferencer.com/maps/10310bda-a8b9-531a-90e6-506f50caa994/'>Universiteit Leiden</a>."
+	});
+	
+	// Old Atlas
+	var oldTilesIndonesia2 = L.tileLayer('https://maps.georeferencer.com/georeferences/d436717e-384f-5e8c-a2b4-f55a1cb296ec/2019-06-07T13:07:57.042769Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Indonesië : voorlopige staatkundige ordening, bijgewerkt tot 1 october 1949; 1949; Tiles <a href='https://leiden.georeferencer.com/maps/c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8/'>Universiteit Leiden</a>."
+	});
+	
+	// Google Hybrid Basemap
+	var oldTilesJava2 = L.tileLayer('https://maps.georeferencer.com/georeferences/f4d811bd-84f3-5fb8-9726-58ad2b65690d/2020-06-08T13:04:42.118227Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Reduzirte Karte vom Sunda- Oder Borneo-Meere und den Strassen zur Verbindung desselben mit dem Indischen und dem Chinesischen Meere, der Macassar-Strasse &c, zugleich als Karte von Djava, den kleinen Sunda-Inseln, Celebes, &c, &c. by dem .. Admiral Krusenstern [...] gewidmet von H. Berghaus; 1835; Tiles <a href='https://uu.georeferencer.com/maps/8c5d0f61-9f1d-58f8-9312-8582489be2bb/'>Utrecht University</a>."
+	});
 	
 	// Google Hybrid Basemap
 	var oldTiles = L.tileLayer('https://maps.georeferencer.com/georeferences/1bc7a3d8-866c-585b-84ba-899a91efabaa/2020-02-11T09:13:45.592512Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
@@ -164,22 +253,95 @@
 	});
 	
 	// Google Hybrid Basemap
+	var oldTilesJava = L.tileLayer('https://maps.georeferencer.com/georeferences/253cc15b-bf50-5f45-a15f-a22f42ea3e1d/2019-06-06T09:54:03.402984Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Nouvelle Carte de l'isle de Java by de Wed. S. Schouten en Zoon et al.; 1755; Tiles <a href='https://leiden.georeferencer.com/maps/8ddef876-2303-5d88-923a-c1c49e3a22c7/'>Universiteit Leiden</a>."
+	});
+	
+	// Google Hybrid Basemap
 	var oldTilesCirebon = L.tileLayer('https://maps.georeferencer.com/georeferences/a0180fff-aa14-51b8-9ae8-1a7adf7eced3/2019-06-07T09:26:36.104379Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
 	attribution: "reede Cheribon by Melvill van Carnbee; 1886; Tiles <a href='https://leiden.georeferencer.com/maps/9d27ee86-c300-5359-9855-b7e9bca1099e/'>Universiteit Leiden</a>."
 	});
 	
 	// Google Hybrid Basemap
-	var oldTilesBatavia = L.tileLayer('https://maps.georeferencer.com/georeferences/a0180fff-aa14-51b8-9ae8-1a7adf7eced3/2019-06-07T09:26:36.104379Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+	var oldTilesBatavia = L.tileLayer('https://maps.georeferencer.com/georeferences/4b43c2c9-fb46-52c2-9ea9-bc22e2781295/2019-06-19T12:08:40.956428Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
 	attribution: "Kaart van Batavia en Omstreken by Topographisch Bureau Batavia; 1897; Tiles <a href='https://leiden.georeferencer.com/maps/ac7e7df1-6aea-5748-a315-c09fafd3ac17/'>Universiteit Leiden</a>."
 	});
+	
+	// Google Hybrid Basemap
+	var oldTilesSumatra = L.tileLayer('https://maps.georeferencer.com/georeferences/39ba733c-b255-5362-8a83-dd86a06fc89d/2019-11-08T16:25:46.431122Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "To Captain Samuel Ashmore, in acknowledgement of much valuable information given, elucidative of oriental navigation, and of the western coast of Sumatra in particular; inscribed by James Horsburgh; 1832; Tiles <a href='https://uu.georeferencer.com/maps/130243b8-5c89-5d56-b11e-2b516e146d10/'>Utrecht University</a>."
+	});
+	
+	// Variabel map
+	var map = L.map('map', {
+		center: [params.lat || -6.269577,
+				 params.lng || 106.705615],
+		zoom: params.zoom || 11,
+		layers: [basemap_default],
+		zoomControl: false
+	});	
+	
+	//Scale bar
+	new L.control.scale({ metric: true, imperial:false,  position: 'bottomright' 
+	}).addTo(map);
+	// Zoom controller
+	new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+	// Share Button
+	L.easyButton({
+	  id: 'id-for-the-button',  // an id for the generated button
+	  position: 'bottomright',      // inherited from L.Control -- the corner it goes in
+	  type: 'replace',          // set to animate when you're comfy with css
+	  leafletClasses: true,     // use leaflet classes to style the button?
+	  states:[{                 // specify different icons and responses for your button
+		stateName: 'get-sharelink',
+		onClick: function(button, map){
+			//let copyText = window.location.href;
+			let copyText = document.createElement('textarea');
+			copyText.value = window.location.href;
+			document.body.appendChild(copyText);
+			/* Select the text field */
+			copyText.select();
+			copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+			document.execCommand("copy");
+			document.body.removeChild(copyText);
+			alert('Link copied to clipboard');
+		},
+		title: 'Share',
+		icon: 'fa-share-alt'
+	  }]
+	}).addTo(map);
+	
+	// Marker Mess
+	var marker = L.marker([-6.269577, 106.705615]);
+	marker.bindPopup("Point");//.openPopup();
+	
+	// leaflet-color-markers by pointhi
+	var redIcon = new L.Icon({
+	  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	  iconSize: [25, 41],
+	  iconAnchor: [12, 41],
+	  popupAnchor: [1, -34],
+	  shadowSize: [41, 41]
+	});
+	
+	// Marked Point
+	if (params.marked_content){
+		var marked = L.marker([params.marked_lat || params.lat || map.getCenter().lat,
+				       params.marked_lng || params.lng || map.getCenter().lng],
+				       {icon: redIcon}).addTo(map);
+		marked.bindPopup(decodeURIComponent(params.marked_content)).openPopup();
+	};
+	
 	
 	//Other Ver
 	//var oldWMTS = L.tileLayer.wms('https://maps.georeferencer.com/georeferences/69c451b6-0b1a-5315-9e17-88930d099731/2020-04-07T17:48:47.586709Z/wmts?key=sPjsmpzUociMSuMg5BlY&SERVICE=WMTS&REQUEST=GetCapabilities', {
 	//	layers: 'TOPO-WMS,OSM-Overlay-WMS'
 	//}).addTo(map);
-	
 	
 	//Variabel untuk Layer Controller
 	var baseMaps = {
@@ -188,19 +350,46 @@
 		"Satellite": googleSat,
 		"Hybrid": googleHybrid
 	};
-	
 	var overlayMaps = {
-		"Mess": marker,
-		"Bevolkingskaart van Nederlandsch Oost-Indië (1890)": oldTiles2,
+		"Mess": marker,		
+		"Indonesia. The World Atlas (1967)": oldTilesAtlas2,
+		"Indonesië voorlopige staatkundige ordening (1949)":oldTilesIndonesia2,
+		"Kaart van den Nederlandsch-Indischen Archipel (1920)":oldTilesIndonesia,
+		"Bevolkingskaart van Nederlandsch Oost-Indië.. (1890)": oldTiles2,
 		"Kaart van Nederlands Oostindische bezittingen (1843)":oldTiles,
+		"Nouvelle Carte de l'isle de Java (1835)": oldTilesJava2,
 		"La presqu'isle de l'Indie au dela du Gange, avec l'archipel des Indes (1787)": oldTiles3,
 		"CARTE DES INDES ORIENTALES (1748)": oldTiles4,
+		"Reduzirte Karte vom Sunda- Oder Borneo-Meere (1755)": oldTilesJava,
+		"A New Map of East India (1676)": oldTilesAsia,
+		//"(1) Typus Orbis Terrarum. (1570)": oldTilesAtlas,
+		"(48) Indiae Orientalis (1570)": oldTilesAsia2,
 		"reede Cheribon (1886)": oldTilesCirebon,
 		"Kaart van Batavia en Omstreken (1897)": oldTilesBatavia,
+		"..western coast of Sumatra in particular (1897)": oldTilesSumatra,
 	};
 	
+	var sidecomp = []
+	Object.keys(overlayMaps).forEach(function(key) {
+		sidecomp.push(overlayMaps[key]);
+	});
+	
+	// read param for layer and basemap
+	if (params.layers){
+		var activeLayers = params.layers.split(';').map(function(item){
+			// map function not supported in IE < 9
+			//console.log(item);
+			overlayMaps[decodeURIComponent(item)].addTo(map)
+		})
+	}
+	
+	if (params.basemap){
+		osmLayer.remove()
+		baseMaps[params.basemap].addTo(map);
+	}
+	
 	// side by side
-	L.control.sideBySide(googleStreets, [oldTiles,oldTiles2,oldTiles3,oldTiles4,oldTilesCirebon,oldTilesBatavia]).addTo(map);
+	L.control.sideBySide(null, sidecomp).addTo(map);
 
 	// Use the custom grouped layer control, not "L.control.layers"
 	var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -218,11 +407,33 @@
 				text+="@"+marked.getLatLng().lat+","+marked.getLatLng().lng
 			}
 		}
+		if (!map.hasLayer(basemap_default)){
+			Object.keys(baseMaps).forEach(function(key) {
+				if (map.hasLayer(baseMaps[key])){
+					//console.log(key, baseMaps[key]);
+					text+="&basemap="+key
+				}
+			});
+		}
+		let i=0;
+		Object.keys(overlayMaps).forEach(function(key) {
+			if (map.hasLayer(overlayMaps[key])){
+				if (i==0){
+					text+="&layers="+key					
+				} else {
+					text+=";"+key
+				}
+				i++;
+			}
+		});
 		history.replaceState(null,null,text);
 	}
 
 	map.on('moveend', updateURL);
 	map.on('zoomend', updateURL);
+	map.on('baselayerchange', updateURL);
+	map.on('overlayadd', updateURL);
+	map.on('overlayremove', updateURL);
 	
 	// patch layerControl to add some titles # inspired from leaflet-openweather
 	var patch = L.DomUtil.create('div', 'leaflet-control-layers-header');
@@ -233,19 +444,7 @@
 	patch = L.DomUtil.create('div', 'leaflet-control-layers-header');
 	patch.innerHTML = "Layers"; // 'Current Weather';
 	layerControl._form.children[3].children[0].parentNode.insertBefore(patch, layerControl._form.children[3].children[0]);
-	
-	L.easyButton( '<i class="fas fa-share-alt"></i>', function(){
-		//let copyText = window.location.href;
-		let copyText = document.createElement('textarea');
-		copyText.value = window.location.href;
-		document.body.appendChild(copyText);
-		/* Select the text field */
-		copyText.select();
-		copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-		document.execCommand("copy");
-		document.body.removeChild(copyText);
-		alert('Link copied to clipboard');
-	}, 'Share').addTo(map);
+
 	
 	//Group button
 	//var zoomIn = L.easyButton('<i class="fas fa-share-alt"></i>',function(){});
