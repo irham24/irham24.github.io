@@ -100,6 +100,8 @@
 <div id='map'></div>
 <div id="mySidenav" class="sidenav">
   isi sidebar
+  <label for="myCheck">Compare:</label> 
+	<input type="checkbox" id="myCheck" onclick="comparebox()" checked="true">
 </div>
 <div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i></div>
 <script>
@@ -116,6 +118,14 @@
 		    document.getElementById("btnSidenav").style.left = "0";
 			document.getElementById("btnSidenav").style.backgroundColor = "#fff";
 			document.getElementById("btnIcon").className = "fas fa-caret-right";
+		}
+	}
+	function comparebox(){
+		let checkBox = document.getElementById("myCheck");
+		if (checkBox.checked == true){
+			compareControl.addTo(map);
+		} else {
+			compareControl.remove();
 		}
 	}
 
@@ -389,7 +399,7 @@
 	}
 	
 	// side by side
-	L.control.sideBySide(null, sidecomp).addTo(map);
+	var compareControl = L.control.sideBySide(null, sidecomp).addTo(map);
 
 	// Use the custom grouped layer control, not "L.control.layers"
 	var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
