@@ -41,11 +41,11 @@
 				
 		.sidenav {
 		  height: 100%;
-		  width: 400px;
+		  width: 25%;
 		  position: fixed;
 		  z-index: 9999;
 		  top: 0;
-		  left: -400px;
+		  left: -25%;
 		  background-color: #fff;
 		  overflow-x: hidden;
 		  transition: 0.5s;
@@ -100,21 +100,23 @@
 <div id='map'></div>
 <div id="mySidenav" class="sidenav">
   isi sidebar
+  <a href="javascript:void(0)" onclick="open3dMap()">3D Map</a>
+  <a href="javascript:void(0)" onclick="openLeaflet()">Leaflet</a>
   <label for="myCheck">Compare:</label> 
-	<input type="checkbox" id="myCheck" onclick="comparebox()" checked="true">
+	<input type="checkbox" id="myCheck" onclick="comparebox()">
 </div>
 <div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i></div>
 <script>
 	// Sidenav
 	function btnNav(){
 	//console.log("start");
-		if(document.getElementById("btnSidenav").style.left < "400px"){
+		if(document.getElementById("btnSidenav").style.left < "25%"){
 			document.getElementById("mySidenav").style.left = "0";
-			document.getElementById("btnSidenav").style.left = "400px";
+			document.getElementById("btnSidenav").style.left = "25%";
 			document.getElementById("btnSidenav").style.backgroundColor = "#f1f1f1";
 			document.getElementById("btnIcon").className = "fas fa-caret-left";
 		} else {
-		    document.getElementById("mySidenav").style.left = "-400px";
+		    document.getElementById("mySidenav").style.left = "-25%";
 		    document.getElementById("btnSidenav").style.left = "0";
 			document.getElementById("btnSidenav").style.backgroundColor = "#fff";
 			document.getElementById("btnIcon").className = "fas fa-caret-right";
@@ -127,6 +129,7 @@
 		} else {
 			compareControl.remove();
 		}
+		updateURL();
 	}
 
 
@@ -399,7 +402,17 @@
 	}
 	
 	// side by side
-	var compareControl = L.control.sideBySide(null, sidecomp).addTo(map);
+	var compareControl = L.control.sideBySide(null, sidecomp);
+	
+	if (params.compare){
+		let checkBox = document.getElementById("myCheck");
+		if (params.compare=="true"){
+			checkBox.checked = "true";
+		} else {
+			checkBox.checked = "false";
+		}
+		comparebox()
+	}
 
 	// Use the custom grouped layer control, not "L.control.layers"
 	var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -436,6 +449,9 @@
 				i++;
 			}
 		});
+		if (compareControl._map){
+			text+="&compare=true"
+		}
 		history.replaceState(null,null,text);
 	}
 
