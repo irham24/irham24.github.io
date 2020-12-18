@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,13 +163,6 @@
 <section class="sidenav-sec">
 	<div id="mySidenav" class="sidenav">
 	  <div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;">
-		  isi sidebar
-		  <a href="javascript:void(0)" onclick="open3dMap()">3D Map</a>
-		  <a href="javascript:void(0)" onclick="openLeaflet()">Leaflet</a>
-		  <label for="myCheck">Compare:</label> 
-			<input type="checkbox" id="myCheck" onclick="comparebox()">
-		  <button onclick="updateLayerBox()">Try it</button>
-		</div>
 	</div>
 	<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i></div>
 </section>
@@ -183,9 +177,10 @@
 </section>
 <script>
 	// STARTING	
+	document.html.style.height = window.innerHeight + 'px'
+	document.body.style.height = window.innerHeight + 'px'
 	var btmDrawerHeight = window.innerHeight * 5 /100;
 	var btmDrawerHalfHeight = window.innerHeight * 40 /100;
-	document.body.style.height = window.innerHeight + 'px';
 	
 	// Checking the used device
 	var mobileCheck = (window.innerWidth < window.innerHeight);
@@ -616,7 +611,10 @@
 		}
 		comparebox()
 	}
-	
+
+	// Use the custom grouped layer control, not "L.control.layers"
+	var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
+
 	// Use the custom grouped layer control, not "L.control.layers"
 	//var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
 	
@@ -686,21 +684,30 @@
 	
 	// Responsive resize window
 	function resizeWindow(){
-		document.querySelector('.bottom-drawer').style.top = window.innerHeight - btmDrawerHeight + 'px'
+		//document.querySelector('.bottom-drawer').style.top = window.innerHeight - btmDrawerHeight + 'px'
 		if(infoBox){$(infoBox).html('')};
 		mobileCheck = (window.innerWidth < window.innerHeight);
 		infoBox = mobileCheck ? '.drawer-content' : '.sidenav-content'
 		otherInfoBox = mobileCheck ? '.sidenav-sec' : '.bottom-drawer'
 		anotherInfoBox = !mobileCheck ? '.sidenav-sec' : '.bottom-drawer'
 		//console.log("mobile check: "+mobileCheck);
-		$(anotherInfoBox).css({opacity: '100'})
-		$(otherInfoBox).css({opacity: '0'})
+		//$(anotherInfoBox).css({opacity: '100'})
+		//$(otherInfoBox).css({opacity: '0'})
 		
-		createLayerbox();
+		if(mobileCheck){
+			$('.sidenav-sec').css({top: '200%'})
+			$('.bottom-drawer').css({top: window.innerHeight - btmDrawerHeight})
+		} else {
+			$('.sidenav-sec').css({top: '0'})
+			$('.bottom-drawer').css({top: '200%'})
+		}
+		
+		moveLayerbox();
 	
 	}
 	resizeWindow();
-	window.addEventListener('resize',resizeWindow);
+	createLayerbox();
+	//window.addEventListener('resize',resizeWindow);
 	
 	// Writing layerbox
 	function createLayerbox(){
@@ -713,13 +720,13 @@
 			let layer = overlayMaps[overlay.id];
 			let haslayer = ""
 			if (map.hasLayer(layer)){haslayer = "checked";};
-			console.log(overlay.id+" "+haslayer)
+			//console.log(overlay.id+" "+haslayer)
 			if (nama.length>20){ nama = nama.slice(0, 17) + "...";}
 			nama+=" ("+overlay.year+")"
 			html +='<li><span class="caret" style="font-size:12px;text-align: justify;" title="'+overlay.title+" ("+overlay.year+")"+'"><input type="checkbox" id="'+overlay.id+'" onclick='+"layerSwitch('"+overlay.id+"') "+haslayer+'>'+nama+'</span><ul class="nested"><li><input type="range" id="Op'+overlay.id+'" oninput="'+"layerOpSlider(this.value,'"+overlay.id+"')"+'" min="0" max="100" value="100" disabled="true">		</li></ul></li>'
 		});
 		html+='</ul></li></ul>'
-		divLB.innerHTML+=html
+		divLB.innerHTML+=html;
 	}
 	
 	// Toogle Tree View
