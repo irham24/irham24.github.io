@@ -183,9 +183,9 @@
 </section>
 <script>
 	// STARTING	
-	document.body.style.height = window.innerHeight + 'px'
 	var btmDrawerHeight = window.innerHeight * 5 /100;
 	var btmDrawerHalfHeight = window.innerHeight * 40 /100;
+	document.body.style.height = window.innerHeight - (window.innerHeight * 5 /100) + 'px'
 	
 	// Checking the used device
 	var mobileCheck = (window.innerWidth < window.innerHeight);
