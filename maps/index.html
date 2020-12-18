@@ -13,14 +13,14 @@
 	<meta property="og:url" content="https://irham24.github.io/maps/">
 	<meta property="og:title" content="Interactive and Responsive Historical Map | IrhaMap">
 	<meta property="og:description" content="Let's back to the past with GIS">
-	<meta property="og:image" content="https://ibb.co/CM3yBDq">
+	<meta property="og:image" content="https://i.ibb.co/b2MV1Dx/PETATUA-big-outline.png">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://irham24.github.io/maps/">
 	<meta property="twitter:title" content="Interactive and Responsive Historical Map | IrhaMap">
 	<meta property="twitter:description" content="Let's back to the past with GIS">
-	<meta property="twitter:image" content="https://ibb.co/CM3yBDq">
+	<meta property="twitter:image" content="https://i.ibb.co/b2MV1Dx/PETATUA-big-outline.png">
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -101,8 +101,8 @@
 		  top: 100vh - 40px;
 		  z-index: 9999;
 		  position: absolute;
-		  border-top-left-radius: 24px;
-		  border-top-right-radius: 24px;
+		  border-top-left-radius: 12px;
+		  border-top-right-radius: 12px;
 		  background-color: #fff;
 		  transition: 0.2s !important;
 		}
@@ -166,7 +166,7 @@
 	// STARTING
 	document.body.style.height = window.innerHeight + 'px';
 	$('#bottom-sheet').css("height",window.innerHeight + 'px');
-	var btmDrawerHeight = window.innerHeight * 5 /100;
+	var btmDrawerHeight = window.innerHeight * 3 /100;
 	var btmDrawerHalfHeight = window.innerHeight * 40 /100;
 	
 	// Checking the used device
@@ -225,7 +225,7 @@
 			if(click) {
 				//deket bawah
 				//pos 0 (dibawah), pos 1 (diatas), pos 2 (hampir tengah)
-				if(e.pageY > (innerHeight * 20/100) && pos == 1){ // kalo dari atas tapi scroll kebawah lebih dr 10%
+				if(e.pageY > (innerHeight * 25/100) && pos == 1){ // kalo dari atas tapi scroll kebawah lebih dr 10%
 					pos = 0
 				} else if((e.pageY < innerHeight - (innerHeight * 5/100) && pos == 0) || // supaya ke tengah
 				   (e.pageY > (innerHeight * 5/100) && pos == 1)){
@@ -237,7 +237,9 @@
 				}
 				if(pos==0){				$('.bottom-drawer').css({top: innerHeight - btmDrawerHeight + 'px'});
 					} else if (pos==1){	$('.bottom-drawer').css({top: '0px'});
+										$('.bottom-drawer').css({height: innerHeight + 'px'});
 					} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
+										$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
 				}
 			}
 			click = false;
@@ -695,10 +697,10 @@
 			$('.sidenav-sec').css("z-index","0");
 			$('.leaflet-control').css("bottom",btmDrawerHeight + 5);
 			$('.bottom-drawer').html('<div class="nav-drawer">'+
-										'<div class="text-center" id="bottom-sheet" style="padding: 12px">'+
-											'<div style="width:100px;height:8px;background-color: grey;margin: auto;border-radius: 50px"></div>'+
+										'<div class="text-center" id="bottom-sheet" style="padding: 10px">'+
+											'<div style="width:100px;height:4px;background-color: #BDBDBD;margin: auto;border-radius: 50px"></div>'+
 										'</div>'+
-										'<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%;" id="drawer-content">'+
+										'<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%; overflow:auto" id="drawer-content">'+
 										'</div>'+
 									'</div>');
 			$('.sidenav-sec').html();
