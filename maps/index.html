@@ -3,6 +3,10 @@
 <head>
 	
 	<title>IrhaMap</title>
+	<meta property="og:title" content="IrhaMap - Your Historical Map Friends" />
+	<meta property="og:url" content="https://irham24.github.io/maps/" />
+	<meta property="og:description" content="IrhaMap - Interactive Responsive Historical Map">
+	<meta property="og:image" content="https://image.freepik.com/free-vector/vintage-wind-rose-symbol-ancient-compass-icon-old-yellow-paper_88653-1257.jpg">
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +17,8 @@
 	
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<!-- JQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- Leaflet side by side -->
 	<script src="https://ghcdn.rawgit.org/digidem/leaflet-side-by-side/gh-pages/leaflet-side-by-side.js"></script>
@@ -25,9 +31,10 @@
 			height: 100%;
 			width: 100%;
 			margin: 0;
+			overflow-y: hidden;
 		}
 		#map {
-			height: 100vh;
+			height: 100%;
 			width: 100%;
 		}
 		
@@ -49,28 +56,8 @@
 		  background-color: #fff;
 		  overflow-x: hidden;
 		  transition: 0.5s;
-		  padding-top: 60px;
-		}
-
-		.sidenav a {
-		  padding: 8px 8px 8px 32px;
-		  text-decoration: none;
-		  font-size: 25px;
-		  color: #818181;
-		  display: block;
-		  transition: 0.3s;
-		}
-
-		.sidenav a:hover {
-		  color: #111;
-		}
-
-		.sidenav .closebtn {
-		  position: absolute;
-		  top: 0;
-		  right: 25px;
-		  font-size: 36px;
-		  margin-left: 50px;
+		  padding-top: 1%;
+		  padding-bottom: 1%;
 		}
 		
 		.btnSidenav {
@@ -92,21 +79,176 @@
 		  color: #111;
 		}
 		
+		.bottom-drawer{
+		  height:100%;
+		  width:100%;
+		  top: 100vh - 40px;
+		  z-index: 9999;
+		  position: absolute;
+		  border-top-left-radius: 24px;
+		  border-top-right-radius: 24px;
+		  background-color: #fff;
+		  
+		  transition: 0.2s !important;;
+		  cursor: pointer;
+		}
+		
+		.drawer-content {
+			height: calc(100vh - 32px);
+			overflow: auto;
+		}
+		
+		
+		/* Tree View */		
+		/* Remove default bullets */
+		ul, #myUL {
+		  list-style-type: none;
+		  padding-left : 10px;
+		}
+
+		/* Remove margins and padding from the parent ul */
+		#myUL {
+		  margin: 0;
+		  padding: 0;
+		}
+
+		/* Style the caret/arrow */
+		.caret {
+		  cursor: pointer;
+		  user-select: none; /* Prevent text selection */
+		}
+
+		/* Create the caret/arrow with a unicode, and style it */
+		.caret::before {
+		  content: "\25B6";
+		  color: black;
+		  display: inline-block;
+		  margin-right: 6px;
+		}
+
+		/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+		.caret-down::before {
+		  transform: rotate(90deg);
+		}
+
+		/* Hide the nested list */
+		.nested {
+		  display: none;
+		}
+
+		/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+		.active {
+		  display: block;
+		}
 	</style>
 	
 </head>
 <body>
 
 <div id='map'></div>
-<div id="mySidenav" class="sidenav">
-  isi sidebar
-  <a href="javascript:void(0)" onclick="open3dMap()">3D Map</a>
-  <a href="javascript:void(0)" onclick="openLeaflet()">Leaflet</a>
-  <label for="myCheck">Compare:</label> 
-	<input type="checkbox" id="myCheck" onclick="comparebox()">
-</div>
-<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i></div>
+<section class="sidenav-sec">
+	<div id="mySidenav" class="sidenav">
+	  <div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;">
+		  isi sidebar
+		  <a href="javascript:void(0)" onclick="open3dMap()">3D Map</a>
+		  <a href="javascript:void(0)" onclick="openLeaflet()">Leaflet</a>
+		  <label for="myCheck">Compare:</label> 
+			<input type="checkbox" id="myCheck" onclick="comparebox()">
+		  <button onclick="updateLayerBox()">Try it</button>
+		</div>
+	</div>
+	<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i></div>
+</section>
+<section class="bottom-drawer">
+	<div class="nav-drawer">
+		<div class="text-center" id="bottom-sheet" style="padding: 12px">
+			<div style="width:100px;height:8px;background-color: grey;margin: auto;border-radius: 50px"></div>
+		</div>
+		<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%;" id="drawer-content">
+		</div>
+	</div>
+</section>
 <script>
+	// STARTING	
+	document.body.style.height = window.innerHeight + 'px'
+	var btmDrawerHeight = window.innerHeight * 5 /100;
+	var btmDrawerHalfHeight = window.innerHeight * 40 /100;
+	
+	// Checking the used device
+	var mobileCheck = (window.innerWidth < window.innerHeight);
+	var infoBox = mobileCheck ? '.drawer-content' : '.sidenav-content'
+	var otherInfoBox = mobileCheck ? '.sidenav-sec' : '.bottom-drawer'	
+
+	//Drawer
+	$(document).ready(function() {
+		var click = false
+		var pos = 0
+		//if (mobileCheck){
+			$('#bottom-sheet').mousedown(function(e) {
+				e.preventDefault();
+				click = true
+			})
+			$('#bottom-sheet').on('touchstart', function(e) {
+				e.preventDefault();
+				click = true
+			})
+			$(window).mousemove(function(e) {
+				mouseMove(e)
+			})
+			$(window).mouseup(function(e) {
+				mouseUp(e)
+			})
+			$(window).on('touchmove', function(e) {
+				mouseMove(e.touches[0])
+			})
+			$(window).on('touchend', function(e) {
+				mouseUp(e.changedTouches[0])
+				// console.log(e.changedTouches[0].pageY)
+			})
+		//}
+		function mouseMove(e) {
+			if(click) {
+				//console.log(e.pageX, e.pageY)
+				
+				if(e.pageY > innerHeight - btmDrawerHeight) {
+					$('.bottom-drawer').css({
+						top: innerHeight - btmDrawerHeight + 'px'
+					})
+					// click = false
+				}else if(e.pageY < 0){
+					$('.bottom-drawer').css({
+						top: '0px'
+					})
+				}else{
+					$('.bottom-drawer').css({
+						top: e.pageY + 'px'
+					})
+				}
+			}
+		}
+		function mouseUp(e) {
+			if(click) {
+				//deket bawah
+				//pos 0 (dibawah), pos 1 (diatas), pos 2 (hampir tengah)
+				if(e.pageY > (innerHeight * 20/100) && pos == 1){ // kalo dari atas tapi scroll kebawah lebih dr 10%
+					pos = 0
+				} else if((e.pageY < innerHeight - (innerHeight * 5/100) && pos == 0) || // supaya ke tengah
+				   (e.pageY > (innerHeight * 5/100) && pos == 1)){
+					pos = 2
+				} else if(e.pageY < (innerHeight - btmDrawerHalfHeight) - (innerHeight * 2.5/100) && pos == 2){
+					pos = 1
+				} else if(e.pageY > (innerHeight - btmDrawerHalfHeight) + (innerHeight * 2.5/100) && pos == 2){
+					pos = 0
+				}
+				if(pos==0){				$('.bottom-drawer').css({top: innerHeight - btmDrawerHeight + 'px'});
+					} else if (pos==1){	$('.bottom-drawer').css({top: '0px'});
+					} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
+				}
+			}
+			click = false;
+		}
+	})
+
 	// Sidenav
 	function btnNav(){
 	//console.log("start");
@@ -202,91 +344,127 @@
 	// Old Atlas
 	var oldTilesAtlas = L.tileLayer('https://maps.georeferencer.com/georeferences/4d239dd5-e40b-5b47-802a-902f6010704c/2019-11-17T19:53:34.045791Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "(1) Typus Orbis Terrarum. by Ortelius, Abraham, 1527-1598; Tiles <a href='https://davidrumsey.georeferencer.com/maps/4e930a7e-3839-5263-8959-502ee675442a/'>davidrumsey.com</a>."
+	attribution: "(1) Typus Orbis Terrarum. by Ortelius, Abraham, 1527-1598; Tiles <a href='https://davidrumsey.georeferencer.com/maps/4e930a7e-3839-5263-8959-502ee675442a/'>davidrumsey.com</a>.",
+	id:"4d239dd5-e40b-5b47-802a-902f6010704c"
 	});
 	
 	// Old Atlas
 	var oldTilesAtlas2 = L.tileLayer('https://maps.georeferencer.com/georeferences/11a84caa-a653-5b29-9728-93555bebd62f/2020-06-25T21:29:22.834301Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "128-129. Indonesia. The World Atlas by USSR (Union of Soviet Socialist Republics); 1967; Tiles <a href='https://davidrumsey.georeferencer.com/maps/a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d/'>davidrumsey.com</a>."
+	attribution: "128-129. Indonesia. The World Atlas by USSR (Union of Soviet Socialist Republics); 1967; Tiles <a href='https://davidrumsey.georeferencer.com/maps/a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d/'>davidrumsey.com</a>.",
+	id:"a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d"
+	});
+	
+	// Old Atlas
+	var oldTilesAtlas3 = L.tileLayer('https://maps.georeferencer.com/georeferences/d39f475a-61e5-585d-a2cd-744c341ddcef/2017-03-22T21:35:39.075608Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Composite: A Chart of the World upon Mercator's projection exhibiting all the new discoveries. Sheets 1-8. by Arrowsmith, Aaron; 1808; Tiles <a href='https://davidrumsey.georeferencer.com/maps/2be32158-1dc7-5071-94cf-6c9912f5865d/'>davidrumsey.com</a>.",
+	id:"2be32158-1dc7-5071-94cf-6c9912f5865d"
 	});
 	
 	// Old Atlas
 	var oldTilesAsia = L.tileLayer('https://maps.georeferencer.com/georeferences/3ff3a0c0-c845-5639-916d-5b306ddde711/2020-07-22T11:39:34.827989Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "A New Map of East India. by Speed, John, 1542-1629; 1676; Tiles <a href='https://davidrumsey.georeferencer.com/maps/a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d/'>davidrumsey.com</a>."
+	attribution: "A New Map of East India. by Speed, John, 1542-1629; 1676; Tiles <a href='https://davidrumsey.georeferencer.com/maps/a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d/'>davidrumsey.com</a>.",
+	id:"3ff3a0c0-c845-5639-916d-5b306ddde711"
 	});
 	
 	// Old Atlas
 	var oldTilesAsia2 = L.tileLayer('https://maps.georeferencer.com/georeferences/7ad0719c-51b7-5e78-bffe-834025435c15/2020-01-27T05:07:24.246354Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "(48) Indiae Orientalis. by Ortelius, Abraham, 1527-1598; 1570; Tiles <a href='https://davidrumsey.georeferencer.com/maps/c015bf3c-c8c7-5ee0-8331-3ed7f4baf716/'>davidrumsey.com</a>."
+	attribution: "(48) Indiae Orientalis. by Ortelius, Abraham, 1527-1598; 1570; Tiles <a href='https://davidrumsey.georeferencer.com/maps/c015bf3c-c8c7-5ee0-8331-3ed7f4baf716/'>davidrumsey.com</a>.",
+	id:"7ad0719c-51b7-5e78-bffe-834025435c15"
+	});
+	
+	// Old Atlas
+	var oldTilesAsia3 = L.tileLayer('https://geo.leventhalmap.org/maps/tile/1379/{z}/{x}/{y}.png',{
+    maxZoom: 20,
+	attribution: "Nova et exacta Asiae geographica descriptio by Allard, Huych, 1625-1691; 1660; Tiles <a href='https://collections.leventhalmap.org/search/commonwealth:st74cw78w'>Norman B. Leventhal Map Center Collection</a>.",
+	id:"st74cw78w"
+	});
+	
+	// Old Atlas
+	var oldTilesAsia4 = L.tileLayer('https://geo.leventhalmap.org/maps/tile/6923/{z}/{x}/{y}.png',{
+    maxZoom: 20,
+	attribution: "To the Right Honourable William, Lord Cowper, Lord High Chancellor of Great Britain, this map of Asia .. by Moll, Herman, d. 1732; 1710–1719; Tiles <a href='https://collections.leventhalmap.org/search/commonwealth:cj82ks63j'>Norman B. Leventhal Map Center Collection</a>.",
+	id:"cj82ks63j"
 	});
 	
 	// Old Atlas
 	var oldTilesIndonesia = L.tileLayer('https://maps.georeferencer.com/georeferences/d711d237-f857-5d7c-a269-d71e2cab8eff/2019-06-14T11:33:58.207353Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "Kaart van den Nederlandsch-Indischen Archipel by Topografische Inrichting Batavia; 1920; Tiles <a href='https://leiden.georeferencer.com/maps/10310bda-a8b9-531a-90e6-506f50caa994/'>Universiteit Leiden</a>."
+	attribution: "Kaart van den Nederlandsch-Indischen Archipel by Topografische Inrichting Batavia; 1920; Tiles <a href='https://leiden.georeferencer.com/maps/10310bda-a8b9-531a-90e6-506f50caa994/'>Universiteit Leiden</a>.",
+	id:"10310bda-a8b9-531a-90e6-506f50caa994"
 	});
 	
 	// Old Atlas
 	var oldTilesIndonesia2 = L.tileLayer('https://maps.georeferencer.com/georeferences/d436717e-384f-5e8c-a2b4-f55a1cb296ec/2019-06-07T13:07:57.042769Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "Indonesië : voorlopige staatkundige ordening, bijgewerkt tot 1 october 1949; 1949; Tiles <a href='https://leiden.georeferencer.com/maps/c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8/'>Universiteit Leiden</a>."
+	attribution: "Indonesië : voorlopige staatkundige ordening, bijgewerkt tot 1 october 1949; 1949; Tiles <a href='https://leiden.georeferencer.com/maps/c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8/'>Universiteit Leiden</a>.",
+	id:"c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTilesJava2 = L.tileLayer('https://maps.georeferencer.com/georeferences/f4d811bd-84f3-5fb8-9726-58ad2b65690d/2020-06-08T13:04:42.118227Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "Reduzirte Karte vom Sunda- Oder Borneo-Meere und den Strassen zur ... by dem .. Admiral Krusenstern [...] gewidmet von H. Berghaus; 1835; Tiles <a href='https://uu.georeferencer.com/maps/8c5d0f61-9f1d-58f8-9312-8582489be2bb/'>Utrecht University</a>."
+	attribution: "Reduzirte Karte vom Sunda- Oder Borneo-Meere und den Strassen zur ... by dem .. Admiral Krusenstern [...] gewidmet von H. Berghaus; 1835; Tiles <a href='https://uu.georeferencer.com/maps/8c5d0f61-9f1d-58f8-9312-8582489be2bb/'>Utrecht University</a>.",
+	id:"8c5d0f61-9f1d-58f8-9312-8582489be2bb"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTiles = L.tileLayer('https://maps.georeferencer.com/georeferences/1bc7a3d8-866c-585b-84ba-899a91efabaa/2020-02-11T09:13:45.592512Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "Kaart van Nederlands Oostindische bezittingen on Ackersdijck Collection; 1843; Tiles <a href='https://uu.georeferencer.com/maps/5c7f3cbb-51e3-59ba-ba8f-1f9d685ee0ae/'>Utrecht University</a>."
+	attribution: "Kaart van Nederlands Oostindische bezittingen on Ackersdijck Collection; 1843; Tiles <a href='https://uu.georeferencer.com/maps/5c7f3cbb-51e3-59ba-ba8f-1f9d685ee0ae/'>Utrecht University</a>.",
+	id:"5c7f3cbb-51e3-59ba-ba8f-1f9d685ee0ae"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTiles2 = L.tileLayer('https://maps.georeferencer.com/georeferences/2d9a279c-f8ea-5904-a92c-f6b4c6433c23/2019-06-14T08:43:58.218505Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "Bevolkingskaart van Nederlandsch Oost-Indië / J. Kuyper on KITLV Heritage Collection; 1890; Tiles <a href='https://leiden.georeferencer.com/maps/7ac9d994-87bc-5b7e-a31c-163dcb1e7486/'>Universiteit Leiden</a>."
+	attribution: "Bevolkingskaart van Nederlandsch Oost-Indië / J. Kuyper on KITLV Heritage Collection; 1890; Tiles <a href='https://leiden.georeferencer.com/maps/7ac9d994-87bc-5b7e-a31c-163dcb1e7486/'>Universiteit Leiden</a>.",
+	id:"7ac9d994-87bc-5b7e-a31c-163dcb1e7486"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTiles3 = L.tileLayer('http://maps.georeferencer.com/georeferences/38b6b69b-b527-564c-a70a-491381428e2e/2018-01-15T10:30:24.598882Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "La presqu'isle de l'Indie au dela du Gange, avec l'archipel des Indes by Bonne, Rigobert; 1787; Tiles <a href='http://cuni.georeferencer.com/maps/7030ed26-ef46-5851-85d2-02bc7777d299/'>staremapy.cz</a>."
+	attribution: "La presqu'isle de l'Indie au dela du Gange, avec l'archipel des Indes by Bonne, Rigobert; 1787; Tiles <a href='http://cuni.georeferencer.com/maps/7030ed26-ef46-5851-85d2-02bc7777d299/'>staremapy.cz</a>.",
+	id:"7030ed26-ef46-5851-85d2-02bc7777d299"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTiles4 = L.tileLayer('http://maps.georeferencer.com/georeferences/b575c778-daec-5341-8c15-b2bce7c8561a/2018-01-15T10:30:24.598882Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "CARTE DES INDES ORIENTALES by Mayer, Tobias; 1748; Tiles <a href='http://cuni.georeferencer.com/maps/755be85c-97b4-5f04-b316-0e55347043f2/'>staremapy.cz</a>."
+	attribution: "CARTE DES INDES ORIENTALES by Mayer, Tobias; 1748; Tiles <a href='http://cuni.georeferencer.com/maps/755be85c-97b4-5f04-b316-0e55347043f2/'>staremapy.cz</a>.",
+	id:"b575c778-daec-5341-8c15-b2bce7c8561a"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTilesJava = L.tileLayer('https://maps.georeferencer.com/georeferences/253cc15b-bf50-5f45-a15f-a22f42ea3e1d/2019-06-06T09:54:03.402984Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "Nouvelle Carte de l'isle de Java by de Wed. S. Schouten en Zoon et al.; 1755; Tiles <a href='https://leiden.georeferencer.com/maps/8ddef876-2303-5d88-923a-c1c49e3a22c7/'>Universiteit Leiden</a>."
+	attribution: "Nouvelle Carte de l'isle de Java by de Wed. S. Schouten en Zoon et al.; 1755; Tiles <a href='https://leiden.georeferencer.com/maps/8ddef876-2303-5d88-923a-c1c49e3a22c7/'>Universiteit Leiden</a>.",
+	id:"8ddef876-2303-5d88-923a-c1c49e3a22c7"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTilesCirebon = L.tileLayer('https://maps.georeferencer.com/georeferences/a0180fff-aa14-51b8-9ae8-1a7adf7eced3/2019-06-07T09:26:36.104379Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "reede Cheribon by Melvill van Carnbee; 1886; Tiles <a href='https://leiden.georeferencer.com/maps/9d27ee86-c300-5359-9855-b7e9bca1099e/'>Universiteit Leiden</a>."
+	attribution: "reede Cheribon by Melvill van Carnbee; 1886; Tiles <a href='https://leiden.georeferencer.com/maps/9d27ee86-c300-5359-9855-b7e9bca1099e/'>Universiteit Leiden</a>.",
+	id:"a0180fff-aa14-51b8-9ae8-1a7adf7eced3"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTilesBatavia = L.tileLayer('https://maps.georeferencer.com/georeferences/4b43c2c9-fb46-52c2-9ea9-bc22e2781295/2019-06-19T12:08:40.956428Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "Kaart van Batavia en Omstreken by Topographisch Bureau Batavia; 1897; Tiles <a href='https://leiden.georeferencer.com/maps/ac7e7df1-6aea-5748-a315-c09fafd3ac17/'>Universiteit Leiden</a>."
+	attribution: "Kaart van Batavia en Omstreken by Topographisch Bureau Batavia; 1897; Tiles <a href='https://leiden.georeferencer.com/maps/ac7e7df1-6aea-5748-a315-c09fafd3ac17/'>Universiteit Leiden</a>.",
+	id:"ac7e7df1-6aea-5748-a315-c09fafd3ac17"
 	});
 	
 	// Google Hybrid Basemap
 	var oldTilesSumatra = L.tileLayer('https://maps.georeferencer.com/georeferences/39ba733c-b255-5362-8a83-dd86a06fc89d/2019-11-08T16:25:46.431122Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "To Captain Samuel Ashmore, in acknowledgement of much valuable information given, ...; inscribed by James Horsburgh; 1832; Tiles <a href='https://uu.georeferencer.com/maps/130243b8-5c89-5d56-b11e-2b516e146d10/'>Utrecht University</a>."
+	attribution: "To Captain Samuel Ashmore, in acknowledgement of much valuable information given, ...; inscribed by James Horsburgh; 1832; Tiles <a href='https://uu.georeferencer.com/maps/130243b8-5c89-5d56-b11e-2b516e146d10/'>Utrecht University</a>.",
+	id:"130243b8-5c89-5d56-b11e-2b516e146d10"
 	});
 	
 	// Variabel map
@@ -363,29 +541,42 @@
 		"Satellite": googleSat,
 		"Hybrid": googleHybrid
 	};
-	var overlayMaps = {
-		"Mess": marker,		
-		"Indonesia. The World Atlas (1967)": oldTilesAtlas2,
-		"Indonesië voorlopige staatkundige ordening (1949)":oldTilesIndonesia2,
-		"Kaart van den Nederlandsch-Indischen Archipel (1920)":oldTilesIndonesia,
-		"Bevolkingskaart van Nederlandsch Oost-Indië.. (1890)": oldTiles2,
-		"Kaart van Nederlands Oostindische bezittingen (1843)":oldTiles,
-		"Nouvelle Carte de l'isle de Java (1835)": oldTilesJava2,
-		"La presqu'isle de l'Indie au dela du Gange, avec l'archipel des Indes (1787)": oldTiles3,
-		"CARTE DES INDES ORIENTALES (1748)": oldTiles4,
-		"Reduzirte Karte vom Sunda- Oder Borneo-Meere (1755)": oldTilesJava,
-		"A New Map of East India (1676)": oldTilesAsia,
-		//"(1) Typus Orbis Terrarum. (1570)": oldTilesAtlas,
-		"(48) Indiae Orientalis (1570)": oldTilesAsia2,
-		"reede Cheribon (1886)": oldTilesCirebon,
-		"Kaart van Batavia en Omstreken (1897)": oldTilesBatavia,
-		"..western coast of Sumatra in particular (1897)": oldTilesSumatra,
-	};
+	var overlayArray = [
+		oldTilesAtlas2,
+		oldTilesAtlas3,
+		oldTilesIndonesia2,
+		oldTilesIndonesia,
+		oldTiles2,
+		oldTiles,
+		oldTilesJava2,
+		oldTiles3,
+		oldTiles4,
+		oldTilesJava,
+		oldTilesAsia4,
+		oldTilesAsia,
+		//oldTilesAtlas,
+		oldTilesAsia3,
+		oldTilesAsia2,
+		oldTilesCirebon,
+		oldTilesBatavia,
+		oldTilesSumatra,
+	]
 	
-	var sidecomp = []
-	Object.keys(overlayMaps).forEach(function(key) {
-		sidecomp.push(overlayMaps[key]);
+	// adding id to overlay and other infos
+	var i = 0;
+	var overlayMaps = {};
+	
+	overlayArray.forEach(function(overlay){
+		//for array
+		let attr = overlay.options.attribution.split(';');
+		overlay.id = overlay.options.id;
+		overlay.title = attr[0];
+		overlay.year = attr[1].replace(' ','');
+		//for dict
+		overlayMaps[overlay.id] = overlay
+		i++;
 	});
+	
 	
 	// read param for layer and basemap
 	if (params.layers){
@@ -395,14 +586,13 @@
 			overlayMaps[decodeURIComponent(item)].addTo(map)
 		})
 	}
-	
 	if (params.basemap){
 		osmLayer.remove()
 		baseMaps[params.basemap].addTo(map);
 	}
 	
 	// side by side
-	var compareControl = L.control.sideBySide(null, sidecomp);
+	var compareControl = L.control.sideBySide(null, null);
 	
 	if (params.compare){
 		let checkBox = document.getElementById("myCheck");
@@ -416,6 +606,9 @@
 
 	// Use the custom grouped layer control, not "L.control.layers"
 	var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+	// Use the custom grouped layer control, not "L.control.layers"
+	//var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
 	
 	// Change URL after load
 	updateURL();
@@ -439,12 +632,13 @@
 			});
 		}
 		let i=0;
-		Object.keys(overlayMaps).forEach(function(key) {
-			if (map.hasLayer(overlayMaps[key])){
+		overlayArray.forEach(function(overlay){
+			
+			if (map.hasLayer(overlay)){
 				if (i==0){
-					text+="&layers="+key					
+					text+="&layers="+overlay.id				
 				} else {
-					text+=";"+key
+					text+=";"+overlay.id
 				}
 				i++;
 			}
@@ -461,25 +655,73 @@
 	map.on('overlayadd', updateURL);
 	map.on('overlayremove', updateURL);
 	
-	// patch layerControl to add some titles # inspired from leaflet-openweather
-	var patch = L.DomUtil.create('div', 'leaflet-control-layers-header');
-	patch.innerHTML = "Basemap"; // 'TileLayers';
-	layerControl._form.children[2].parentNode.insertBefore(patch, layerControl._form.children[0]);
-	//patch = L.DomUtil.create('div', 'leaflet-control-layers-separator'); nambah separator
-	//layerControl._form.children[3].children[0].parentNode.insertBefore(patch, layerControl._form.children[3].children[layerControl._form.children[3].children.length-2]);
-	patch = L.DomUtil.create('div', 'leaflet-control-layers-header');
-	patch.innerHTML = "Layers"; // 'Current Weather';
-	layerControl._form.children[3].children[0].parentNode.insertBefore(patch, layerControl._form.children[3].children[0]);
+	function layerSwitch(key){
+		let layer = overlayMaps[key];
+		let elm = "Op"+key
+		if (map.hasLayer(layer)){
+			layer.remove();
+			document.getElementById(elm).disabled = true; 
+		} else {
+			layer.addTo(map);
+			document.getElementById(elm).disabled = false;
+			//console.log("harusnya nyala "+ elm);
+		}
+	}
+	
+	function layerOpSlider(value,key){
+		let layer = overlayMaps[key];
+		let elm = "Op"+key
+		layer.setOpacity(value/100);
+	}
+	
+	// Responsive resize window
+	function resizeWindow(){
+		document.querySelector('.bottom-drawer').style.top = window.innerHeight - btmDrawerHeight + 'px'
+		if(infoBox){$(infoBox).html('')};
+		mobileCheck = (window.innerWidth < window.innerHeight);
+		infoBox = mobileCheck ? '.drawer-content' : '.sidenav-content'
+		otherInfoBox = mobileCheck ? '.sidenav-sec' : '.bottom-drawer'
+		anotherInfoBox = !mobileCheck ? '.sidenav-sec' : '.bottom-drawer'
+		//console.log("mobile check: "+mobileCheck);
+		$(anotherInfoBox).css({opacity: '100'})
+		$(otherInfoBox).css({opacity: '0'})
+		
+		createLayerbox();
+	
+	}
+	resizeWindow();
+	window.addEventListener('resize',resizeWindow);
+	
+	// Writing layerbox
+	function createLayerbox(){
+		$(infoBox).html('<div id="layerbox"></div>')
+		var divLB = document.querySelector('#layerbox');
+		let html = '';
+		html+='<ul id="ulLayer"><li><span class="caret">Layers</span><ul class="nested">'
+		overlayArray.forEach(function(overlay){
+			let nama = overlay.title
+			let layer = overlayMaps[overlay.id];
+			let haslayer = ""
+			if (map.hasLayer(layer)){haslayer = "checked";};
+			console.log(overlay.id+" "+haslayer)
+			if (nama.length>20){ nama = nama.slice(0, 17) + "...";}
+			nama+=" ("+overlay.year+")"
+			html +='<li><span class="caret" style="font-size:12px;text-align: justify;" title="'+overlay.title+" ("+overlay.year+")"+'"><input type="checkbox" id="'+overlay.id+'" onclick='+"layerSwitch('"+overlay.id+"') "+haslayer+'>'+nama+'</span><ul class="nested"><li><input type="range" id="Op'+overlay.id+'" oninput="'+"layerOpSlider(this.value,'"+overlay.id+"')"+'" min="0" max="100" value="100" disabled="true">		</li></ul></li>'
+		});
+		html+='</ul></li></ul>'
+		divLB.innerHTML+=html
+	}
+	
+	// Toogle Tree View
+	var toggler = document.getElementsByClassName("caret");
+	var i;
 
-	
-	//Group button
-	//var zoomIn = L.easyButton('<i class="fas fa-share-alt"></i>',function(){});
-	//var zoomOut = L.easyButton('<i class="fas fa-share-alt"></i>',function(){});
-	//var zoomOutz = L.easyButton('<i class="fas fa-share-alt"></i>',function(){});
-    //var zoomBar = L.easyBar([ zoomIn, zoomOut, zoomOutz ]).addTo(map);
-	
-	
-	
+	for (i = 0; i < toggler.length; i++) {
+	  toggler[i].addEventListener("click", function() {
+		this.parentElement.querySelector(".nested").classList.toggle("active");
+		this.classList.toggle("caret-down");
+	  });
+	}
 </script>
 
 
