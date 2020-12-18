@@ -50,6 +50,7 @@
 		#map {
 			height: 100%;
 			width: 100%;
+			z-index: 10;
 		}
 		
 		.leaflet-control-layers-header {
@@ -102,9 +103,7 @@
 		  border-top-left-radius: 24px;
 		  border-top-right-radius: 24px;
 		  background-color: #fff;
-		  
-		  transition: 0.2s !important;;
-		  cursor: pointer;
+		  transition: 0.2s !important;
 		}
 		
 		.drawer-content {
@@ -160,25 +159,11 @@
 <body>
 
 <div id='map'></div>
-<section class="sidenav-sec">
-	<div id="mySidenav" class="sidenav">
-	  <div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;">
-	</div>
-	<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i></div>
-</section>
-<section class="bottom-drawer">
-	<div class="nav-drawer">
-		<div class="text-center" id="bottom-sheet" style="padding: 12px">
-			<div style="width:100px;height:8px;background-color: grey;margin: auto;border-radius: 50px"></div>
-		</div>
-		<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%;" id="drawer-content">
-		</div>
-	</div>
-</section>
+<section class="sidenav-sec"></section>
+<section class="bottom-drawer"></section>
 <script>
-	// STARTING	
-	document.html.style.height = window.innerHeight + 'px'
-	document.body.style.height = window.innerHeight + 'px'
+	// STARTING
+	document.body.style.height = window.innerHeight + 'px';
 	var btmDrawerHeight = window.innerHeight * 5 /100;
 	var btmDrawerHalfHeight = window.innerHeight * 40 /100;
 	
@@ -611,10 +596,7 @@
 		}
 		comparebox()
 	}
-
-	// Use the custom grouped layer control, not "L.control.layers"
-	var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
-
+	
 	// Use the custom grouped layer control, not "L.control.layers"
 	//var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
 	
@@ -676,6 +658,15 @@
 		}
 	}
 	
+	function baseSwitch(key){
+		let layer = baseMaps[key];
+		//let elm = "BM_"+key
+		layer.addTo(map);
+		//document.getElementById(elm).disabled = false;
+			//console.log("harusnya nyala "+ elm);
+		
+	}
+	
 	function layerOpSlider(value,key){
 		let layer = overlayMaps[key];
 		let elm = "Op"+key
@@ -684,7 +675,7 @@
 	
 	// Responsive resize window
 	function resizeWindow(){
-		//document.querySelector('.bottom-drawer').style.top = window.innerHeight - btmDrawerHeight + 'px'
+		document.querySelector('.bottom-drawer').style.top = window.innerHeight - btmDrawerHeight + 'px'
 		if(infoBox){$(infoBox).html('')};
 		mobileCheck = (window.innerWidth < window.innerHeight);
 		infoBox = mobileCheck ? '.drawer-content' : '.sidenav-content'
@@ -695,14 +686,25 @@
 		//$(otherInfoBox).css({opacity: '0'})
 		
 		if(mobileCheck){
-			$('.sidenav-sec').css({top: '200%'})
-			$('.bottom-drawer').css({top: window.innerHeight - btmDrawerHeight})
+			$('.bottom-drawer').css("z-index","9999")
+			$('.sidenav-sec').css("z-index","0")
+			$('.bottom-drawer').html('<div class="nav-drawer">'+
+										'<div class="text-center" id="bottom-sheet" style="padding: 12px">'+
+											'<div style="width:100px;height:8px;background-color: grey;margin: auto;border-radius: 50px"></div>'+
+										'</div>'+
+										'<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%;" id="drawer-content">'+
+										'</div>'+
+									'</div>');
+			$('.sidenav-sec').html();
 		} else {
-			$('.sidenav-sec').css({top: '0'})
-			$('.bottom-drawer').css({top: '200%'})
+			$('.bottom-drawer').css("z-index","0")
+			$('.sidenav-sec').css("z-index","9999")
+			$('.sidenav-sec').html('<div id="mySidenav" class="sidenav">'+
+										'<div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;"></div>'+
+										'<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i>'+
+									'</div>');
+			$('.bottom-drawer').html()
 		}
-		
-		moveLayerbox();
 	
 	}
 	resizeWindow();
@@ -714,6 +716,17 @@
 		$(infoBox).html('<div id="layerbox"></div>')
 		var divLB = document.querySelector('#layerbox');
 		let html = '';
+		
+		// Basemap
+		html+='<div style="padding-bottom: 10px;padding-left:10px ;font-size:14px;text-align: justify;">Basemaps<br>'
+		Object.keys(baseMaps).forEach(function(key) {
+			let haslayer = ""
+			if (map.hasLayer(baseMaps[key])){haslayer = "checked";}
+			html+='<input type="radio" id="BM_'+key+'" name="basemapRadio" value="'+key+'" onclick='+"baseSwitch('"+key+"') "+haslayer+' /> <label for="'+key+'">'+key+'</label><br>'
+		});
+		html+='</div>'
+		
+		// Layers
 		html+='<ul id="ulLayer"><li><span class="caret">Layers</span><ul class="nested">'
 		overlayArray.forEach(function(overlay){
 			let nama = overlay.title
