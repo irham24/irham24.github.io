@@ -4,7 +4,7 @@
 <head>
 	
 	<!-- Primary Meta Tags -->
-	<title>IrhaMap - Learning the history with GIS</title>
+	<title>IrhaMap: Let's back to the past with GIS</title>
 	<meta name="title" content="Interactive and Responsive Historical Map | IrhaMap">
 	<meta name="description" content="Let's back to the past with GIS">
 
@@ -13,14 +13,17 @@
 	<meta property="og:url" content="https://irham24.github.io/maps/">
 	<meta property="og:title" content="Interactive and Responsive Historical Map | IrhaMap">
 	<meta property="og:description" content="Back to the past with GIS">
-	<meta property="og:image" content="https://i.ibb.co/jwcS5pc/Peta-Tua-Cover.png">
+	<meta property="og:image" content="https://i.ibb.co/rGKKXwC/Peta-Tua-Cover-low.jpg">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://irham24.github.io/maps/">
 	<meta property="twitter:title" content="Interactive and Responsive Historical Map | IrhaMap">
 	<meta property="twitter:description" content="Back to the past with GIS">
-	<meta property="twitter:image" content="https://i.ibb.co/jwcS5pc/Peta-Tua-Cover.png">
+	<meta property="twitter:image" content="https://i.ibb.co/rGKKXwC/Peta-Tua-Cover-low.jpg">
+	
+	<meta property="og:site_name" content="IrhaMap: Let's back to the past with GIS">
+	
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,7 +112,7 @@
 		}
 		
 		.drawer-content {
-			height: calc(100vh - 32px);
+			height: auto;
 			overflow: auto;
 		}
 		
@@ -119,6 +122,8 @@
 		ul, #myUL {
 		  list-style-type: none;
 		  padding-left : 10px;
+		  margin-top: 5px;
+		  margin-bottom: 5px;
 		}
 
 		/* Remove margins and padding from the parent ul */
@@ -240,8 +245,10 @@
 				if(pos==0){				$('.bottom-drawer').css({top: innerHeight - btmDrawerHeight + 'px'});
 					} else if (pos==1){	$('.bottom-drawer').css({top: '0px'});
 										$('.bottom-drawer').css({height: innerHeight + 'px'});
+										$('.drawer-content').css({height: innerHeight - $('#bottom-sheet')[0].offsetHeight - 10 + 'px'});
 					} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
 										$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
+										$('.drawer-content').css({height: btmDrawerHalfHeight - $('#bottom-sheet')[0].offsetHeight - 10 + 'px'});
 				}
 			}
 			click = false;
@@ -712,7 +719,7 @@
 										'<div class="text-center" id="bottom-sheet" style="padding: 10px">'+
 											'<div style="width:100px;height:4px;background-color: #BDBDBD;margin: auto;border-radius: 50px"></div>'+
 										'</div>'+
-										'<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%; overflow: auto;" id="drawer-content">'+
+										'<div class="drawer-content" style="padding-top: 10px;padding-bottom: 10px;" id="drawer-content">'+
 										'</div>'+
 									'</div>');
 			$('.sidenav-sec').html();
@@ -756,8 +763,8 @@
 		overlayArray.forEach(function(overlay){
 			if (i==overlayThemes[j][0]){
 				html+='<ul id="ulLayerTheme"><li><span class="caret">'+overlayThemes[j][1]+'</span><ul class="nested">'
-				console.log("maxindex :"+maxindex);
-				console.log("i:"+i+" j:"+j+"start");
+				//console.log("maxindex :"+maxindex);
+				//console.log("i:"+i+" j:"+j+"start");
 			}
 			console.log("i:"+i+" j:"+j);
 			let nama = overlay.title
@@ -774,7 +781,7 @@
 			maxindex = (j==2)? maxlayer : overlayThemes[j+1][0]-1
 			if (i==maxindex){
 				html+='</ul></li></ul>'
-				console.log("i:"+i+" j:"+j+"End");
+				//console.log("i:"+i+" j:"+j+"End");
 				j++;
 			}
 			i++;
