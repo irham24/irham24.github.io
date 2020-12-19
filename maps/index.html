@@ -13,14 +13,14 @@
 	<meta property="og:url" content="https://irham24.github.io/maps/">
 	<meta property="og:title" content="Interactive and Responsive Historical Map | IrhaMap">
 	<meta property="og:description" content="Back to the past with GIS">
-	<meta property="og:image" content="https://i.ibb.co/2ktvzzJ/Peta-Tua-Cover.png">
+	<meta property="og:image" content="https://i.ibb.co/jwcS5pc/Peta-Tua-Cover.png">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://irham24.github.io/maps/">
 	<meta property="twitter:title" content="Interactive and Responsive Historical Map | IrhaMap">
 	<meta property="twitter:description" content="Back to the past with GIS">
-	<meta property="twitter:image" content="https://i.ibb.co/2ktvzzJ/Peta-Tua-Cover.png">
+	<meta property="twitter:image" content="https://i.ibb.co/jwcS5pc/Peta-Tua-Cover.png">
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,8 +43,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 	<style>
 		html, body {
-			height: 100vh;
-			min-height: -webkit-fill-available;
+			height: 100%;
 			width: 100%;
 			margin: 0;
 			overflow-y: hidden;
@@ -207,7 +206,7 @@
 		function mouseMove(e) {
 			if(click) {
 				//console.log(e.pageX, e.pageY)
-				
+				$('.bottom-drawer').css({height: innerHeight + 'px'});
 				if(e.pageY > innerHeight - btmDrawerHeight) {
 					$('.bottom-drawer').css({
 						top: innerHeight - btmDrawerHeight + 'px'
@@ -240,9 +239,9 @@
 				}
 				if(pos==0){				$('.bottom-drawer').css({top: innerHeight - btmDrawerHeight + 'px'});
 					} else if (pos==1){	$('.bottom-drawer').css({top: '0px'});
-										//$('.bottom-drawer').css({height: innerHeight + 'px'});
+										$('.bottom-drawer').css({height: innerHeight + 'px'});
 					} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
-										//$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
+										$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
 				}
 			}
 			click = false;
@@ -542,8 +541,10 @@
 		"Hybrid": googleHybrid
 	};
 	var overlayArray = [
+			// World
 		oldTilesAtlas2,
 		oldTilesAtlas3,
+			// Indonesia - Asia
 		oldTilesIndonesia2,
 		oldTilesIndonesia,
 		oldTiles2,
@@ -557,10 +558,15 @@
 		//oldTilesAtlas,
 		oldTilesAsia3,
 		oldTilesAsia2,
+			// Other
 		oldTilesCirebon,
 		oldTilesBatavia,
 		oldTilesSumatra,
+		
 	]
+	var overlayThemes = [[0,"World Maps"],
+						 [2,"Indonesia - Asia Maps"],
+						 [14,"Other Maps"],]
 	
 	// adding id to overlay and other infos
 	var i = 0;
@@ -579,16 +585,18 @@
 	
 	
 	// read param for layer and basemap
+	
+	if (params.basemap){
+		osmLayer.remove()
+		baseMaps[params.basemap].addTo(map);
+	}
+	
 	if (params.layers){
 		var activeLayers = params.layers.split(';').map(function(item){
 			// map function not supported in IE < 9
 			//console.log(item);
 			overlayMaps[decodeURIComponent(item)].addTo(map)
 		})
-	}
-	if (params.basemap){
-		osmLayer.remove()
-		baseMaps[params.basemap].addTo(map);
 	}
 	
 	// side by side
@@ -669,6 +677,7 @@
 		let layer = baseMaps[key];
 		//let elm = "BM_"+key
 		layer.addTo(map);
+		layer.bringToBack();
 		Object.keys(baseMaps).forEach(function(keyz) {
 			if (map.hasLayer(baseMaps[keyz]) && layer != baseMaps[keyz]){baseMaps[keyz].remove();};
 		});
@@ -703,7 +712,7 @@
 										'<div class="text-center" id="bottom-sheet" style="padding: 10px">'+
 											'<div style="width:100px;height:4px;background-color: #BDBDBD;margin: auto;border-radius: 50px"></div>'+
 										'</div>'+
-										'<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%; overflow:auto" id="drawer-content">'+
+										'<div class="drawer-content" style="padding-top: 5%;padding-bottom: 5%; overflow: auto;" id="drawer-content">'+
 										'</div>'+
 									'</div>');
 			$('.sidenav-sec').html();
@@ -711,7 +720,7 @@
 			$('.bottom-drawer').css("z-index","0");
 			$('.sidenav-sec').css("z-index","9999");
 			$('.sidenav-sec').html('<div id="mySidenav" class="sidenav">'+
-										'<div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;"></div>'+
+										'<div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;overflow: auto;"></div>'+
 										'<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i>'+
 									'</div>');
 			$('.bottom-drawer').html()
@@ -729,26 +738,46 @@
 		let html = '';
 		
 		// Basemap
-		html+='<div style="padding-bottom: 10px;padding-left:10px ;font-size:14px;text-align: justify;">Basemaps<br>'
+		//html+='<div style="padding-bottom: 10px;padding-left:10px ;font-size:14px;text-align: justify;">Basemaps<br>'
+		html+='<ul id="ulLayer"><li><span class="caret">Basemaps</span><ul class="nested">'
 		Object.keys(baseMaps).forEach(function(key) {
 			let haslayer = ""
 			if (map.hasLayer(baseMaps[key])){haslayer = "checked";}
-			html+='<input type="radio" id="BM_'+key+'" name="basemapRadio" value="'+key+'" onclick='+"baseSwitch('"+key+"') "+haslayer+' /> <label for="'+key+'">'+key+'</label><br>'
+			html+='<input type="radio" id="BM_'+key+'" name="basemapRadio" value="'+key+'" onclick='+"baseSwitch('"+key+"') "+haslayer+' /> <label for="BM_'+key+'">'+key+'</label><br>'
 		});
-		html+='</div>'
+		html+='</ul></li></ul>'
+		//html+='</div>'
 		
 		// Layers
 		html+='<ul id="ulLayer"><li><span class="caret">Layers</span><ul class="nested">'
+		let i = 0; let j=0;
+		let maxindex = 0
+		let maxlayer = overlayThemes[0].length+overlayThemes[1].length+overlayThemes[2].length-1
 		overlayArray.forEach(function(overlay){
+			if (i==overlayThemes[j][0]){
+				html+='<ul id="ulLayerTheme"><li><span class="caret">'+overlayThemes[j][1]+'</span><ul class="nested">'
+				console.log("maxindex :"+maxindex);
+				console.log("i:"+i+" j:"+j+"start");
+			}
+			console.log("i:"+i+" j:"+j);
 			let nama = overlay.title
 			let layer = overlayMaps[overlay.id];
 			let haslayer = ""
 			if (map.hasLayer(layer)){haslayer = "checked";};
+			let haslayer2 = map.hasLayer(layer) ? "" : "disabled"
 			//console.log(overlay.id+" "+haslayer)
-			let maxChar = mobileCheck ? 50 : 30
+			let maxChar = mobileCheck ? 40 : 30
 			if (nama.length>maxChar){ nama = nama.slice(0, maxChar-3) + "...";}
 			nama+=" ("+overlay.year+")"
-			html +='<li><span class="caret" style="font-size:12px;text-align: justify;" title="'+overlay.title+" ("+overlay.year+")"+'"><input type="checkbox" id="'+overlay.id+'" onclick='+"layerSwitch('"+overlay.id+"') "+haslayer+'>'+nama+'</span><ul class="nested"><li><input type="range" id="Op'+overlay.id+'" oninput="'+"layerOpSlider(this.value,'"+overlay.id+"')"+'" min="0" max="100" value="100" disabled="true">		</li></ul></li>'
+			html +='<li><span class="caret" style="font-size:12px;text-align: justify;" title="'+overlay.title+" ("+overlay.year+")"+'"><input type="checkbox" id="'+overlay.id+'" onclick='+"layerSwitch('"+overlay.id+"') "+haslayer+'>'+nama+'</span><ul class="nested"><li style="font-size:12px; display:flex; flex-direction:row; align-items:center;width:75%;">Opacity : 0<input type="range" style="flex:1;" id="Op'+overlay.id+'" oninput="'+"layerOpSlider(this.value,'"+overlay.id+"')"+'" min="0" max="100" value="100" '+haslayer2+'>100		</li></ul></li>'
+			
+			maxindex = (j==2)? maxlayer : overlayThemes[j+1][0]-1
+			if (i==maxindex){
+				html+='</ul></li></ul>'
+				console.log("i:"+i+" j:"+j+"End");
+				j++;
+			}
+			i++;
 		});
 		html+='</ul></li></ul>'
 		divLB.innerHTML+=html;
@@ -759,9 +788,12 @@
 	var i;
 
 	for (i = 0; i < toggler.length; i++) {
-	  toggler[i].addEventListener("click", function() {
-		this.parentElement.querySelector(".nested").classList.toggle("active");
-		this.classList.toggle("caret-down");
+	  toggler[i].addEventListener("click", function(evt) {
+		// cek kalo checkbox yang di klik ga aktif tree viewnya
+		if(evt.target.tagName!="INPUT"){
+			this.parentElement.querySelector(".nested").classList.toggle("active");
+			this.classList.toggle("caret-down");
+		}
 	  });
 	}
 </script>
