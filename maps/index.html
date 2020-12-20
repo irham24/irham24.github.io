@@ -33,13 +33,13 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 	
+	<!-- Leaflet side by side -->
+	<script src="https://ghcdn.rawgit.org/digidem/leaflet-side-by-side/gh-pages/leaflet-side-by-side.js"></script>
+	
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<!-- JQuery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-	<!-- Leaflet side by side -->
-	<script src="https://ghcdn.rawgit.org/digidem/leaflet-side-by-side/gh-pages/leaflet-side-by-side.js"></script>
 	
 	<!-- Easy Button -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
@@ -369,6 +369,13 @@
 	});
 	
 	// Old Atlas
+	var oldTilesAtlas4 = L.tileLayer('http://maps.nypl.org/warper/maps/tile/8870/{z}/{x}/{y}.png',{
+    maxZoom: 20,
+	attribution: "Orbis terrae compendiosa descriptio : quam ex magna universali Gerardi Mercatoris Domino Richardo Gartho, geographie ac ceterarum bonarum artium amatori ac fautori summo, in veteris amicitie ac familiaritatis memoriam Rumoldus Mercator fieri curabat A0. M.D. LXXXVII. by Mercator, Gerhard; 1637?; Tiles <a href='https://digitalcollections.nypl.org/items/510d47e2-0b65-a3d9-e040-e00a18064a99'>New York Public Library</a>.",
+	id:"510d47e2-0b65-a3d9-e040-e00a18064a99"
+	});
+	
+	// Old Atlas
 	var oldTilesAsia = L.tileLayer('https://maps.georeferencer.com/georeferences/3ff3a0c0-c845-5639-916d-5b306ddde711/2020-07-22T11:39:34.827989Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
 	attribution: "A New Map of East India. by Speed, John, 1542-1629; 1676; Tiles <a href='https://davidrumsey.georeferencer.com/maps/a016c171-dd3f-55fa-a5a7-9bb6f0b79a3d/'>davidrumsey.com</a>.",
@@ -394,6 +401,13 @@
     maxZoom: 20,
 	attribution: "To the Right Honourable William, Lord Cowper, Lord High Chancellor of Great Britain, this map of Asia .. by Moll, Herman, d. 1732; 1710–1719; Tiles <a href='https://collections.leventhalmap.org/search/commonwealth:cj82ks63j'>Norman B. Leventhal Map Center Collection</a>.",
 	id:"cj82ks63j"
+	});
+	
+	// Old Atlas
+	var oldTilesAsia5 = L.tileLayer('http://maps.nypl.org/warper/maps/tile/30220/{z}/{x}/{y}.png',{
+    maxZoom: 20,
+	attribution: "Insulae Moluccæ, graven by Beckit, Robert; 1598; Tiles <a href='https://digitalcollections.nypl.org/items/b6335663-9709-ce98-e040-e00a18064c2c'>New York Public Library</a>.",
+	id:"b6335663-9709-ce98-e040-e00a18064c2c"
 	});
 	
 	// Old Atlas
@@ -551,6 +565,7 @@
 			// World
 		oldTilesAtlas2,
 		oldTilesAtlas3,
+		oldTilesAtlas4,
 			// Indonesia - Asia
 		oldTilesIndonesia2,
 		oldTilesIndonesia,
@@ -564,6 +579,7 @@
 		oldTilesAsia,
 		//oldTilesAtlas,
 		oldTilesAsia3,
+		oldTilesAsia5,
 		oldTilesAsia2,
 			// Other
 		oldTilesCirebon,
@@ -572,8 +588,8 @@
 		
 	]
 	var overlayThemes = [[0,"World Maps"],
-						 [2,"Indonesia - Asia Maps"],
-						 [14,"Other Maps"],]
+						 [3,"Indonesia - Asia Maps"],
+						 [16,"Other Maps"],]
 	
 	// adding id to overlay and other infos
 	var i = 0;
@@ -746,7 +762,7 @@
 		
 		// Basemap
 		//html+='<div style="padding-bottom: 10px;padding-left:10px ;font-size:14px;text-align: justify;">Basemaps<br>'
-		html+='<ul id="ulLayer"><li><span class="caret">Basemaps</span><ul class="nested">'
+		html+='<ul id="ulLayer"><li><span class="caret">Basemaps ('+Object.keys(baseMaps).length+')</span><ul class="nested">'
 		Object.keys(baseMaps).forEach(function(key) {
 			let haslayer = ""
 			if (map.hasLayer(baseMaps[key])){haslayer = "checked";}
@@ -756,26 +772,26 @@
 		//html+='</div>'
 		
 		// Layers
-		html+='<ul id="ulLayer"><li><span class="caret">Layers</span><ul class="nested">'
 		let i = 0; let j=0;
 		let maxindex = 0
-		let maxlayer = overlayThemes[0].length+overlayThemes[1].length+overlayThemes[2].length-1
+		let maxlayer = Object.keys(overlayMaps).length
+		html+='<ul id="ulLayer"><li><span class="caret">Layers ('+maxlayer+')</span><ul class="nested">'
 		overlayArray.forEach(function(overlay){
 			if (i==overlayThemes[j][0]){
-				html+='<ul id="ulLayerTheme"><li><span class="caret">'+overlayThemes[j][1]+'</span><ul class="nested">'
+				let sum = (j==2)?  maxlayer-overlayThemes[j][0] : overlayThemes[j+1][0]-overlayThemes[j][0]
+				html+='<ul id="ulLayerTheme"><li><span class="caret">'+overlayThemes[j][1]+" ("+sum+")"+'</span><ul class="nested">'
 				//console.log("maxindex :"+maxindex);
 				//console.log("i:"+i+" j:"+j+"start");
 			}
-			console.log("i:"+i+" j:"+j);
-			let nama = overlay.title
+			//console.log("i:"+i+" j:"+j);
+			let nama = overlay.year+" | " + overlay.title
 			let layer = overlayMaps[overlay.id];
 			let haslayer = ""
 			if (map.hasLayer(layer)){haslayer = "checked";};
 			let haslayer2 = map.hasLayer(layer) ? "" : "disabled"
 			//console.log(overlay.id+" "+haslayer)
-			let maxChar = mobileCheck ? 40 : 30
+			let maxChar = mobileCheck ? 45 : 35
 			if (nama.length>maxChar){ nama = nama.slice(0, maxChar-3) + "...";}
-			nama+=" ("+overlay.year+")"
 			html +='<li><span class="caret" style="font-size:12px;text-align: justify;" title="'+overlay.title+" ("+overlay.year+")"+'"><input type="checkbox" id="'+overlay.id+'" onclick='+"layerSwitch('"+overlay.id+"') "+haslayer+'>'+nama+'</span><ul class="nested"><li style="font-size:12px; display:flex; flex-direction:row; align-items:center;width:75%;">Opacity : 0<input type="range" style="flex:1;" id="Op'+overlay.id+'" oninput="'+"layerOpSlider(this.value,'"+overlay.id+"')"+'" min="0" max="100" value="100" '+haslayer2+'>100		</li></ul></li>'
 			
 			maxindex = (j==2)? maxlayer : overlayThemes[j+1][0]-1
