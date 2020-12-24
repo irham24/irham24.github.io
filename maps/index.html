@@ -37,13 +37,16 @@
 	<script src="https://ghcdn.rawgit.org/digidem/leaflet-side-by-side/gh-pages/leaflet-side-by-side.js"></script>
 	
 	<!-- Font Awesome -->
-	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="https://kit.fontawesome.com/f6d734016a.js"></script>
 	<!-- JQuery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<!-- Easy Button -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+	
+	<!-- Share js -->
+	<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
 	<style>
 		html, body {
 			height: 100%;
@@ -76,7 +79,6 @@
 		  background-color: #fff;
 		  overflow-x: hidden;
 		  transition: 0.5s;
-		  padding-top: 1%;
 		  padding-bottom: 1%;
 		}
 		
@@ -86,13 +88,14 @@
 		  position: fixed;
 		  z-index: 9999;
 		  top: 8px;
-		  left: 0;
+		  left: 0%;
 		  background-color: #fff;
 		  transition: 0.5s;
 		  padding-top: 15px;
 		  padding-left: 10px;
 		  padding-right: 5px;
 		  color: #818181;
+		  cursor: pointer;
 		}
 		
 		.btnIcon :hover{
@@ -160,6 +163,59 @@
 		.active {
 		  display: block;
 		}
+		
+		/* Tab */
+		.tab {
+		  overflow: hidden;
+		  border: 1px solid #ccc;
+		  background-color: #f1f1f1;
+		}
+
+		/* Style the buttons inside the tab */
+		.tab button {
+		  background-color: inherit;
+		  float: left;
+		  border: none;
+		  outline: none;
+		  cursor: pointer;
+		  padding: 5px 2%;
+		  transition: 0.3s;
+		  font-size: 17px;
+		}
+
+		/* Change background color of buttons on hover */
+		.tab button:hover {
+		  background-color: #ddd;
+		}
+
+		/* Create an active/current tablink class */
+		.tab button.active {
+		  background-color: #ccc;
+		}
+
+		/* Style the tab content */
+		.tabcontent {
+		  display: none;
+		  padding: 6px 12px;
+		  border: 1px solid #ccc;
+		  border: none;
+		  overflow: auto;
+		}
+		
+		/* Share Button */
+		/* Add a hover effect if you want */
+		.sharebtn {
+		  border: none;
+		  outline: none;
+		  cursor: pointer;
+		  text-align: center;
+		  padding: 2% 4%;
+		  width: 40px;
+		  font-size: 12px;
+		}
+		.sharebtn:hover {
+		  opacity: 0.7;
+		}
 	</style>
 	
 </head>
@@ -175,6 +231,9 @@
 	$('#bottom-sheet').css("height",window.innerHeight + 'px');
 	var btmDrawerHeight = window.innerHeight * 3 /100;
 	var btmDrawerHalfHeight = window.innerHeight * 40 /100;
+	var embedWidth = 300;
+	var embedHeight = 200;
+	var embed = '';
 	
 	// Checking the used device
 	var mobileCheck = (window.innerWidth < window.innerHeight);
@@ -242,18 +301,29 @@
 				} else if(e.pageY > (innerHeight - btmDrawerHalfHeight) + (innerHeight * 2.5/100) && pos == 2){
 					pos = 0
 				}
-				if(pos==0){				$('.bottom-drawer').css({top: innerHeight - btmDrawerHeight + 'px'});
-					} else if (pos==1){	$('.bottom-drawer').css({top: '0px'});
-										$('.bottom-drawer').css({height: innerHeight + 'px'});
-										$('.drawer-content').css({height: innerHeight - $('#bottom-sheet')[0].offsetHeight - 10 + 'px'});
-					} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
-										$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
-										$('.drawer-content').css({height: btmDrawerHalfHeight - $('#bottom-sheet')[0].offsetHeight - 10 + 'px'});
-				}
+				botDrawerByPos(pos);
+				Array.from(document.getElementsByClassName("tabcontent")).forEach(
+					function(element, index, array) {
+						// do stuff
+						element.style.height = $('.drawer-content')[0].style.height;
+					}
+				);
+				updateURL();
 			}
 			click = false;
 		}
 	})
+	// bottom-drawer func by pos id
+	function botDrawerByPos(pos){
+		if(pos==0){				$('.bottom-drawer').css({top: innerHeight - btmDrawerHeight + 'px'});
+			} else if (pos==1){	$('.bottom-drawer').css({top: '0px'});
+								$('.bottom-drawer').css({height: innerHeight + 'px'});
+								$('.drawer-content').css({height: innerHeight - $('#bottom-sheet')[0].offsetHeight - 50 + 'px'});
+			} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
+								$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
+								$('.drawer-content').css({height: btmDrawerHalfHeight - $('#bottom-sheet')[0].offsetHeight - 50 + 'px'});
+		}
+	}		
 
 	// Sidenav
 	function btnNav(){
@@ -268,14 +338,6 @@
 		    document.getElementById("btnSidenav").style.left = "0";
 			document.getElementById("btnSidenav").style.backgroundColor = "#fff";
 			document.getElementById("btnIcon").className = "fas fa-caret-right";
-		}
-	}
-	function comparebox(){
-		let checkBox = document.getElementById("myCheck");
-		if (checkBox.checked == true){
-			compareControl.addTo(map);
-		} else {
-			compareControl.remove();
 		}
 		updateURL();
 	}
@@ -424,6 +486,13 @@
 	id:"c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8"
 	});
 	
+	// Old Atlas
+	var oldTilesIndonesia3 = L.tileLayer('https://maps.georeferencer.com/georeferences/21cc8c23-9452-592d-9944-44a5cffd5eb7/2017-11-11T17:35:43.303919Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Carte des Isles de la Sonde, et des Isles Moluques by Bonne, R.; 1780; Tiles <a href='https://davidrumsey.georeferencer.com/maps/94a056e5-066f-5188-b4f9-00a317c3f953/'>davidrumsey.com</a>.",
+	id:"21cc8c23-9452-592d-9944-44a5cffd5eb7"
+	});
+	
 	// Google Hybrid Basemap
 	var oldTilesJava2 = L.tileLayer('https://maps.georeferencer.com/georeferences/f4d811bd-84f3-5fb8-9726-58ad2b65690d/2020-06-08T13:04:42.118227Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
@@ -487,6 +556,13 @@
 	id:"130243b8-5c89-5d56-b11e-2b516e146d10"
 	});
 	
+	// Google Hybrid Basemap
+	var oldTilesSumatra2 = L.tileLayer('https://maps.georeferencer.com/georeferences/803e0e82-662b-57b8-955d-fee99be550ac/2020-06-12T23:04:01.957038Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
+    maxZoom: 20,
+	attribution: "Carte du Royaume de Siam et des pays Circunvoisins by Du Val, Pierre, 1619-1683; 1686; Tiles <a href='https://davidrumsey.georeferencer.com/maps/5be79ad9-9aff-5a4a-9c35-ac67b75859eb/'>davidrumsey.com</a>.",
+	id:"5be79ad9-9aff-5a4a-9c35-ac67b75859eb"
+	});
+	
 	// Variabel map
 	var map = L.map('map', {
 		center: [params.lat || -6.269577,
@@ -526,10 +602,6 @@
 	  }]
 	}).addTo(map);
 	
-	// Marker Mess
-	var marker = L.marker([-6.269577, 106.705615]);
-	marker.bindPopup("Point");//.openPopup();
-	
 	// leaflet-color-markers by pointhi
 	var redIcon = new L.Icon({
 	  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -538,16 +610,7 @@
 	  iconAnchor: [12, 41],
 	  popupAnchor: [1, -34],
 	  shadowSize: [41, 41]
-	});
-	
-	// Marked Point
-	if (params.marked_content){
-		var marked = L.marker([params.marked_lat || params.lat || map.getCenter().lat,
-				       params.marked_lng || params.lng || map.getCenter().lng],
-				       {icon: redIcon}).addTo(map);
-		marked.bindPopup(decodeURIComponent(params.marked_content)).openPopup();
-	};
-	
+	});	
 	
 	//Other Ver
 	//var oldWMTS = L.tileLayer.wms('https://maps.georeferencer.com/georeferences/69c451b6-0b1a-5315-9e17-88930d099731/2020-04-07T17:48:47.586709Z/wmts?key=sPjsmpzUociMSuMg5BlY&SERVICE=WMTS&REQUEST=GetCapabilities', {
@@ -573,8 +636,9 @@
 		oldTiles,
 		oldTilesJava2,
 		oldTiles3,
-		oldTiles4,
+		oldTilesIndonesia3,
 		oldTilesJava,
+		oldTiles4,
 		oldTilesAsia4,
 		oldTilesAsia,
 		//oldTilesAtlas,
@@ -585,11 +649,12 @@
 		oldTilesCirebon,
 		oldTilesBatavia,
 		oldTilesSumatra,
+		oldTilesSumatra2,
 		
 	]
 	var overlayThemes = [[0,"World Maps"],
 						 [3,"Indonesia - Asia Maps"],
-						 [16,"Other Maps"],]
+						 [17,"Other Maps"],]
 	
 	// adding id to overlay and other infos
 	var i = 0;
@@ -606,9 +671,319 @@
 		i++;
 	});
 	
+	// side by side
+	var compareControl = L.control.sideBySide(null, null);
 	
-	// read param for layer and basemap
+	// Use the custom grouped layer control, not "L.control.layers"
+	//var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+	map.on('moveend', updateURL);
+	map.on('zoomend', updateURL);
+	map.on('baselayerchange', updateURL);
+	map.on('overlayadd', updateURL);
+	map.on('overlayremove', updateURL);
 	
+	function layerSwitch(key){
+		let layer = overlayMaps[key];
+		let elm = "Op"+key
+		if (map.hasLayer(layer)){
+			layer.remove();
+			document.getElementById(elm).disabled = true; 
+		} else {
+			layer.addTo(map);
+			document.getElementById(elm).disabled = false;
+			//console.log("harusnya nyala "+ elm);
+		}
+		updateURL();
+	}
+	
+	function baseSwitch(key){
+		let layer = baseMaps[key];
+		//let elm = "BM_"+key
+		layer.addTo(map);
+		layer.bringToBack();
+		Object.keys(baseMaps).forEach(function(keyz) {
+			if (map.hasLayer(baseMaps[keyz]) && layer != baseMaps[keyz]){baseMaps[keyz].remove();};
+		});
+		//document.getElementById(elm).disabled = false;
+			//console.log("harusnya nyala "+ elm);
+		updateURL();
+	}
+	
+	function layerOpSlider(value,key){
+		let layer = overlayMaps[key];
+		let elm = "Op"+key
+		layer.setOpacity(value/100);
+	}
+	
+	// Responsive resize window
+	function resizeWindow(){
+		document.querySelector('.bottom-drawer').style.top = window.innerHeight - btmDrawerHeight + 'px'
+		if(infoBox){$(infoBox).html('')};
+		mobileCheck = (window.innerWidth < window.innerHeight);
+		infoBox = mobileCheck ? '.drawer-content' : '.sidenav-content';
+		otherInfoBox = mobileCheck ? '.sidenav-sec' : '.bottom-drawer';
+		anotherInfoBox = !mobileCheck ? '.sidenav-sec' : '.bottom-drawer';
+		//console.log("mobile check: "+mobileCheck);
+		//$(anotherInfoBox).css({opacity: '100'})
+		//$(otherInfoBox).css({opacity: '0'})
+		
+		let tab = '<div class="tab">'+
+				  '<button class="tablinks" title="layers" onclick="openTab(event,'+"'layers'"+')" style="width:25%"><i class="fa fa-layer-group" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="compare" onclick="openTab(event,'+"'compare'"+')" style="width:25%"><i class="fa fa-arrows-alt-h" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="share" onclick="openTab(event,'+"'share'"+')" style="width:25%"><i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="about" onclick="openTab(event,'+"'about'"+')" style="width:25%"><i class="fa fa-info-circle" aria-hidden="true"></i></button>'+
+				'</div>'+
+				'<div id="layers" class="tabcontent">';
+		let endtab = '</div><div id="compare" class="tabcontent"></div>'+
+							'<div id="share" class="tabcontent"></div>'+
+							'<div id="about" class="tabcontent"></div>';
+		
+		if(mobileCheck){
+			$('.bottom-drawer').css("z-index","9999");
+			$('.sidenav-sec').css("z-index","0");
+			$('.leaflet-control').css("bottom",btmDrawerHeight + 5);
+			$('.bottom-drawer').html('<div class="nav-drawer">'+
+										'<div class="text-center" id="bottom-sheet" style="padding: 10px">'+
+											'<div style="width:100px;height:4px;background-color: #BDBDBD;margin: auto;border-radius: 50px"></div>'+
+										'</div>'+tab+
+										'<div class="drawer-content" id="drawer-content">'+
+										'</div>'+endtab+
+									'</div>');
+			$('.sidenav-sec').html();
+		} else {
+			$('.bottom-drawer').css("z-index","0");
+			$('.sidenav-sec').css("z-index","9999");
+			$('.sidenav-sec').html('<div id="mySidenav" class="sidenav">'+tab+
+										'<div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;overflow: auto;"></div>'+endtab+
+										'<div id="btnSidenav" class="btnSidenav" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i>'+
+									'</div>');
+			$('.bottom-drawer').html()
+		}
+		updateURL;
+		embed = createEmbed();
+		let sharecontent = '\
+		<div style="font-size: 14px;overflow-y:auto;"><b>Share a link to this map</b></div>\
+		<textarea id="urlshare" name="urlshare" rows="4" style="resize: none;width:97%" readonly>'+window.location.href+'</textarea><br>\
+		<div style="float: right">\
+			<button id="btnShareEMAIL" class="button sharebtn" data-sharer="email" title="E-mail" data-title="Checkout this amazing historic maps!" data-url="'+window.location.href+'" style="background-color: #dd4b39;color:white;" data-subject="Hey! Check this out" data-to=""><i class="far fa-envelope"></i></button>\
+			\
+			<button id="btnShareFB" class="button sharebtn" data-sharer="facebook" title="Facebook" data-hashtag="amazingmap" data-url="'+window.location.href+'" style="background-color: #3B5998;color:white;"><i class="fab fa-facebook-f"></i></button>\
+			\
+			<button id="btnShareTwitter"  class="button sharebtn" data-sharer="twitter" title="Twitter" data-title="Checkout this amazing historic maps!" data-url="'+window.location.href+'" style="background-color: #55ACEE;color:white;" data-hashtags="amazinmap, irhaMap, historicalmaps, vintage"><i class="fab fa-twitter"></i></button>\
+			\
+			<button id="btnShareWA" class="button sharebtn" data-sharer="whatsapp" title="Whatsapp." data-web data-title="Checkout this amazing historic maps!" data-url="'+window.location.href+'" style="background-color: #4DC247;color:white;"><i class="fab fa-whatsapp"></i></button>\
+		</div>\
+		<br><br><br>\
+		<div style="font-size: 14px"><b>Embeded this map in a website</b></div>\
+		<textarea id="embshare" name="embshare" rows="6" style="resize: none;width:90%" readonly>'+embed+'</textarea>\
+		<select name="embSize" id="embSize" onchange="changeSizeEmbed()">\
+			<option value="sm">Small</option>\
+			<option value="md">Medium</option>\
+			<option value="la">Large</option>\
+			<option value="cu">Custom</option>\
+		</select>\
+		<input type="number" id="embWidth" name="embWidth" value="300" style="width:50px;" onchange="changeSizeEmbedNum()"> x <input type="number" id="embHeight" name="embHeight" value="200" style="width:50px;" onchange="changeSizeEmbedNum()">'
+		$('#share').html(sharecontent)
+		
+		let aboutcontent = '\
+		<div style="overflow-y:auto;height:auto">\
+		<h4>About This Website</h4>\
+		<p></p>\
+		<h4>Untuk Yang Tertarik Dengan Bagaimana Website Ini Terbentuk</h4>\
+		\
+		Berbagai macam tools/teknologi digunakan untuk menciptakan peta ini, diantaranya:\
+		<p style="text-align: justify">\
+		Halaman web dibuat dengan menggunakan HTML dan Javascript. Halaman tersebut diupload dan dihosting pada penyedia layanan hos web bersama untuk proyek pengembangan perangkat lunak yang menggunakan sistem kendali versi <i>Git</i> dan layanan hosting internet <a href="https://github.com">Github</a>.<br><br>\
+		\
+		Peta ditampilkan dengan menggunakan library <a href="https://leafletjs.com">Leaflet.js</a>. Peta ini dikustomisasi dengan menggunakan javascript dan beberapa plugin.\
+		Data peta yang digunakan dikumpilkan dari beberapa sumber diantaranya '+
+		"<a href='https://www.davidrumsey.com/'> David Rumsey Map Collection</a>, <a href='https://digitalcollections.nypl.org/'>The New York Public Library</a>, <a href='https://collections.leventhalmap.org/'>Norman B. Leventhal Map & Education Center at the Boston Public Library</a>, <a href='https://digitalcollections.universiteitleiden.nl/'>Universiteit Leiden</a>, <a href='https://www.uu.nl/en'>Utrecht University Library</a>, <a href='http://staremapy.cz'>staremapy.cz</a> dan mesin pencari <a href='https://www.oldmapsonline.org'>Old Maps Online</a>."+
+		" Peta tergeoreferensi atau tergeorektifikasi secara online dengan menggunakan <a href='https://www.georeferencer.com'>Georeferencer</a>. Tiles yang digunakan pada peeta ini juga dihasilkan pada <a href='https://www.georeferencer.com'>Georeferencer</a>.<\p><\div>"
+		$('#about').html(aboutcontent);
+		// Compare are created on layer creation
+	}
+	resizeWindow();
+	createLayerbox();
+	//window.addEventListener('resize',resizeWindow);
+	
+	// Create embed text
+	function createEmbed(){
+		return '<iframe width="'+embedWidth+'" height="'+embedHeight+'" frameborder="0" scrolling="no" allowfullscreen src="'+window.location.href+'"></iframe>'
+	}
+	// change embed size by input number
+	function changeSizeEmbedNum(){
+		embedWidth = document.getElementById("embWidth").value
+		embedHeight = document.getElementById("embHeight").value
+		document.getElementById("embshare").value = createEmbed();
+		document.getElementById("embSize").value = "cu";
+	}
+	// change embed size by select tag
+	function changeSizeEmbed(){
+		let val = document.getElementById("embSize").value;
+		if(val=="sm"){
+			embedWidth = 300;embedHeight = 200;
+		} else if (val=="md") {
+			embedWidth = 800;embedHeight = 600;
+		} else if (val=="la") {
+			embedWidth = 1080;embedHeight = 720;
+		}
+		//console.log(val)
+		document.getElementById("embshare").value = createEmbed();
+		document.getElementById("embWidth").value = embedWidth;
+		document.getElementById("embHeight").value = embedHeight;
+	}
+	
+	// change compared layer
+	function changeCompare(pos="r"){
+		console.log(pos);
+		let lval = document.getElementById("leftCompare").value;
+		let rval = document.getElementById("rightCompare").value;
+		if(lval==rval){
+			if(pos=="l"){rval = "None";
+			} else {lval = "None";};
+		}
+		let valforL , valforR;
+		if (rval=="None"){ compareControl.setRightLayers(null); document.getElementById("rightCompare").value=rval} else {compareControl.setRightLayers(overlayMaps[rval]);};
+		if (lval=="None"){ compareControl.setLeftLayers(null); document.getElementById("leftCompare").value=lval} else {compareControl.setLeftLayers(overlayMaps[lval]);};		
+	}
+	
+	// Writing layerbox
+	function createLayerbox(){
+		$(infoBox).html('<div id="layerbox"></div>')
+		var divLB = document.querySelector('#layerbox');
+		let html = '';
+		
+		// Basemap
+		//html+='<div style="padding-bottom: 10px;padding-left:10px ;font-size:14px;text-align: justify;">Basemaps<br>'
+		html+='<ul id="ulLayer"><li><span class="caret">Basemaps ('+Object.keys(baseMaps).length+')</span><ul class="nested">'
+		Object.keys(baseMaps).forEach(function(key) {
+			let haslayer = ""
+			if (map.hasLayer(baseMaps[key])){haslayer = "checked";}
+			html+='<input type="radio" id="BM_'+key+'" name="basemapRadio" value="'+key+'" onclick='+"baseSwitch('"+key+"') "+haslayer+' /> <label for="BM_'+key+'">'+key+'</label><br>'
+		});
+		html+='</ul></li></ul>'
+		//html+='</div>'
+		
+		//Compare data creation
+		let comparecontentL = '<select name="leftCompare" id="leftCompare" onchange="changeCompare('+"'l'"+')" style="width:100%"><option value="None">None</option>'
+		let comparecontentR = '<select name="rightCompare" id="rightCompare" onchange="changeCompare()" style="width:100%"><option value="None">None</option>'
+		
+		// Layers
+		let i = 0; let j=0;
+		let maxindex = 0
+		let maxlayer = Object.keys(overlayMaps).length
+		html+='<ul id="ulLayer"><li><span class="caret">Layers ('+maxlayer+')</span><ul class="nested">'
+		overlayArray.forEach(function(overlay){
+			if (i==overlayThemes[j][0]){
+				let sum = (j==2)?  maxlayer-overlayThemes[j][0] : overlayThemes[j+1][0]-overlayThemes[j][0]
+				html+='<ul id="ulLayerTheme"><li><span class="caret">'+overlayThemes[j][1]+" ("+sum+")"+'</span><ul class="nested">'
+				// option label
+				//comparecontentR += '<optgroup label="'+overlayThemes[j][1]+'">'
+				//comparecontentL += '<optgroup label="'+overlayThemes[j][1]+'">'
+			}
+			//console.log("i:"+i+" j:"+j);
+			let nama = overlay.year+" | " + overlay.title
+			let layer = overlayMaps[overlay.id];
+			//console.log(overlay.id+" "+haslayer)
+			let maxChar = mobileCheck ? 45 : 35
+			if (nama.length>maxChar){ nama = nama.slice(0, maxChar-3) + "...";}
+			html +='<li><span class="caret" style="font-size:12px;text-align: justify;" title="'+overlay.title+" ("+overlay.year+")"+'"><input type="checkbox" id="Ch_'+overlay.id+'" onclick='+"layerSwitch('"+overlay.id+"')"+'>'+nama+'</span><ul class="nested"><li style="font-size:12px; display:flex; flex-direction:row; align-items:center;width:75%;">Opacity : 0<input type="range" style="flex:1;" id="Op'+overlay.id+'" oninput="'+"layerOpSlider(this.value,'"+overlay.id+"')"+'" min="0" max="100" value="100" disabled>100</li></ul></li>'
+			// add layer to option if added to map
+			if(map.hasLayer(layer)){
+			comparecontentL += '<option value="'+overlay.id+'">'+nama+'</option>'
+			comparecontentR += '<option value="'+overlay.id+'">'+nama+'</option>'
+			}
+			maxindex = (j==2)? maxlayer : overlayThemes[j+1][0]-1
+			if (i==maxindex){
+				html+='</ul></li></ul>'
+				//console.log("i:"+i+" j:"+j+"End");
+				// Option label
+				//comparecontentL += '</optgroup>'
+				//comparecontentR += '</optgroup>'
+				
+				j++;
+			}
+			i++;
+		});
+		html+='</ul></li></ul>'
+		divLB.innerHTML+=html;
+		
+		//end of compare select creation
+		comparecontentL += '</select>'
+		comparecontentR += '</select>'
+		let comparecontent = '<div style="overflow-y:auto;height:100%">\
+		<div style="font-size: 14px;overflow-y:auto;"><b>Left Layer</b></div>\
+		'+comparecontentL+
+		'<br><br><div style="font-size: 14px;overflow-y:auto;"><b>Right Layer</b></div>\
+		'+comparecontentR+
+		'<\div>'
+		$('#compare').html(comparecontent);
+		
+	}
+	
+	// Re-write opt layer for compare
+	function reWriteOptLayer(){
+		//Compare data creation
+		let comparecontent = '<option value="None">None</option>'
+		overlayArray.forEach(function(overlay){
+			let layer = overlayMaps[overlay.id];
+			let nama = overlay.year+" | " + overlay.title
+			let maxChar = mobileCheck ? 45 : 35
+			if (nama.length>maxChar){ nama = nama.slice(0, maxChar-3) + "...";}
+			// add layer to option if added to map
+			if(map.hasLayer(layer)){
+				comparecontent += '<option value="'+overlay.id+'">'+nama+'</option>'
+			}
+		});
+		console.log(comparecontent)
+		document.getElementById("leftCompare").innerHTML= comparecontent;
+		document.getElementById("rightCompare").innerHTML=comparecontent;
+	};
+	
+	// Toogle Tree View
+	var toggler = document.getElementsByClassName("caret");
+	var i;
+
+	for (i = 0; i < toggler.length; i++) {
+	  toggler[i].addEventListener("click", function(evt) {
+		// cek kalo checkbox yang di klik ga aktif tree viewnya
+		if(evt.target.tagName!="INPUT"){
+			this.parentElement.querySelector(".nested").classList.toggle("active");
+			this.classList.toggle("caret-down");
+		}
+	  });
+	}
+	
+	// Function for tab content
+	function openTab(evt, itemData) {
+	  var i, tabcontent, tablinks;
+	  tabcontent = document.getElementsByClassName("tabcontent");
+	  for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	  }
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	  document.getElementById(itemData).style.display = "block";
+	  evt.currentTarget.className += " active";
+	  if(evt.currentTarget.title=="compare"){
+		reWriteOptLayer();
+		compareControl.addTo(map);
+		compareControl.setLeftLayers(null);
+		compareControl.setRightLayers(null);
+	  } else {
+		compareControl.remove();
+	  }
+	  updateURL();
+	}
+
+	
+	/*//=====================================================================================
+	READ ALL PARAM FROM URL
+	*///=====================================================================================
+
 	if (params.basemap){
 		osmLayer.remove()
 		baseMaps[params.basemap].addTo(map);
@@ -619,25 +994,40 @@
 			// map function not supported in IE < 9
 			//console.log(item);
 			overlayMaps[decodeURIComponent(item)].addTo(map)
+			//console.log("Ch_"+decodeURIComponent(item)	)
+			document.getElementById("Ch_"+decodeURIComponent(item)).checked = true;
+			document.getElementById("Op"+decodeURIComponent(item)).disabled = false;
 		})
 	}
 	
-	// side by side
-	var compareControl = L.control.sideBySide(null, null);
-	
-	if (params.compare){
-		let checkBox = document.getElementById("myCheck");
-		if (params.compare=="true"){
-			checkBox.checked = "true";
-		} else {
-			checkBox.checked = "false";
+	if (params.tab){
+		document.getElementById(params.tab).style.display = "block";
+		let tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			if(tablinks[i].title == params.tab){
+				tablinks[i].className += " active";
+				if(mobileCheck){ botDrawerByPos(2); // mid up drawer
+				}else{btnNav();};
+			};
 		}
-		comparebox()
+		if (params.tab=="compare"){
+			reWriteOptLayer();
+			compareControl.addTo(map);
+		}
+	}else{
+		document.getElementById("layers").style.display = "block";
+		document.getElementsByClassName("tablinks")[0].className += " active";
 	}
 	
-	// Use the custom grouped layer control, not "L.control.layers"
-	//var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
 	
+	// Marked Point
+	if (params.marked_content){
+		var marked = L.marker([params.marked_lat || params.lat || map.getCenter().lat,
+				       params.marked_lng || params.lng || map.getCenter().lng],
+				       {icon: redIcon}).addTo(map);
+		marked.bindPopup(decodeURIComponent(params.marked_content)).openPopup();
+	};
+		
 	// Change URL after load
 	updateURL();
 	
@@ -671,153 +1061,30 @@
 				i++;
 			}
 		});
-		if (compareControl._map){
-			text+="&compare=true"
+		
+		// only if sidebar/down-drawer open
+		let tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			if(tabcontent[i].style.display == "block" && 
+			    ( (!mobileCheck && document.getElementById("btnSidenav").style.left == "25%") ||
+				document.querySelector('.bottom-drawer').style.top < window.innerHeight * 80 /100 + 'px'  )){
+			   text += "&tab="+tabcontent[i].id;
+			};
 		}
+		
+		// Update urlbox
 		history.replaceState(null,null,text);
-	}
-
-	map.on('moveend', updateURL);
-	map.on('zoomend', updateURL);
-	map.on('baselayerchange', updateURL);
-	map.on('overlayadd', updateURL);
-	map.on('overlayremove', updateURL);
-	
-	function layerSwitch(key){
-		let layer = overlayMaps[key];
-		let elm = "Op"+key
-		if (map.hasLayer(layer)){
-			layer.remove();
-			document.getElementById(elm).disabled = true; 
-		} else {
-			layer.addTo(map);
-			document.getElementById(elm).disabled = false;
-			//console.log("harusnya nyala "+ elm);
+		//update share textbox
+		if ($("#urlshare")){
+			$("#urlshare").html=window.location.href;
+			if (document.getElementById("btnShareEMAIL")){document.getElementById("btnShareEMAIL").dataset.url=window.location.href;};
+			if (document.getElementById("btnShareFB")){document.getElementById("btnShareFB").dataset.url=window.location.href;};
+			if (document.getElementById("btnShareTwitter")){document.getElementById("btnShareTwitter").dataset.url=window.location.href;};
+			if (document.getElementById("btnShareWA")){document.getElementById("btnShareWA").dataset.url=window.location.href;};
+			//embed = createEmbed();
+			//console.log()
+			if (document.getElementById("embshare")){document.getElementById("embshare").value = createEmbed();}
 		}
-	}
-	
-	function baseSwitch(key){
-		let layer = baseMaps[key];
-		//let elm = "BM_"+key
-		layer.addTo(map);
-		layer.bringToBack();
-		Object.keys(baseMaps).forEach(function(keyz) {
-			if (map.hasLayer(baseMaps[keyz]) && layer != baseMaps[keyz]){baseMaps[keyz].remove();};
-		});
-		//document.getElementById(elm).disabled = false;
-			//console.log("harusnya nyala "+ elm);
-		
-	}
-	
-	function layerOpSlider(value,key){
-		let layer = overlayMaps[key];
-		let elm = "Op"+key
-		layer.setOpacity(value/100);
-	}
-	
-	// Responsive resize window
-	function resizeWindow(){
-		document.querySelector('.bottom-drawer').style.top = window.innerHeight - btmDrawerHeight + 'px'
-		if(infoBox){$(infoBox).html('')};
-		mobileCheck = (window.innerWidth < window.innerHeight);
-		infoBox = mobileCheck ? '.drawer-content' : '.sidenav-content';
-		otherInfoBox = mobileCheck ? '.sidenav-sec' : '.bottom-drawer';
-		anotherInfoBox = !mobileCheck ? '.sidenav-sec' : '.bottom-drawer';
-		//console.log("mobile check: "+mobileCheck);
-		//$(anotherInfoBox).css({opacity: '100'})
-		//$(otherInfoBox).css({opacity: '0'})
-		
-		if(mobileCheck){
-			$('.bottom-drawer').css("z-index","9999");
-			$('.sidenav-sec').css("z-index","0");
-			$('.leaflet-control').css("bottom",btmDrawerHeight + 5);
-			$('.bottom-drawer').html('<div class="nav-drawer">'+
-										'<div class="text-center" id="bottom-sheet" style="padding: 10px">'+
-											'<div style="width:100px;height:4px;background-color: #BDBDBD;margin: auto;border-radius: 50px"></div>'+
-										'</div>'+
-										'<div class="drawer-content" style="padding-top: 10px;padding-bottom: 10px;" id="drawer-content">'+
-										'</div>'+
-									'</div>');
-			$('.sidenav-sec').html();
-		} else {
-			$('.bottom-drawer').css("z-index","0");
-			$('.sidenav-sec').css("z-index","9999");
-			$('.sidenav-sec').html('<div id="mySidenav" class="sidenav">'+
-										'<div class="sidenav-content" style="padding-left: 5%;padding-right: 5%;overflow: auto;"></div>'+
-										'<div id="btnSidenav" class="btnSidenav" style="cursor:pointer" onclick="btnNav()"><i id="btnIcon" style="font-size:14px;"class="fas fa-caret-right"></i>'+
-									'</div>');
-			$('.bottom-drawer').html()
-		}
-	
-	}
-	resizeWindow();
-	createLayerbox();
-	//window.addEventListener('resize',resizeWindow);
-	
-	// Writing layerbox
-	function createLayerbox(){
-		$(infoBox).html('<div id="layerbox"></div>')
-		var divLB = document.querySelector('#layerbox');
-		let html = '';
-		
-		// Basemap
-		//html+='<div style="padding-bottom: 10px;padding-left:10px ;font-size:14px;text-align: justify;">Basemaps<br>'
-		html+='<ul id="ulLayer"><li><span class="caret">Basemaps ('+Object.keys(baseMaps).length+')</span><ul class="nested">'
-		Object.keys(baseMaps).forEach(function(key) {
-			let haslayer = ""
-			if (map.hasLayer(baseMaps[key])){haslayer = "checked";}
-			html+='<input type="radio" id="BM_'+key+'" name="basemapRadio" value="'+key+'" onclick='+"baseSwitch('"+key+"') "+haslayer+' /> <label for="BM_'+key+'">'+key+'</label><br>'
-		});
-		html+='</ul></li></ul>'
-		//html+='</div>'
-		
-		// Layers
-		let i = 0; let j=0;
-		let maxindex = 0
-		let maxlayer = Object.keys(overlayMaps).length
-		html+='<ul id="ulLayer"><li><span class="caret">Layers ('+maxlayer+')</span><ul class="nested">'
-		overlayArray.forEach(function(overlay){
-			if (i==overlayThemes[j][0]){
-				let sum = (j==2)?  maxlayer-overlayThemes[j][0] : overlayThemes[j+1][0]-overlayThemes[j][0]
-				html+='<ul id="ulLayerTheme"><li><span class="caret">'+overlayThemes[j][1]+" ("+sum+")"+'</span><ul class="nested">'
-				//console.log("maxindex :"+maxindex);
-				//console.log("i:"+i+" j:"+j+"start");
-			}
-			//console.log("i:"+i+" j:"+j);
-			let nama = overlay.year+" | " + overlay.title
-			let layer = overlayMaps[overlay.id];
-			let haslayer = ""
-			if (map.hasLayer(layer)){haslayer = "checked";};
-			let haslayer2 = map.hasLayer(layer) ? "" : "disabled"
-			//console.log(overlay.id+" "+haslayer)
-			let maxChar = mobileCheck ? 45 : 35
-			if (nama.length>maxChar){ nama = nama.slice(0, maxChar-3) + "...";}
-			html +='<li><span class="caret" style="font-size:12px;text-align: justify;" title="'+overlay.title+" ("+overlay.year+")"+'"><input type="checkbox" id="'+overlay.id+'" onclick='+"layerSwitch('"+overlay.id+"') "+haslayer+'>'+nama+'</span><ul class="nested"><li style="font-size:12px; display:flex; flex-direction:row; align-items:center;width:75%;">Opacity : 0<input type="range" style="flex:1;" id="Op'+overlay.id+'" oninput="'+"layerOpSlider(this.value,'"+overlay.id+"')"+'" min="0" max="100" value="100" '+haslayer2+'>100		</li></ul></li>'
-			
-			maxindex = (j==2)? maxlayer : overlayThemes[j+1][0]-1
-			if (i==maxindex){
-				html+='</ul></li></ul>'
-				//console.log("i:"+i+" j:"+j+"End");
-				j++;
-			}
-			i++;
-		});
-		html+='</ul></li></ul>'
-		divLB.innerHTML+=html;
-	}
-	
-	// Toogle Tree View
-	var toggler = document.getElementsByClassName("caret");
-	var i;
-
-	for (i = 0; i < toggler.length; i++) {
-	  toggler[i].addEventListener("click", function(evt) {
-		// cek kalo checkbox yang di klik ga aktif tree viewnya
-		if(evt.target.tagName!="INPUT"){
-			this.parentElement.querySelector(".nested").classList.toggle("active");
-			this.classList.toggle("caret-down");
-		}
-	  });
 	}
 </script>
 
