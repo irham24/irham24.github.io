@@ -325,14 +325,13 @@
 								$('.drawer-content').css({height: innerHeight - $('#bottom-sheet')[0].offsetHeight - 50 + 'px'});
 			} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
 								$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
-								$('.drawer-content').css({height: btmDrawerHalfHeight - $('#bottom-sheet')[0].offsetHeight - 50 + 'px'});
-			Array.from(document.getElementsByClassName("tabcontent")).forEach(
-					function(element, index, array) {
-						// do stuff
-						element.style.height = $('.drawer-content')[0].style.height;
-					}
-				);
+								$('.drawer-content').css({height: btmDrawerHalfHeight - $('#bottom-sheet')[0].offsetHeight - 50 + 'px'});	
 		}
+		Array.from(document.getElementsByClassName("tabcontent")).forEach(
+			function(element, index, array) {
+				element.style.height = $('.drawer-content')[0].style.height;
+			}
+		);
 	}		
 
 	// Sidenav
