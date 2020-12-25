@@ -200,6 +200,7 @@
 		  border: 1px solid #ccc;
 		  border: none;
 		  overflow: auto;
+		  height: 93%;
 		}
 		
 		/* Share Button */
@@ -215,6 +216,15 @@
 		}
 		.sharebtn:hover {
 		  opacity: 0.7;
+		}
+		
+		.copybtn:hover{
+			opacity:0.7;
+			-webkit-filter: brightness(70%);
+			-moz-filter: brightness(70%);
+			-o-filter: brightness(70%);
+			-ms-filter: brightness(70%);
+			filter: brightness(70%);
 		}
 	</style>
 	
@@ -302,12 +312,6 @@
 					pos = 0
 				}
 				botDrawerByPos(pos);
-				Array.from(document.getElementsByClassName("tabcontent")).forEach(
-					function(element, index, array) {
-						// do stuff
-						element.style.height = $('.drawer-content')[0].style.height;
-					}
-				);
 				updateURL();
 			}
 			click = false;
@@ -322,6 +326,12 @@
 			} else {			$('.bottom-drawer').css({top: innerHeight - btmDrawerHalfHeight + 'px'});
 								$('.bottom-drawer').css({height: btmDrawerHalfHeight + 'px'});
 								$('.drawer-content').css({height: btmDrawerHalfHeight - $('#bottom-sheet')[0].offsetHeight - 50 + 'px'});
+			Array.from(document.getElementsByClassName("tabcontent")).forEach(
+					function(element, index, array) {
+						// do stuff
+						element.style.height = $('.drawer-content')[0].style.height;
+					}
+				);
 		}
 	}		
 
@@ -447,8 +457,10 @@
 	// Old Atlas
 	var oldTilesAsia2 = L.tileLayer('https://maps.georeferencer.com/georeferences/7ad0719c-51b7-5e78-bffe-834025435c15/2020-01-27T05:07:24.246354Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
-	attribution: "(48) Indiae Orientalis. by Ortelius, Abraham, 1527-1598; 1570; Tiles <a href='https://davidrumsey.georeferencer.com/maps/c015bf3c-c8c7-5ee0-8331-3ed7f4baf716/'>davidrumsey.com</a>.",
-	id:"7ad0719c-51b7-5e78-bffe-834025435c15"
+	attribution: "Indiae Orientalis, Insularumque Adiacientium Typus. Cum Privilegio. by Ortelius, Abraham, 1527-1598; 1570; Tiles <a href='https://davidrumsey.georeferencer.com/maps/c015bf3c-c8c7-5ee0-8331-3ed7f4baf716/'>davidrumsey.com</a>.",
+	id:"7ad0719c-51b7-5e78-bffe-834025435c15",
+	story:"Indiae Orientalis Insularumque Adiacientium Typus merupakan peta “tonggak sejarah” Asia Tenggara termasuk Kepulauan Indonesia. Peta ini menampilkan perpaduan terbaik ilmu kartografi dan informasi tentang wilayah Asia Tenggara dan Kepulauan Indonesia pada tujuh puluh tahun pertama abad ke-16. Peta ini dimuat dalam sebuah atlas geografi modern yang berjudul Theatrum Orbis Terrarum yang disusun oleh <a href='https://en.wikipedia.org/wiki/Abraham_Ortelius'>Abraham Ortelius</a> (1527 – 1598). Atlas ini dibuat dalam lembar-lembar tepisah yang memuat 25 lembar teks dan 53 buah peta cetakan lempeng tembaga. Deskripsi asli menggunakan tulisan latin yang kemudian diterjemahkan ke dalam berbagai bahasa Eropa. Sejak edisi tahun 1608 dipublikasikan dalam bahasa Belanda, Jerman, Perancis, Spanyol, Inggris, dan Itali.<br><br>Peta ini menggambarkan kepulauan Indonesia yang terakhir dibuat sebelum kedatangan Belanda ke Nusantara. Penggambarannya sangat luas, dari wilayah bagian barat India yang dikuasai Portugis, menyambung ke Cina, Jepang, Asia Tenggara, termasuk Kepulauan Indonesia sampai Papua, bahkan sampai pantai Barat laut Amerika. Pulau- pulau di Indonesia masih terlihat dalam bentuk yang belum sempurna meskipun susunan atau tata letaknya sudah terlihat baik. Di dalam peta ini Pulau Jawa disebutkan sebagai Iava Maior.<br><br>Di sisi lain tampak pulau-pulau penghasil rempah-rempah seperti Ternate, Tidore, dan sekitarnya di bagian selatan. Machian dan Bacam digambarkan dengan letak yang tepat sampai sebelah barat Pulau Halmahera (Gigolo). Digambarkan pula Pulau Buru, Pulau Ambon yang sekarang disebut Seram, serta bagian kepala burung Pulau Papua digambarkan dalam tiga pulau kecil. Pulau Gebe, di mana Perancis pertama kali mendapatkan cengkeh dan Pala pada abad ke-18 terlihat tepat di garis equator di antara Pulau Halmahera dan Papua. Penggambaran peta ini dipadu dengan gambar-gambar serta penulisan teks yang unik, sehingga menjadikan peta ini sangat menarik.<br><br>Peta ini dikoleksi oleh Museum Nasional sebagai salah satu dari koleksi Geografi Museum Nasional.<br>Sumber: <a href='https://kebudayaan.kemdikbud.go.id/munas/indiae-orientalis-insularumque-adiacntium-typus/'>kemendikbud.go.id</a>",
+	img:"https://images.iiifhosting.com/iiif/aff1945b7fa71cbcb096dbf31fb8a6e0f54d8349ab48138a589c3b8a3f7d8179/"
 	});
 	
 	// Old Atlas
@@ -461,8 +473,10 @@
 	// Old Atlas
 	var oldTilesAsia4 = L.tileLayer('https://geo.leventhalmap.org/maps/tile/6923/{z}/{x}/{y}.png',{
     maxZoom: 20,
-	attribution: "To the Right Honourable William, Lord Cowper, Lord High Chancellor of Great Britain, this map of Asia .. by Moll, Herman, d. 1732; 1710–1719; Tiles <a href='https://collections.leventhalmap.org/search/commonwealth:cj82ks63j'>Norman B. Leventhal Map Center Collection</a>.",
-	id:"cj82ks63j"
+	attribution: "To the Right Honourable William, Lord Cowper, Lord High Chancellor of Great Britain, this map of Asia : according to ye newest and most exact observations is most humbly dedicated. by Moll, Herman, d. 1732; 1710–1719; Tiles <a href='https://collections.leventhalmap.org/search/commonwealth:cj82ks63j'>Norman B. Leventhal Map Center Collection</a>.",
+	id:"cj82ks63j",
+	story:"Peta ini dibuat oleh <a href='https://en.wikipedia.org/wiki/Herman_Moll'>Herman Moll</a> (1654? - 1732) kartografer paling terkenal pada awal abad 18 di Inggris. Peta ini termasuk salah satu kumpulan peta yang dibuat Moll dan di publikasikan dengan judul The World Described. Moll menggunakan peta-peta tersebut untuk mempublikasikan dan mendukung kebijakan Inggris dan klaim daerah terhadap dunia.<a href='https://en.wikipedia.org/wiki/Herman_Moll#cite_note-7'>[1]</a><a href='https://en.wikipedia.org/wiki/Herman_Moll#cite_note-8'>[2]</a> Peta ini didedikasikan kepada <a href='https://en.wikipedia.org/wiki/William_Cowper,_1st_Earl_Cowper'>William Cowper</a>, 1st Earl Cowper yaitu orang pertama yang dilantik sebagai Lord High Chancellor, jabatan senior dalam pemerintahan Britania Raya.<br>Note : Map of the Middle East and Asia including the East Indies. It features characteristic misconceptions of early 18th century cartography such as New Guinea as a peninsula of the southern continent and Iapon or Niphon [i.e. Japan] having a huge northern island called Land of Iesso [presumably the islands of Hokkaido and Sakhalin]. Prime meridians: Ferro and London. Relief shown pictorially. Dedicated to Lord Cowper, High Chancellor of Great Britain from 1714-1718. Block of text at far right lower side of map indicating that two Jesuit explorers, Paul Clain and Le Gibien, had reported 87 islands found east or south-east of the Philippines but this was not yet confirmed by other explorers. Insets: Hellespont, or ye Straits of Constantinople -- The Gulf of Smirna -- Bombay and Sallset Isl. -- Hugley R. from Buffalow Point to Hugly Towne -- The Ice Sea -- Part of Chusan I. -- [Amoy Island]. Appears in Moll's The world described, [1709-1736], plate 4.",
+	img:"https://collections.leventhalmap.org/search/commonwealth:cj82ks63j#image"
 	});
 	
 	// Old Atlas
@@ -483,7 +497,9 @@
 	var oldTilesIndonesia2 = L.tileLayer('https://maps.georeferencer.com/georeferences/d436717e-384f-5e8c-a2b4-f55a1cb296ec/2019-06-07T13:07:57.042769Z/map/{z}/{x}/{y}.png?key=sPjsmpzUociMSuMg5BlY',{
     maxZoom: 20,
 	attribution: "Indonesië : voorlopige staatkundige ordening, bijgewerkt tot 1 october 1949; 1949; Tiles <a href='https://leiden.georeferencer.com/maps/c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8/'>Universiteit Leiden</a>.",
-	id:"c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8"
+	id:"c8d7dc1b-1dcb-5f14-a417-a5d26cbccff8",
+	story:"Peta ini menggambarkan pembagian sementara negara bagian dan daerah otonom dari <a href='https://id.wikipedia.org/wiki/Republik_Indonesia_Serikat'>Republik Indonesia Serikat(RIS)</a> pada tanggal 1 Oktober 1949 dalam <a href='https://id.wikipedia.org/wiki/Konferensi_Meja_Bundar'>Konferensi Meja Bundar (KMB)</a>. pertemuan ini dilaksanakan di Den Haag Belanda, dari tanggal 2 Agustus hingga 2 November 1949. Konferensi ini dilakukan untuk mendapatkan kedaulatan Indonesia setelah menyerahnya jepang pada tanggal 15 Agustus 1945 dan pembacaan Proklamasi Kemerdekaan Indonesia pada tanggal 17 Agustus 1945.",
+	img:"https://images.iiifhosting.com/iiif/e93fb7990e31feb9d24799e65617c2998d22f2333dd6da390449e5ee4700fcff/"
 	});
 	
 	// Old Atlas
@@ -727,15 +743,17 @@
 		//console.log("mobile check: "+mobileCheck);
 		//$(anotherInfoBox).css({opacity: '100'})
 		//$(otherInfoBox).css({opacity: '0'})
-		
+		let lebar_tab = "20%";
 		let tab = '<div class="tab">'+
-				  '<button class="tablinks" title="layers" onclick="openTab(event,'+"'layers'"+')" style="width:25%"><i class="fa fa-layer-group" aria-hidden="true"></i></button>'+
-				  '<button class="tablinks" title="compare" onclick="openTab(event,'+"'compare'"+')" style="width:25%"><i class="fa fa-arrows-alt-h" aria-hidden="true"></i></button>'+
-				  '<button class="tablinks" title="share" onclick="openTab(event,'+"'share'"+')" style="width:25%"><i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
-				  '<button class="tablinks" title="about" onclick="openTab(event,'+"'about'"+')" style="width:25%"><i class="fa fa-info-circle" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="layers" onclick="openTab(event,'+"'layers'"+')" style="width:'+lebar_tab+'"><i class="fa fa-layer-group" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="story" onclick="openTab(event,'+"'story'"+')" style="width:'+lebar_tab+'"><i class="fas fa-book" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="compare" onclick="openTab(event,'+"'compare'"+')" style="width:'+lebar_tab+'"><i class="fa fa-arrows-alt-h" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="share" onclick="openTab(event,'+"'share'"+')" style="width:'+lebar_tab+'"><i class="fa fa-share-alt" aria-hidden="true"></i></button>'+
+				  '<button class="tablinks" title="about" onclick="openTab(event,'+"'about'"+')" style="width:'+lebar_tab+'"><i class="fa fa-info-circle" aria-hidden="true"></i></button>'+
 				'</div>'+
 				'<div id="layers" class="tabcontent">';
 		let endtab = '</div><div id="compare" class="tabcontent"></div>'+
+							'<div id="story" class="tabcontent"></div>'+
 							'<div id="share" class="tabcontent"></div>'+
 							'<div id="about" class="tabcontent"></div>';
 		
@@ -763,8 +781,8 @@
 		updateURL;
 		embed = createEmbed();
 		let sharecontent = '\
-		<div style="font-size: 14px;overflow-y:auto;"><b>Share a link to this map</b></div>\
-		<textarea id="urlshare" name="urlshare" rows="4" style="resize: none;width:97%" readonly>'+window.location.href+'</textarea><br>\
+		<div style="font-size: 14px;overflow-y:auto;border:solid;border-width: 1px;background-color: #f4f4f4;border-color: #dcdcdc;"><b>Share a link to this map</b><button id="copyURL" class="copybtn" title="Copy this link" onClick="copyText('+"'urlshare'"+')" style="background-color: #f4f4f4;border-color: #dcdcdc;font-size: 14px;border:none;border-width: 1px;float: right;">Copy link</button></div>\
+		<textarea id="urlshare" name="urlshare" rows="4" style="resize: none;width:100%;box-sizing:border-box" readonly>'+window.location.href+'</textarea><br>\
 		<div style="float: right">\
 			<button id="btnShareEMAIL" class="button sharebtn" data-sharer="email" title="E-mail" data-title="Checkout this amazing historic maps!" data-url="'+window.location.href+'" style="background-color: #dd4b39;color:white;" data-subject="Hey! Check this out" data-to=""><i class="far fa-envelope"></i></button>\
 			\
@@ -775,8 +793,8 @@
 			<button id="btnShareWA" class="button sharebtn" data-sharer="whatsapp" title="Whatsapp." data-web data-title="Checkout this amazing historic maps!" data-url="'+window.location.href+'" style="background-color: #4DC247;color:white;"><i class="fab fa-whatsapp"></i></button>\
 		</div>\
 		<br><br><br>\
-		<div style="font-size: 14px"><b>Embeded this map in a website</b></div>\
-		<textarea id="embshare" name="embshare" rows="6" style="resize: none;width:90%" readonly>'+embed+'</textarea>\
+		<div style="font-size: 14px;overflow-y:auto;border:solid;border-width: 1px;background-color: #f4f4f4;border-color: #dcdcdc;"><b>Embeded this map in a website</b><button id="copyURL" class="copybtn" title="Copy this link" style="background-color: #f4f4f4;border-color: #dcdcdc;font-size: 14px;border:none;border-width: 1px;float: right;" onClick="copyText('+"'embshare'"+')">Copy link</button></div>\
+		<textarea id="embshare" name="embshare" rows="6" style="resize: none;width:100%;box-sizing:border-box" readonly>'+embed+'</textarea>\
 		<select name="embSize" id="embSize" onchange="changeSizeEmbed()">\
 			<option value="sm">Small</option>\
 			<option value="md">Medium</option>\
@@ -801,6 +819,10 @@
 		"<a href='https://www.davidrumsey.com/'> David Rumsey Map Collection</a>, <a href='https://digitalcollections.nypl.org/'>The New York Public Library</a>, <a href='https://collections.leventhalmap.org/'>Norman B. Leventhal Map & Education Center at the Boston Public Library</a>, <a href='https://digitalcollections.universiteitleiden.nl/'>Universiteit Leiden</a>, <a href='https://www.uu.nl/en'>Utrecht University Library</a>, <a href='http://staremapy.cz'>staremapy.cz</a> dan mesin pencari <a href='https://www.oldmapsonline.org'>Old Maps Online</a>."+
 		" Peta tergeoreferensi atau tergeorektifikasi secara online dengan menggunakan <a href='https://www.georeferencer.com'>Georeferencer</a>. Tiles yang digunakan pada peeta ini juga dihasilkan pada <a href='https://www.georeferencer.com'>Georeferencer</a>.<\p><\div>"
 		$('#about').html(aboutcontent);
+		
+		let storycontent = '<div id="storyContent" style="overflow-y:auto;height:auto"><\div>'
+		$('#story').html(storycontent);
+		
 		// Compare are created on layer creation
 	}
 	resizeWindow();
@@ -809,7 +831,9 @@
 	
 	// Create embed text
 	function createEmbed(){
-		return '<iframe width="'+embedWidth+'" height="'+embedHeight+'" frameborder="0" scrolling="no" allowfullscreen src="'+window.location.href+'"></iframe>'
+		let url = window.location.href
+		url = url.replace("&tab=share","");
+		return '<iframe width="'+embedWidth+'" height="'+embedHeight+'" frameborder="0" scrolling="no" allowfullscreen src="'+url+'"></iframe>'
 	}
 	// change embed size by input number
 	function changeSizeEmbedNum(){
@@ -839,13 +863,17 @@
 		console.log(pos);
 		let lval = document.getElementById("leftCompare").value;
 		let rval = document.getElementById("rightCompare").value;
-		if(lval==rval){
+		if(lval==rval && rval != "None"){
 			if(pos=="l"){rval = "None";
 			} else {lval = "None";};
 		}
 		let valforL , valforR;
 		if (rval=="None"){ compareControl.setRightLayers(null); document.getElementById("rightCompare").value=rval} else {compareControl.setRightLayers(overlayMaps[rval]);};
 		if (lval=="None"){ compareControl.setLeftLayers(null); document.getElementById("leftCompare").value=lval} else {compareControl.setLeftLayers(overlayMaps[lval]);};		
+		//if(lval==rval && rval == "None"){
+		//	compareControl.remove();
+		//	compareControl.addTo(map);
+		//}
 	}
 	
 	// Writing layerbox
@@ -941,6 +969,14 @@
 		document.getElementById("rightCompare").innerHTML=comparecontent;
 	};
 	
+	function copyText(id){
+		let copyText = document.getElementById(id);
+		copyText.select();
+		copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+		document.execCommand("copy");
+		alert('Link copied to clipboard');
+	}
+	
 	// Toogle Tree View
 	var toggler = document.getElementsByClassName("caret");
 	var i;
@@ -953,6 +989,21 @@
 			this.classList.toggle("caret-down");
 		}
 	  });
+	}
+	
+	// Create Story
+	function createStoryContent(){
+		let content = '';
+		let story, img;
+		overlayArray.forEach(function(overlay){
+			story = overlay.options.story;
+			if (map.hasLayer(overlay) && story){
+				//console.log();
+				img = overlay.options.img;
+				content += '<h4 style="text-align: center">'+overlay.title+'</h4><p style="text-align: justify;font-size:14px;">'+story+'<br><br><a target="_blank" href="'+img+'">[Lihat peta sebenarnya]</a></p><hr>'
+			}
+		});
+		document.getElementById("storyContent").innerHTML = content;
 	}
 	
 	// Function for tab content
@@ -968,6 +1019,7 @@
 	  }
 	  document.getElementById(itemData).style.display = "block";
 	  evt.currentTarget.className += " active";
+	  if(evt.currentTarget.title=="story"){createStoryContent();}
 	  if(evt.currentTarget.title=="compare"){
 		reWriteOptLayer();
 		compareControl.addTo(map);
@@ -1031,6 +1083,9 @@
 	// Change URL after load
 	updateURL();
 	
+	// Create Story content after load
+	createStoryContent();
+	
 	// give param to URL when panning
 	function updateURL(e) {
 		//console.log(map.zoom.animate);
@@ -1076,13 +1131,12 @@
 		history.replaceState(null,null,text);
 		//update share textbox
 		if ($("#urlshare")){
-			$("#urlshare").html=window.location.href;
-			if (document.getElementById("btnShareEMAIL")){document.getElementById("btnShareEMAIL").dataset.url=window.location.href;};
-			if (document.getElementById("btnShareFB")){document.getElementById("btnShareFB").dataset.url=window.location.href;};
-			if (document.getElementById("btnShareTwitter")){document.getElementById("btnShareTwitter").dataset.url=window.location.href;};
-			if (document.getElementById("btnShareWA")){document.getElementById("btnShareWA").dataset.url=window.location.href;};
-			//embed = createEmbed();
-			//console.log()
+			let url = window.location.href.replace("&tab=share","");
+			document.getElementById("urlshare").value= url;
+			if (document.getElementById("btnShareEMAIL")){document.getElementById("btnShareEMAIL").dataset.url= url;};
+			if (document.getElementById("btnShareFB")){document.getElementById("btnShareFB").dataset.url= url;};
+			if (document.getElementById("btnShareTwitter")){document.getElementById("btnShareTwitter").dataset.url= url;};
+			if (document.getElementById("btnShareWA")){document.getElementById("btnShareWA").dataset.url= url;};
 			if (document.getElementById("embshare")){document.getElementById("embshare").value = createEmbed();}
 		}
 	}
