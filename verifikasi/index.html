@@ -30,11 +30,12 @@
     </div>
 <script>
     dataNIK = {
-        123 : "https://www.dropbox.com/s/5a6tdaymywru3vk/Sodikin2.jpg",
-        534 : "https://www.dropbox.com/s/jpuaffzh5881o10/Tabrani2.jpg",
-        134 : "https://www.dropbox.com/s/1h5yaviuyrt1mvw/SMKN102.jpg",
-        112 : "https://www.dropbox.com/s/2vc5vvuulf9402d/Mardiah2.jpg",
-        002 : "https://www.dropbox.com/s/a6jvv0srqfuihqe/Kantor%20Desa.jpg",
+        123 : { 'id': "5a6tdaymywru3vk", 'url' : "https://www.dropbox.com/s/5a6tdaymywru3vk/Sodikin2.jpg"},
+        534 : { 'id': "jpuaffzh5881o10", 'url' : "https://www.dropbox.com/s/jpuaffzh5881o10/Tabrani2.jpg"},
+        134 : { 'id': "1h5yaviuyrt1mvw", 'url' : "https://www.dropbox.com/s/1h5yaviuyrt1mvw/SMKN102.jpg"},
+        112 : { 'id': "2vc5vvuulf9402d", 'url' : "https://www.dropbox.com/s/2vc5vvuulf9402d/Mardiah2.jpg"},
+        002 : { 'id': "a6jvv0srqfuihqe", 'url' : "https://www.dropbox.com/s/a6jvv0srqfuihqe/Kantor%20Desa.jpg"},
+        007 : { 'id': "18cwHwfujHQTWFx", 'url' : "https://drive.google.com/file/d/18cwHwfujHQTWFxVu-SKqoPF47tcPLx8q/view?usp=drivesdk"},
     }
     function klikInput() {
         params={}
@@ -45,10 +46,10 @@
             return alert("Masukan 3 angka terakhir NIK terlebih dahulu.");
         }
         data = GetURLParameter('p');
-        console.log(data);
-        console.log(dataNIK[nik]);
-        if (data == dataNIK[nik]) {
-            location.replace(data)
+        // console.log(data);
+        // console.log(dataNIK[nik]);
+        if (data == dataNIK[nik]['id']) {
+            location.replace(dataNIK[nik]['url'])
         } else {
             alert("NIK yang kamu masukan salah.");
         }
@@ -66,8 +67,5 @@
         }
     }
 </script>
-
-
-
 </body>
 </html>
