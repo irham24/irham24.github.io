@@ -5,6 +5,7 @@
 	<!-- Primary Meta Tags -->
 	<title>Verifikasi Kepemilikan Bidang Tanah</title>
 	<meta name="title" content="Verifikasi Kepemilikan Bidang Tanah">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		html, body {
 			/* height: 100%; */
@@ -14,28 +15,29 @@
             /* color: white; */
 			/* overflow-y: hidden;
 			position: fixed; */
+            font-size: max(2vw, 16px)
 		}
+        
 	</style>
 	
 </head>
 <body>
     <div class="div" style="margin: auto;text-align: center;width: 100%;">    
-        <h2><b>Verifikasi kepemilikan bidang tanah</b></h2>
+        <h2 style="font-size: max(4vw, 30px)"><b>Verifikasi kepemilikan bidang tanah</b></h2>
         
         <label for="fname">3 angka terakhir NIK pemilik:</label><br>
-        <input type="text" id="nik" name="nik"><br><br>
+        <input type="text" id="nik" name="nik" style="width:40%;height:max(2vw, 24px)"><br><br>
         <button onclick="klikInput()">Submit</button>
         
         <p>Masukan 3 angka terakhir NIK pemilik bidang tanah untuk memverifikasi kepemilikan.</p>
     </div>
 <script>
     dataNIK = {
-        '123' : { "id": "5a6tdaymywru3vk", "url" : "https://www.dropbox.com/s/5a6tdaymywru3vk/Sodikin2.jpg"},
-        '534' : { "id": "jpuaffzh5881o10", "url" : "https://www.dropbox.com/s/jpuaffzh5881o10/Tabrani2.jpg"},
-        '134' : { "id": "1h5yaviuyrt1mvw", "url" : "https://www.dropbox.com/s/1h5yaviuyrt1mvw/SMKN102.jpg"},
-        '112' : { "id": "2vc5vvuulf9402d", "url" : "https://www.dropbox.com/s/2vc5vvuulf9402d/Mardiah2.jpg"},
-        '002' : { "id": "a6jvv0srqfuihqe", "url" : "https://www.dropbox.com/s/a6jvv0srqfuihqe/Kantor%20Desa.jpg"},
-        '007' : { "id": "18cwHwfujHQTWFx", "url" : "https://drive.google.com/file/d/18cwHwfujHQTWFxVu-SKqoPF47tcPLx8q/view"},
+        '123' : { "id": "1-TGoF00jAAHNgVoMMlr9p4FE0fWneQk_", "url" : "https://drive.google.com/file/d/1-TGoF00jAAHNgVoMMlr9p4FE0fWneQk_/view"},
+        '754' : { "id": "1bJPcE5jHiqv9haLKNk0Z2P4qae2dm4hn", "url" : "https://drive.google.com/file/d/1bJPcE5jHiqv9haLKNk0Z2P4qae2dm4hn/view"},
+        '612' : { "id": "19AtK_S3-oOD4j9h9nIEvfDIipq0a9sJa", "url" : "https://drive.google.com/file/d/19AtK_S3-oOD4j9h9nIEvfDIipq0a9sJa/view"},
+        '002' : { "id": "1ADN9sEFHVQyyTc6Vb_QI02-ToEaWS0SN", "url" : "https://drive.google.com/file/d/1ADN9sEFHVQyyTc6Vb_QI02-ToEaWS0SN/view"},
+        '407' : { "id": "1DmqDMvhiQYrNVMUcwu2gI8nmSn92k4cf", "url" : "https://drive.google.com/file/d/1DmqDMvhiQYrNVMUcwu2gI8nmSn92k4cf/view"},
     }
     function klikInput() {
         params={}
