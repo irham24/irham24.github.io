@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<!-- Primary Meta Tags -->
+	<title>Verifikasi Kepemilikan Bidang Tanah</title>
+	<meta name="title" content="Verifikasi Kepemilikan Bidang Tanah">
+	<style>
+		html, body {
+			/* height: 100%; */
+			width: 100%;
+			margin: auto;
+            background-color: #ece6f2;
+            /* color: white; */
+			/* overflow-y: hidden;
+			position: fixed; */
+		}
+	</style>
+	
+</head>
+<body>
+    <div class="div" style="margin: auto;text-align: center;width: 100%;">    
+        <h2><b>Verifikasi kepemilikan bidang tanah</b></h2>
+        
+        <label for="fname">3 angka terakhir NIK pemilik:</label><br>
+        <input type="text" id="nik" name="nik"><br><br>
+        <button onclick="klikInput()">Submit</button>
+        
+        <p>Masukan 3 angka terakhir NIK pemilik bidang tanah untuk memverifikasi kepemilikan.</p>
+    </div>
+<script>
+    dataNIK = {
+        123 : "https://www.dropbox.com/s/5a6tdaymywru3vk/Sodikin2.jpg",
+        534 : "https://www.dropbox.com/s/jpuaffzh5881o10/Tabrani2.jpg",
+        134 : "https://www.dropbox.com/s/1h5yaviuyrt1mvw/SMKN102.jpg",
+        112 : "https://www.dropbox.com/s/2vc5vvuulf9402d/Mardiah2.jpg",
+        002 : "https://www.dropbox.com/s/a6jvv0srqfuihqe/Kantor%20Desa.jpg",
+    }
+    function klikInput() {
+        params={}
+        i=0
+        console.log("Start");
+        nik = document.getElementById("nik").value
+        if (nik.length == 0) {
+            return alert("Masukan 3 angka terakhir NIK terlebih dahulu.");
+        }
+        data = GetURLParameter('p');
+        console.log(data);
+        console.log(dataNIK[nik]);
+        if (data == dataNIK[nik]) {
+            location.replace(data)
+        } else {
+            alert("NIK yang kamu masukan salah.");
+        }
+        // console.log(GetURLParameter('p'));
+    }
+    function GetURLParameter(sParam){
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) 
+        {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+</script>
+
+
+
+</body>
+</html>
