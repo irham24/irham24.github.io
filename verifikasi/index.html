@@ -25,16 +25,16 @@
     <div class="div" style="margin: auto;text-align: center;width: 80%;">    
         <h2 style="font-size: max(4vw, 30px)"><b>Verifikasi kepemilikan bidang tanah</b></h2>
         
-        <label for="fname">3 angka terakhir NIK pemilik:</label><br>
+        <label for="fname">NIK pemilik:</label><br>
         <input type="text" id="nik" name="nik" style="width:40%;height:max(2vw, 24px)"><br><br>
         <button onclick="klikInput()">Submit</button>
         
-        <p>Masukan 3 angka terakhir NIK pemilik bidang tanah untuk memverifikasi kepemilikan.</p>
+        <p>Masukan nomor NIK pemilik bidang tanah untuk memverifikasi kepemilikan.</p>
     </div>
 <script>
     dataNIK = {
-        '123' : { "id": "1-TGoF00jAAHNgVoMMlr9p4FE0fWneQk_", "url" : "https://drive.google.com/file/d/1-TGoF00jAAHNgVoMMlr9p4FE0fWneQk_/view"},
-        '754' : { "id": "1bJPcE5jHiqv9haLKNk0Z2P4qae2dm4hn", "url" : "https://drive.google.com/file/d/1bJPcE5jHiqv9haLKNk0Z2P4qae2dm4hn/view"},
+        '3603132208930002' : { "id": "1-TGoF00jAAHNgVoMMlr9p4FE0fWneQk_", "url" : "https://drive.google.com/file/d/1-TGoF00jAAHNgVoMMlr9p4FE0fWneQk_/view"},
+        '3603140103570002' : { "id": "1bJPcE5jHiqv9haLKNk0Z2P4qae2dm4hn", "url" : "https://drive.google.com/file/d/1bJPcE5jHiqv9haLKNk0Z2P4qae2dm4hn/view"},
         '612' : { "id": "19AtK_S3-oOD4j9h9nIEvfDIipq0a9sJa", "url" : "https://drive.google.com/file/d/19AtK_S3-oOD4j9h9nIEvfDIipq0a9sJa/view"},
         '002' : { "id": "1ADN9sEFHVQyyTc6Vb_QI02-ToEaWS0SN", "url" : "https://drive.google.com/file/d/1ADN9sEFHVQyyTc6Vb_QI02-ToEaWS0SN/view"},
         '407' : { "id": "1DmqDMvhiQYrNVMUcwu2gI8nmSn92k4cf", "url" : "https://drive.google.com/file/d/1DmqDMvhiQYrNVMUcwu2gI8nmSn92k4cf/view"},
@@ -48,6 +48,20 @@
         '084' : { "id": "1Z2pmT1JX6cfildu2Vbg76Itaut7oIfR5", "url" : "https://drive.google.com/file/d/1Z2pmT1JX6cfildu2Vbg76Itaut7oIfR5/view"},
         '105' : { "id": "1d8FK6oaLljoVWY1P_JYb1O-LJddDbeVg", "url" : "https://drive.google.com/file/d/1d8FK6oaLljoVWY1P_JYb1O-LJddDbeVg/view"},
     }
+    // irham24.github.io/verifikasi/?p=1-TGoF00jAAHNgVoMMlr9p4FE0fWneQk_ # smkn10
+    // irham24.github.io/verifikasi/?p=1bJPcE5jHiqv9haLKNk0Z2P4qae2dm4hn # tabrani
+    // irham24.github.io/verifikasi/?p=19AtK_S3-oOD4j9h9nIEvfDIipq0a9sJa # kantor desa
+    // irham24.github.io/verifikasi/?p=1ADN9sEFHVQyyTc6Vb_QI02-ToEaWS0SN # sodikin2
+    // irham24.github.io/verifikasi/?p=1DmqDMvhiQYrNVMUcwu2gI8nmSn92k4cf # mardiah2
+    // irham24.github.io/verifikasi/?p=1D__h_0zDj0BCPdoX7bMA4kX9IQ8kzPkp # Tapi
+    // irham24.github.io/verifikasi/?p=1yy6zG1t2gnaD0Y9YBvmhfwTu6vpsNfUo # rudianto
+    // irham24.github.io/verifikasi/?p=1itgNjFPmrFieYnQ8i0_OLhVt2bLiwPbD # Holisor
+    // irham24.github.io/verifikasi/?p=1nc4h89UrI6-GNTzuQ5f1X4ptXNJCOeSS # Mustopa
+    // irham24.github.io/verifikasi/?p=1EIqG_6UMkji_QniXfOvfVAt4zAEB0gJm # Rudianto2
+    // irham24.github.io/verifikasi/?p=1QXqZ1qDNPApZK6jP4e3ACRdb9vDOUJ8P # Dadang
+    // irham24.github.io/verifikasi/?p=1DSYJ3FWJXXoNRTD8QQ5RXEUJJAULZux9 # Aryanto
+    // irham24.github.io/verifikasi/?p=1Z2pmT1JX6cfildu2Vbg76Itaut7oIfR5 # Rusdia
+    // irham24.github.io/verifikasi/?p=1d8FK6oaLljoVWY1P_JYb1O-LJddDbeVg # Rusmawati
     function klikInput() {
         params={}
         i=0
@@ -55,14 +69,13 @@
         nik = document.getElementById("nik").value
         // console.log(nik)
         if (nik.length == 0) {
-            return alert("Masukan 3 angka terakhir NIK terlebih dahulu.");
+            return alert("Masukan nomor NIK terlebih dahulu.");
         }
         data = GetURLParameter('p');
-        // console.log(data);
-        // console.log(dataNIK[nik.toString()]);
+        console.log(data);
         dataThisNIK = dataNIK[nik.toString()]
-        // console.log(dataThisNIK);
-        if (data == dataThisNIK["id"]) {
+        // console.log(dataThisNIK["id"]);
+        if (data != null && dataThisNIK != null &&dataThisNIK["id"] != null && data == dataThisNIK["id"]) {
             location.replace(dataNIK[nik]["url"])
         } else {
             alert("NIK yang kamu masukan salah.");
