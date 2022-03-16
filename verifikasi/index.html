@@ -11,13 +11,24 @@
 			/* height: 100%; */
 			width: 100%;
 			margin: auto;
-            background-color: #ece6f2;
-            /* color: white; */
+	    background-color: #ece6f2;
+	    /* color: white; */
 			/* overflow-y: hidden;
 			position: fixed; */
-            font-size: max(2vw, 16px)
+	    font-size: max(2vw, 16px)
 		}
         
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+		}
+
+		/* Firefox */
+		input[type=number] {
+		-moz-appearance: textfield;
+		}
 	</style>
 	
 </head>
@@ -26,7 +37,7 @@
         <h2 style="font-size: max(4vw, 30px)"><b>Verifikasi kepemilikan bidang tanah</b></h2>
         
         <label for="fname">NIK pemilik:</label><br>
-        <input type="text" id="nik" name="nik" style="width:40%;height:max(2vw, 24px)"><br><br>
+        <input type="number" id="nik" name="nik" style="width:40%;height:max(2vw, 24px)"><br><br>
         <button onclick="klikInput()">Submit</button>
         
         <p>Masukan nomor NIK pemilik bidang tanah untuk memverifikasi kepemilikan.</p>
