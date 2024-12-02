@@ -30,15 +30,17 @@
 	<link rel="shortcut icon" href="./assets/img/favicon.ico"/>
 	
 	<!-- Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	
 	<!-- Leaflet side by side -->
-	<script src="https://cdn.jsdelivr.net/npm/leaflet-side-by-side@2.2.0/index.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/leaflet-side-by-side@2.2.0/layout.min.css" rel="stylesheet">
+	<!-- <link href="https://cdn.jsdelivr.net/npm/leaflet-side-by-side@2.2.0/layout.min.css" rel="stylesheet"> -->
+	<script src="./assets/js/leaflet-side-by-side.js"></script>
 	
 	<!-- Font Awesome -->
-	<script src="https://kit.fontawesome.com/f6d734016a.js"></script>
+	<!-- <script src="https://kit.fontawesome.com/f6d734016a.js"></script> -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/js/all.min.js"></script> -->
 	<!-- JQuery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
@@ -688,7 +690,7 @@
 	});
 	
 	// side by side
-	var compareControl = L.control.sideBySide(null, null);
+	var compareControl = L.control.sideBySide(basemap_default, basemap_default);
 	
 	// Use the custom grouped layer control, not "L.control.layers"
 	//var layerControl= L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -715,6 +717,7 @@
 	
 	function baseSwitch(key){
 		let layer = baseMaps[key];
+		basemap_default = layer
 		//let elm = "BM_"+key
 		layer.addTo(map);
 		layer.bringToBack();
@@ -860,20 +863,46 @@
 	
 	// change compared layer
 	function changeCompare(pos="r"){
-		console.log(pos);
+		// console.log(pos);
 		let lval = document.getElementById("leftCompare").value;
 		let rval = document.getElementById("rightCompare").value;
+		// console.log("lval")
+		// console.log(lval)
+		// console.log("rval")
+		// console.log(rval)
 		if(lval==rval && rval != "None"){
 			if(pos=="l"){rval = "None";
 			} else {lval = "None";};
 		}
 		let valforL , valforR;
-		if (rval=="None"){ compareControl.setRightLayers(null); document.getElementById("rightCompare").value=rval} else {compareControl.setRightLayers(overlayMaps[rval]);};
-		if (lval=="None"){ compareControl.setLeftLayers(null); document.getElementById("leftCompare").value=lval} else {compareControl.setLeftLayers(overlayMaps[lval]);};		
+		if (rval=="None"){ 
+			compareControl.setRightLayers(basemap_default); 
+			document.getElementById("rightCompare").value = rval
+		} else {
+			// console.log("rval " + rval)
+			compareControl.setRightLayers(getLayerFromID(rval));
+		};
+		if (lval=="None"){ 
+			compareControl.setLeftLayers(basemap_default); document.getElementById("leftCompare").value=lval
+		} else {
+			compareControl.setLeftLayers(getLayerFromID(lval));
+			
+		};		
 		//if(lval==rval && rval == "None"){
 		//	compareControl.remove();
 		//	compareControl.addTo(map);
 		//}
+	}
+
+	function getLayerFromID(id){
+		// console.log("get layer from id")
+		// console.log(id)
+		let map = null
+		overlayArray.forEach(function(overlay){
+			if (overlay.id == id) { map = overlay}
+		})
+		// console.log(map.id)
+		return map
 	}
 	
 	// Writing layerbox
@@ -1023,8 +1052,8 @@
 	  if(evt.currentTarget.title=="compare"){
 		reWriteOptLayer();
 		compareControl.addTo(map);
-		compareControl.setLeftLayers(null);
-		compareControl.setRightLayers(null);
+		compareControl.setLeftLayers(osmLayer);
+		compareControl.setRightLayers(osmLayer);
 	  } else {
 		compareControl.remove();
 	  }
