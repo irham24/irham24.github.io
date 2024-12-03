@@ -1,0 +1,141 @@
+
+
+  /* Modal CSS */
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 40px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: var(--lightmain);
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: var(--secondary);
+  color: var(--lighttext);
+}
+
+.modal-body {
+  padding: 10px 16px;
+  display: grid;
+  align-items: center; 
+  grid-template-columns: 50% 50%;
+  column-gap: 10px;
+}
+
+#modal-img {
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+.modal-text {
+  overflow:auto;
+  text-align: justify;
+}
+
+.modal-project {
+  text-align: center;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: var(--secondary);
+  color: var(--lighttext);
+}
+
+.modal-tags {
+  display: flex;
+  flex: auto;
+  gap: 1rem;
+  margin: 10px 10px;
+}
+
+.modal-logo {
+  width: 100%;
+  /* margin-top: auto;
+  margin-bottom: auto; */
+  image-rendering:optimizeQuality;
+  box-shadow: 0;
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+}
+
+.modal-border {
+  border-color: #000000;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px 5px 5px 5px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+}
+
+.modal-skill-tag {
+  border-color: #000000;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px 5px 5px 5px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  align-items: center;
+  color: var(--darktext);
+}

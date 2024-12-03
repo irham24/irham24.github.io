@@ -1,0 +1,292 @@
+/* Color Palette */
+:root {
+  --main: #344354; /* background color */
+  --lightmain: #E8EEF4;
+  --alternative: #F4F6F9;
+  --alternative-hover: #d5d7db;
+  --primary: #B8608C;
+  --dark: #2D2D34;
+  --secondary: #6B8199;
+  --tertiary: #b6d1ef;
+  --accent: #E8DAE1; /* for buttons and pops of color */
+  --accent2: #9E1B70;
+  --accent3: #EAAC8B;
+  --lighttext: #F4F6F9;
+  --darktext: #344354;
+}
+
+body {
+  margin: 0;
+  background-color: var(--lightmain);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 1rem;
+}
+
+.bg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  z-index: -1;
+}
+
+.title {
+  justify-content: center;
+  display: flex;
+}
+
+h1 {
+  color: var(--main);
+}
+
+h3 {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h4 {
+  margin: 0;
+}
+
+.port_txt{
+  text-decoration: none;
+  color: var(--ligthtext);
+}
+
+.checkboxes {
+  display: flex;
+  flex: auto;
+  gap: 1rem;
+}
+
+.checkbox {
+  display: none;
+}
+
+:checked + label .filter_logo {
+  filter: saturate(1);
+}
+
+.filter_logo {
+  width: 100%;
+  /* margin-top: auto;
+  margin-bottom: auto; */
+  image-rendering:optimizeQuality;
+  box-shadow: 0;
+  filter: saturate(0);
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+}
+
+/* .filter_logo:hover {
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+} */
+
+.logo_border {
+  border-color: #000000;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px 5px 5px 5px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  cursor: pointer;
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+}
+
+.logo_border:hover {
+  width: 80px;
+  height: 80px;
+  background-color: var(--tertiary);
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+}
+
+:checked + .logo_border {
+  background-color: var(--tertiary);
+}
+
+/* Skill tag */
+.skill_tag {
+  border-color: #000000;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px 5px 5px 5px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  min-width: 40px;
+  height: 20px;
+  align-items: center;
+  cursor: pointer;
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+  color: var(--darktext);
+}
+
+.skill_tag:hover {
+  min-width: 60px;
+  background-color: var(--tertiary);
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+}
+
+:checked + .skill_tag {
+  background-color: var(--secondary);
+  color: var(--lighttext);
+}
+/* .filter_logo :hover {
+  background-color: var(--secondary);
+  width: 80px;
+} */
+
+/* Hide portofolio */
+.hide_portofolio {
+  display: none;
+}
+
+.portofolio {
+  background-color: var(--secondary);
+  color: var(--lighttext);
+  padding: 15px;
+  max-width: 400px;
+}
+
+.portofolio :hover {
+  cursor: pointer;
+}
+
+.portcontent {
+  background-color: var(--secondary);
+  color: var(--lighttext);
+  padding: 15px;
+}
+
+.portofolio_grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.porto_img {
+  width:100%;
+  max-height:200px;
+}
+
+/* Navigation Bar Styling */
+.navbar {
+  background-color: var(--main);
+  top: 0px;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--main);
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Style the links inside the navigation bar */
+.navbar a {
+  display: inline-block;
+  color: var(--lighttext);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 2px solid var(--main);
+}
+
+/* Change the color of links on hover */
+.navbar a:hover {
+  background-color: var(--main);
+  border-bottom: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+/* Hide the link that should open and close the navbar on small screens */
+.navbar .icon {
+  background-color: var(--main);
+  padding: 14px 16px;
+  display: none;
+  padding-right: 45px;
+  padding-top: 0px;
+}
+
+/* When the screen is less than 900 pixels wide, hide all links. Show the link that contains should open and close the navbar (.icon) */
+@media screen and (max-width: 900px) {
+  .navbar a {
+    width: 100%;
+    padding: 14px 16px;
+  }
+  .navbar a:not(:only-child) {
+    display: none;
+    }
+  .navbar a.icon {
+    float: right;
+    display: inline-block;
+    color: var(--lighttext);
+    text-align: right;
+    align-items: center;
+    padding: 0px 16px;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 2px solid var(--main);
+    }
+  }
+  
+  /* The "responsive" class is added to the navbar with JavaScript when the user clicks on the icon. This class makes the navbar look good on small screens (display the links vertically instead of horizontally) */
+  @media screen and (max-width: 900px) {
+  .navbar.responsive {
+    position: relative;
+    background-color: var(--secondary);
+    border-bottom: 2px solid var(--secondary);
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar.responsive a.icon {
+    position: absolute;
+    border-bottom: 2px;
+    width: auto;
+    top: 0;
+    right: 0;
+  }
+  .navbar a:hover {
+    background-color: var(--main);
+    color: var(--accent);
+  }
+  .navbar.responsive a {
+    float: none;
+    width: auto;
+    border-bottom: 2px solid var(--secondary);
+    background-color: var(--secondary);
+    display: block;
+    }
+    .navbar.responsive a:first-child {
+        order: 2;
+      }
+    .navbar.responsive a:nth-child(2) {
+        order: 3;
+      }
+    .navbar.responsive a:nth-child(3) {
+        order: 4;
+      }
+    .navbar.responsive a:nth-child(4) {
+        order: 5;
+      }
+    .navbar.responsive a:nth-child(5) {
+        order: 6;
+      }
+    .navbar.responsive a:last-child {
+        order: 1;
+      }
+  }

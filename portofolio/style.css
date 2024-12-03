@@ -1,0 +1,980 @@
+
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Core */
+html {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+/* ------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Main area */
+.portofTitle {
+  justify-content: center;
+  display: flex;
+  font-weight: 10000;
+  color: #535353;
+  margin-top: 3%;
+}
+
+#bgvid {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
+
+.pageBG {
+  background-color: #ffffffbd;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.header {
+  position: sticky;
+  top:0;
+}
+/* ------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Filters */
+input {
+  display: none;
+}
+
+.filterLogoSkillTech {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkboxes {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.FLiconLogo {
+  border-color: #000000;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px 5px 5px 5px;
+  background-color: #ffffff;
+  display: block;
+  width: 20px;
+  height: 25px;
+  image-rendering:optimizeQuality;
+  box-shadow: 0;
+  filter: saturate(0);
+  transition: width 0.5s, height 0.5s, filter 0.5s, box-shadow 0.5s;
+}
+
+
+.FLiconLogo:hover {
+  width: 65px;
+  height: 80px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+label {
+  display: inline-block;
+  position:relative;
+  cursor: pointer;
+}
+
+label:before {
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+.labelText:before {
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+:checked + label:before {
+  background-color: rgb(255, 0, 0);
+  transform: scale(1);
+  z-index: 1;
+}
+
+.domain {
+  background-color: #6d6d6d;
+  color: white;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  opacity: 0.8;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 3px;
+  text-shadow: 1px 1px 2px #000000b0;
+  transition: font-size 0.5s;
+}
+
+:checked + label .FLiconLogo {
+  filter: saturate(1);
+}
+
+#all:checked ~ .projContainer .projCard {
+  display: flex;
+}
+
+.projCard, :not(#all):checked ~ .projContainer .projCard{
+  display:none;
+}
+
+#skthFLgee:checked ~ .projContainer .skthFLgee ,
+#skthFLjs:checked ~ .projContainer .skthFLjs ,
+#skthFLarcgispro:checked ~ .projContainer .skthFLarcgispro ,
+#skthFLqgis:checked ~ .projContainer .skthFLqgis ,
+#skthFLvscode:checked ~ .projContainer .skthFLvscode ,
+#skthFLaerialod:checked ~ .projContainer .skthFLaerialod ,
+#skthFLfieldmaps:checked ~ .projContainer .skthFLfieldmaps ,
+#skthFLoffice:checked ~ .projContainer .skthFLoffice ,
+#skthFLarcmap:checked ~ .projContainer .skthFLarcmap ,
+#skthFLpostgresql:checked ~ .projContainer .skthFLpostgresql,
+#skthFLsaga:checked ~ .projContainer .skthFLsaga,
+#skthFLgithub:checked ~ .projContainer .skthFLgithub,
+#skthFLhtmlcss:checked ~ .projContainer .skthFLhtmlcss,
+#skthFLgitbashterminal:checked ~ .projContainer .skthFLgitbashterminal,
+#skthFLiqmaps:checked ~ .projContainer .skthFLiqmaps,
+#skthFLpy:checked ~ .projContainer .skthFLpy,
+#skthFLesasnap:checked ~ .projContainer .skthFLesasnap,
+#FLenvironment:checked ~ .projContainer .FLenvironment,
+#FLhumanitarian:checked ~ .projContainer .FLhumanitarian,
+#FLtourism:checked ~ .projContainer .FLtourism,
+#FLintelligence:checked ~ .projContainer .FLintelligence,
+#FLterritorialPlanning:checked ~ .projContainer .FLterritorialPlanning,
+#FLhistory:checked ~ .projContainer .FLhistory,
+#FLhealth:checked ~ .projContainer .FLhealth,
+#FLbusiness:checked ~ .projContainer .FLbusiness,
+#FLengineering:checked ~ .projContainer .FLengineering,
+#FLhazard:checked ~ .projContainer .FLhazard,
+#FLlidar:checked ~ .projContainer .FLlidar,
+#FLradar:checked ~ .projContainer .FLradar,
+#FLmultispectraloptical:checked ~ .projContainer .FLmultispectraloptical,
+#FLnetwork:checked ~ .projContainer .FLnetwork,
+#FLcartography:checked ~ .projContainer .FLcartography,
+#FLprogramming:checked ~ .projContainer .FLprogramming,
+#FLdatabases:checked ~ .projContainer .FLdatabases,
+#FLautomation:checked ~ .projContainer .FLautomation,
+#FLresearch:checked ~ .projContainer .FLresearch,
+#FLwebgis:checked ~ .projContainer .FLwebgis,
+#FLdem:checked ~ .projContainer .FLdem
+{
+  display: flex;
+}
+
+.field{
+  position: absolute;
+  bottom: 7px;
+}
+
+#humanitarian, #tourism, #environment, #territorialPlanning, #intelligence, #history,
+#health, #business, #engineering, #hazard{
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: white;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  opacity: 0.8;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 3px;
+  text-shadow: 1px 1px 2px #000000b0;
+  transition: font-size 0.5s;
+}
+
+#tourism {
+  background-color: #ff9cfafd;
+}
+
+#environment {
+  background-color: #319139fa;
+}
+
+#humanitarian {
+  background-color: #fc8a68fd;
+}
+
+#territorialPlanning {
+  background-color: #67007cfd;
+}
+
+#intelligence {
+  background-color: #000000fd;
+}
+
+#history {
+  background-color: #6b4000fd;
+}
+
+#health {
+  background-color: #e60000fd;
+}
+
+#business {
+  color: black;
+  background-color: #fbff00fd;
+}
+
+#engineering {
+  background-color: #7c7c7cfd;
+}
+
+#hazard {
+  background-color: #ff008cfd;
+}
+
+.field #humanitarian:hover, .field #environment:hover, .field #tourism:hover,
+.field #territorialPlanning:hover, .field #intelligence:hover, .field #history:hover,
+.field #health:hover, .field #business:hover, .field #engineering:hover,
+.field #hazard:hover   {
+  font-size: 10px;
+}
+
+#humanitarian:hover, #environment:hover, #tourism:hover, #territorialPlanning:hover,
+#intelligence:hover, #history:hover, #health:hover, #business:hover, #engineering:hover,
+#hazard:hover {
+  font-size: 15px;
+}
+/* ------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Cards icons */
+.iconLogo {
+  border-color: #000000;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px 5px 5px 5px;
+  background-color: #ffffff;
+  display: block;
+  width: 20px;
+  height: 20px;
+  image-rendering:optimizeQuality;
+  transition: width 0.5s, height 0.5s;
+}
+
+.skillsANDtechMain .iconLogo:hover{
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+}
+
+ .iconLogo:hover {
+  z-index: 1;
+  width: 45px;
+  height: 45px;
+}
+
+.skillsANDtechMain{
+  width: 120%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  top: -35px;
+}
+
+.skillsANDtech{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.skillBlock {
+  align-items: center;
+  justify-content: center;
+  margin: 20px 2px;
+  display: block;
+}
+
+.logoBlock {
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  display: block;
+
+}
+
+.technology {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+/* ------------------------------------------------------------------------------------------------- */
+
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Project container & cards */
+.projContainer {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.projCard {
+  display: none;
+  align-items: center;
+  background-color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-top-width: 2px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+  flex-basis: 0%;
+  flex-direction: column;
+  flex-grow: 0.5;
+  flex-shrink: 1;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-width: 25%;
+  margin-top: 40px;
+  padding: 100px 0px 110px 0px; 
+  position: relative;
+  cursor: pointer;
+  filter: saturate(1);
+  transition:  background-color 0.3s, background-image 1s, box-shadow 0.3s, filter 0.5s, padding 0.5s;
+}
+
+.projCard:hover {
+  padding: 105px 2px 115px 2px;
+}
+
+h3 {
+  font-weight: 100;
+  position: absolute;
+  top: 30px;
+  margin-left: auto; 
+  margin-right: auto;
+  text-align: center;
+  width: 100%;
+  font-size: 10px;
+  background-color: #000000;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: #ffffff;
+  transition: font-size 1s, background-color 0.5s;
+}
+
+.projCard:hover > h3 {
+  font-size: 14px;
+  background-color: #00000093;
+}
+/* ------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Project cards background */
+#a1, #grid-child-image-proj1{
+  background-image: url("./resources/a1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a2, #grid-child-image-proj2{
+  background-image: url("./resources/a2.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a3, #grid-child-image-proj3{
+  background-image: url("./resources/a3.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a4, #grid-child-image-proj4{
+  background-image: url("./resources/a4.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a5, #grid-child-image-proj5{
+  background-image: url("./resources/a5.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a6, #grid-child-image-proj6{
+  background-image: url("./resources/a6.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a7, #grid-child-image-proj7{
+  background-image: url("./resources/a7.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a8, #grid-child-image-proj8{
+  background-image: url("./resources/a8.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a9, #grid-child-image-proj9{
+  background-image: url("./resources/a9.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a10, #grid-child-image-proj10{
+  background-image: url("./resources/a10.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a11, #grid-child-image-proj11{
+  background-image: url("./resources/a11.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a12, #grid-child-image-proj12{
+  background-image: url("./resources/a12.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a13, #grid-child-image-proj13{
+  background-image: url("./resources/a13.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a14, #grid-child-image-proj14{
+  background-image: url("./resources/a14.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a15, #grid-child-image-proj15{
+  background-image: url("./resources/a15.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a16, #grid-child-image-proj16{
+  background-image: url("./resources/a16.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a17, #grid-child-image-proj17{
+  background-image: url("./resources/a17.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a18, #grid-child-image-proj18{
+  background-image: url("./resources/a18.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a19, #grid-child-image-proj19{
+  background-image: url("./resources/a19.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a20, #grid-child-image-proj20{
+  background-image: url("./resources/a20.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a21, #grid-child-image-proj21{
+  background-image: url("./resources/a21.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a22, #grid-child-image-proj22{
+  background-image: url("./resources/a22.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a23, #grid-child-image-proj23{
+  background-image: url("./resources/a23.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a24{
+  background-image: url("./resources/a24_1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#grid-child-image-proj24{
+  background-image: url("./resources/a24_2.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a25, #grid-child-image-proj25{
+  background-image: url("./resources/a25.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a26, #grid-child-image-proj26{
+  background-image: url("./resources/a26.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a27{
+  background-image: url("./resources/a27_1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#grid-child-image-proj27{
+  background-image: url("./resources/a27_2.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a28, #grid-child-image-proj28{
+  background-image: url("./resources/a28.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a29, #grid-child-image-proj29{
+  background-image: url("./resources/a29.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a30{
+  background-image: url("./resources/a30.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#grid-child-image-proj30{
+  background-image: url("./resources/a30_2.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a31, #grid-child-image-proj31{
+  background-image: url("./resources/a31.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#a32, #grid-child-image-proj32{
+  background-image: url("./resources/a32.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.grid-child-image:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.438),0 12px 40px 0 rgba(0, 0, 0, 0.514);
+  cursor: pointer;
+}
+
+#a1:hover, #a2:hover, #a3:hover,
+#a4:hover, #a5:hover, #a6:hover,
+#a7:hover, #a8:hover, #a9:hover,
+#a10:hover, #a11:hover, #a12:hover,
+#a13:hover, #a14:hover, #a15:hover,
+#a16:hover, #a17:hover, #a18:hover,
+#a19:hover, #a20:hover, #a21:hover,
+#a22:hover, #a23:hover, #a24:hover,
+#a25:hover, #a26:hover, #a27:hover,
+#a28:hover, #a29:hover, #a30:hover,
+#a31:hover, #a32:hover {
+  background-color: #dadada;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4), 0 12px 40px 0 rgba(0, 0, 0, 0.38);
+  filter: saturate(1);
+}
+/* ------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Modal */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; 
+  padding-top: 25px;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 123%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fefefe;
+  margin: auto;
+  padding-top: 0px;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-bottom: 45px;
+  border: 1px solid #888;
+  width: 50%;
+  height: 70%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.5s;
+  animation-name: animatetop;
+  animation-duration: 0.5s
+}
+
+.grid-parent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 5fr 1fr 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 0px;
+  width: 100%;
+  height: 90%;
+  }
+
+.grid-child-image {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  min-width: 25%;
+  display: flex;
+  grid-area: 1 / 1 / 6 / 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: box-shadow 0.5s;
+}
+
+.grid-child-text {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  min-width: 25%;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  grid-area: 1 / 2 / 4 / 2;
+  background-color: #3d3d3d;
+  padding-top: 15px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  overflow: auto;
+  color: rgb(255, 255, 255);
+}
+
+.grid-child-text-title{
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.grid-child-text-description{
+  font-size: 12px;
+}
+
+.grid-child-skills {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  grid-area: 4 / 2 / 5 / 2;
+  background-color: #3d3d3d;
+}
+
+.grid-child-field {
+  box-shadow: 0 10px 8px 0 rgba(0,0,0,0.2),0 15px 20px 0 rgba(0,0,0,0.19);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  grid-area: 5 / 2 / 6 / 2;
+  background-color: #3d3d3d;
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  display: flex;
+  align-self: flex-end;
+  color: rgb(0, 0, 0);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 5px 10px 5px 10px;
+  margin: 5px 10px 5px 10px;
+  transition: 0.5s;
+}
+
+.close:hover,
+.close:focus {
+  border-radius: 20%;
+  background-color: #3d3d3d;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-body {padding: 2px 16px;}
+/* ------------------------------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Media query */
+@media only screen and (max-width: 1000px) {
+  .modal-content {
+    width: 90%;
+    height: 70%;
+  }
+  .projCard {
+    padding: 150px 120px 150px 120px;
+  }
+  .projCard:hover {
+    padding: 110px 110px 110px 110px;
+  }
+   .iconLogo:hover {
+    width: 20px;
+    height: 20px;
+  }
+  .grid-parent {
+    grid-template-columns: 2fr,1fr;
+  }
+  .grid-child-image {
+    min-width: 30px;
+  }
+  .grid-child-text {
+    min-width: 10px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .modal-content {
+    width: 90%;
+    height: 70%;
+  }
+  .projCard {
+    padding: 100px 100px 100px 100px;
+  }
+  .projCard:hover {
+    padding: 110px 110px 110px 110px;
+  }
+   .iconLogo {
+    width: 10px;
+    height: 10px;
+  }
+   .iconLogo:hover {
+    width: 20px;
+    height: 20px;
+  }
+  .grid-parent {
+    grid-template-columns: 2fr,1fr;
+  }
+  .grid-child-image {
+    min-width: 30px;
+  }
+  .grid-child-text {
+    min-width: 10px;
+  }
+  #humanitarian, #environment, #tourism{
+    font-size: 5px;
+  }
+}
+
+@media only screen and (max-height: 671px) {
+  .modal{
+    padding-top: 10px;
+  }
+  .modal-content {
+    width: 90%;
+    height: 70%;
+  }
+  .projCard {
+    padding: 100px 100px 100px 100px;
+  }
+  .projCard:hover {
+    padding: 110px 110px 110px 110px;
+  }
+   .iconLogo {
+    width: 10px;
+    height: 10px;
+  }
+   .iconLogo:hover {
+    width: 20px;
+    height: 20px;
+  }
+  .grid-parent {
+    grid-template-columns: 2fr,1fr;
+  }
+  .grid-child-image {
+    min-width: 30px;
+  }
+  .grid-child-text {
+    min-width: 10px;
+  }
+  #humanitarian, #environment, #tourism{
+    font-size: 5px;
+  }
+} 
+@media only screen and (max-width: 400px) {
+  .modal-content{
+    background-image: url("file:///D:/Production/Web%20Projects/Training/resources/smallScreen.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .grid-parent {
+    display: none;
+  }
+  
+  .grid-child-image {
+    display: none;
+  }
+  
+  .grid-child-text {
+    display: none;
+  }
+  
+  .grid-child-text-title{
+    display: none;
+  }
+  
+  .grid-child-text-description{
+    display: none;
+  }
+
+}
+/* ------------------------------------------------------------------------------------------------- */
