@@ -34,7 +34,7 @@ var portfolio = {
     "desc":  "In this project I had the opportunity to process UAV aerial photography data. Aerial photography was carried out in several sub-districts in DKI Jakarta Province. Processing is done using a VTOL (Vertical Take Off Landing) UAV to facilitate takeoff in densely populated areas. Aerial photo data is bound using GPS through the PPK (Post Processing Kinematic) method."
   },
   "smf": {
-    "title": "Acacia plantations monitoring",
+    "title": "Acacia Plantations Monitoring",
     "photo": "palembang-smf",
     "tags": "photogrametry Agriculture agisoft",
     "desc":  "The project was conducted in an acacia plantation area in South Sumatra. Aerial photography was conducted to monitor the growth of acacia trees. The data was processed to produce orthophotos, DSMs (Digital Surface Model), DTMs (Digital Terrain Model), and CHMs (Canopy Height Model)."
@@ -42,7 +42,7 @@ var portfolio = {
   "portofolio": {
     "title": "Irham's Geospatial Portfolio",
     "photo": "portofolio",
-    "project_link": "https://irham24.github.io/Geospatial_Portfolio/",
+    "project_link": "https://irham24.github.io/portfolio/",
     "tags": "javascript",
     "desc":  "After seeing some GIS portfolios scattered on the internet. I want to deepen my knowledge of HTML, Javascript and CSS. From that learning, I made this portfolio."
   },
@@ -60,7 +60,7 @@ var portfolio = {
   },
   "jcm": {
     "title": "3D Cadaster - JCM (Jogja City Mall)",
-    "photo": "jcm",
+    "photo": "JCM",
     "tags": "revit BIM",
     "desc":  "This is my bachelor thesis project from 2018. I'm interested in how people behave in sharing their moments through social media. This behavior made me think: can social media data be used to determine the potential of tourism?<br><br>Because the data I wanted was about tourist potential, I chose Instagram as a data source. Data was downloaded using the Instagram developer API that was provided officially by Instagram. I downloaded the latest Instagram post data for 1.5 months (mid-December until February) using a Python script.<br><br>The data that has been downloaded is then selected spatially and content with the intended tourist location. The data is then visualized using a heatmap."
   },
