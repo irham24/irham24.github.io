@@ -5,6 +5,7 @@ var modal_footer = document.getElementById("modal-footer-text");
 var modal_img = document.getElementById("modal-img");
 var modal_link = document.getElementById("modal-link");
 var modal_text = document.getElementById("modal-text");
+var modal_tags = document.getElementById("modal-tags");
 var modal_klik = document.getElementById("modal-project");
 
 // Get the <span> element that closes the modal
@@ -32,7 +33,7 @@ function clickPorto(el) {
   modal_text.innerHTML = portfolio[kode]["desc"]
   // Tags
   let tag = ""
-  tag += '<br><br>Tags:<br><div class="modal-tags">'
+  tag += 'Tags:<br><div class="modal-tags">'
   classes = el.className.split(" ")
   let software_tags = []
   let skill_tags = []
@@ -55,7 +56,7 @@ function clickPorto(el) {
     tag += '<div for="check_'+ kode +'" class="modal-skill-tag">' + kode +'</div>'
   }
   tag += "</div>"
-  modal_text.innerHTML += tag
+  modal_tags.innerHTML = tag
 
 
   // Change footer
