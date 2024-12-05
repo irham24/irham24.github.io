@@ -24,14 +24,14 @@ var portfolio = {
     "title": "Jakarta Digital Twin",
     "photo": "jakarta_digital_twin",
     "project_link": "https://www.linkedin.com/pulse/southeast-asias-new-benchmark-51world-assists-jakarta-indonesia-wgg7c",
-    "tags": "vuejs javascript unreale",
+    "tags": "vuejs javascript unreale sql",
     "desc":  "This project is a collaboration between 51World and PT Garuda Visi Nusantara. In this project I had the opportunity to participate in developing the frontend and managing Jakarta data. This project was created using Unreal Engine and Vue.js. The data used in this project is data that is shared publicly through the jakarta satu website. The building models visualized in this digital twin are mostly the result of AI generation from 2D spatial vector data."
   },
   "potensi": {
     "title": "Instagram Data for Tourism Potential Analysis",
     "photo": "Potensi",
     "project_link": "https://irham24.github.io/PetaPotensiWisataGunungkidul/",
-    "tags": "python javascript GIS leaflet",
+    "tags": "python javascript GIS leaflet carto",
     "desc":  "This is my bachelor thesis project from 2018. I'm interested in how people behave in sharing their moments through social media. This behavior made me think: can social media data be used to determine the potential of tourism?<br><br>Because the data I wanted was about tourist potential, I chose Instagram as a data source. Data was downloaded using the Instagram developer API that was provided officially by Instagram. I downloaded the latest Instagram post data for 1.5 months (mid-December until February) using a Python script.<br><br>The data that has been downloaded is then selected spatially and content with the intended tourist location. The data is then visualized using a heatmap."
   },
   "dki_mapping": {
@@ -104,3 +104,5 @@ load_portfolio()
 
 // https://colab.research.google.com/github/BBKdatasciencetaster/DS/blob/main/2.9%20Working%20with%20geolocation%20data.ipynb
 // https://dev.to/0xog_pg/leveraging-google-colab-to-run-postgres-a-comprehensive-guide-3kpn
+
+// https://www.youtube.com/watch?v=1CibmbwxLJA&list=PLyWyQBSWLw1OFQepDgqap9dOSlF_pvOp8

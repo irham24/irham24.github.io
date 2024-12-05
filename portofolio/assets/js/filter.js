@@ -1,5 +1,3 @@
-
-
 // Load Checkbox
 var filter_tag_software = {
   "javascript": {
@@ -13,6 +11,14 @@ var filter_tag_software = {
   "vuejs": {
     "name": "Vue.js",
     "logo": "vuejs-logo",
+  },
+  "carto": {
+    "name": "CARTO",
+    "logo": "CARTO-logo",
+  },
+  "sql": {
+    "name": "SQL",
+    "logo": "sql-logo",
   },
   "geopandas": {
     "name": "Geopandas",
