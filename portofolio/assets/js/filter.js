@@ -1,5 +1,21 @@
 // Load Checkbox
 var filter_tag_software = {
+  "agisoft": {
+    "name": "Agisoft",
+    "logo": "agisoft",
+  },
+  "autocad": {
+    "name": "AutoCAD",
+    "logo": "AutoCad_new_logo",
+  },
+  "carto": {
+    "name": "CARTO",
+    "logo": "CARTO-logo",
+  },
+  "geopandas": {
+    "name": "Geopandas",
+    "logo": "geopandas_icon",
+  },
   "javascript": {
     "name": "Javascript",
     "logo": "JavaScript-logo",
@@ -8,46 +24,33 @@ var filter_tag_software = {
     "name": "Leaflet",
     "logo": "Leaflet_logo",
   },
-  "vuejs": {
-    "name": "Vue.js",
-    "logo": "vuejs-logo",
-  },
-  "carto": {
-    "name": "CARTO",
-    "logo": "CARTO-logo",
+  "python": {
+    "name": "Python",
+    "logo": "Python-logo",
   },
   "sql": {
     "name": "SQL",
     "logo": "sql-logo",
   },
-  "geopandas": {
-    "name": "Geopandas",
-    "logo": "geopandas_icon",
-  },
-  "python": {
-    "name": "Python",
-    "logo": "Python-logo",
+  "revit": {
+    "name": "Revit",
+    "logo": "revit",
   },
   "unreale": {
     "name": "Unreal Engine",
     "logo": "Unreal_Engine_Logo",
   },
-  "autocad": {
-    "name": "AutoCAD",
-    "logo": "AutoCad_new_logo",
-  },
-  "revit": {
-    "name": "Revit",
-    "logo": "revit",
-  },
-  "agisoft": {
-    "name": "Agisoft",
-    "logo": "agisoft",
+  "vuejs": {
+    "name": "Vue.js",
+    "logo": "vuejs-logo",
   },
 }
 
 var filter_tag_skill = [
-  "GIS", "Photogrametry", "BIM", "Agriculture"
+  "Agriculture",
+  "BIM", 
+  "GIS", 
+  "Photogrametry", 
 ]
 
 function load_filter_tag() {
