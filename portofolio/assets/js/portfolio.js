@@ -1,4 +1,25 @@
 var portfolio = {
+  "gee_carbon_analysis": {
+    "title": "Pontianak Carbon Analysis",
+    "photo": "gee_carbon_analysis",
+    "project_link": "https://code.earthengine.google.com/4642c485a62ee6ae29c92d3cc915def9",
+    "tags": "googleearthengine javascript",
+    "desc":  "I created this project to learn how to analyze carbon monoxide using Sentinel imagery. The data used is the Sentinel-5P OFFL CO data from March 2025."
+  },
+  "gee_ndvi": {
+    "title": "NDVI Analysis",
+    "photo": "gee_ndvi",
+    "project_link": "https://code.earthengine.google.com/bde84e59a75c927fd6b2bf92d73489b6",
+    "tags": "googleearthengine javascript",
+    "desc":  "I created this project to learn how to analyze NDVI using Landsat 8."
+  },
+  "gee_cloud_masking": {
+    "title": "Image of Mount Bromo (Cloud Masking)",
+    "photo": "gee_cloud_masking",
+    "project_link": "https://code.earthengine.google.com/6d4bff945955a7031851d04278771a2d",
+    "tags": "googleearthengine javascript",
+    "desc":  "It isn't easy to obtain cloudless mountain imagery. For this project, I tried cloud masking using Google Earth Engine. The data used is Landsat 8 Imagery for one year (September 2023 to September 2024)."
+  },
   "geopandas_2": {
     "title": "Depok's Firefighter Rescue Cases in December 2023",
     "photo": "depok_damkar",

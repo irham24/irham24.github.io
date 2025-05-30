@@ -16,6 +16,10 @@ var filter_tag_software = {
     "name": "Geopandas",
     "logo": "geopandas_icon",
   },
+  "googleearthengine": {
+    "name": "Google Earth Engine (GEE)",
+    "logo": "earth-engine-logo",
+  },
   "javascript": {
     "name": "Javascript",
     "logo": "JavaScript-logo",
