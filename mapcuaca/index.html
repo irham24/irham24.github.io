@@ -64,25 +64,296 @@
 	</header>
 	<div id="map"></div>
 	<script>
-	var map = L.map('map').setView([0.7893, 112.9213], 5.0);
-    var baselayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-			maxZoom: 20,
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
-		}).addTo(map);
-	  // Google Satelite Basemap
+
+	var data_kelurahan = {
+		'31.01.01.1001': {'nama': 'Pulau Panggang', 'fullname': 'Pulau Panggang, Kepulauan Seribu Utara, Kepulauan Seribu, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -5.7396829, 'longitude': 106.6022891},
+	'31.01.01.1002': {'nama': 'Pulau Kelapa', 'fullname': 'Pulau Kelapa, Kepulauan Seribu Utara, Kepulauan Seribu, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -5.655169, 'longitude': 106.5670469},
+	'31.01.01.1003': {'nama': 'Pulau Harapan', 'fullname': 'Pulau Harapan, Kepulauan Seribu Utara, Kepulauan Seribu, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -5.6522079, 'longitude': 106.5765106},
+	'31.01.02.1001': {'nama': 'Pulau Untung Jawa', 'fullname': 'Pulau Untung Jawa, Kepulauan Seribu Selatan, Kepulauan Seribu, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -5.9775464, 'longitude': 106.7073046},
+	'31.01.02.1002': {'nama': 'Pulau Tidung', 'fullname': 'Pulau Tidung, Kepulauan Seribu Selatan, Kepulauan Seribu, Daerah Khusus ibukota Jakarta, Jawa, 14520, Indonesia', 'latitude': -5.8038872, 'longitude': 106.5253063},
+	'31.01.02.1003': {'nama': 'Pulau Pari', 'fullname': 'Pulau Pari, Kepulauan Seribu Selatan, Kepulauan Seribu, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -5.8581818, 'longitude': 106.6161581},
+	'31.71.01.1001': {'nama': 'Gambir', 'fullname': 'Gambir, Jalan Medan Merdeka Timur, RW 02, Gambir, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10110, Indonesia', 'latitude': -6.1766553, 'longitude': 106.8306473},
+	'31.71.01.1002': {'nama': 'Cideng', 'fullname': 'Cideng, Gambir, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10150, Indonesia', 'latitude': -6.1748602, 'longitude': 106.8091497},
+	'31.71.01.1003': {'nama': 'Petojo Utara', 'fullname': 'Petojo Utara, Gambir, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10160, Indonesia', 'latitude': -6.1651065, 'longitude': 106.8154106},
+	'31.71.01.1004': {'nama': 'Petojo Selatan', 'fullname': 'Petojo Selatan, Gambir, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10160, Indonesia', 'latitude': -6.1748006, 'longitude': 106.8164054},
+	'31.71.01.1005': {'nama': 'Kebon Kelapa', 'fullname': 'Kebon Kelapa, Gambir, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10120, Indonesia', 'latitude': -6.1635065, 'longitude': 106.8244656},
+	'31.71.01.1006': {'nama': 'Duri Pulo', 'fullname': 'Duri Pulo, Gambir, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10140, Indonesia', 'latitude': -6.1617349, 'longitude': 106.8080524},
+	'31.71.02.1001': {'nama': 'Pasar Baru', 'fullname': 'Pasar Baru, Daerah Khusus ibukota Jakarta, Jawa, 10120, Indonesia', 'latitude': -6.164901, 'longitude': 106.8334669},
+	'31.71.02.1002': {'nama': 'Karang Anyar', 'fullname': 'Karang Anyar, Sawah Besar, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10740, Indonesia', 'latitude': -6.1539045, 'longitude': 106.8292447},
+	'31.71.02.1003': {'nama': 'Kartini', 'fullname': 'Kartini, Sawah Besar, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1530853, 'longitude': 106.8334481},
+	'31.71.02.1004': {'nama': 'Gunung Sahari Utara', 'fullname': 'Gunung Sahari Utara, Sawah Besar, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10720, Indonesia', 'latitude': -6.150479, 'longitude': 106.8382246},
+	'31.71.02.1005': {'nama': 'Mangga Dua Selatan', 'fullname': 'Mangga Dua Selatan, Sawah Besar, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10730, Indonesia', 'latitude': -6.1419015, 'longitude': 106.8284203},
+	'31.71.03.1001': {'nama': 'Kemayoran', 'fullname': 'Kemayoran, Jalan Bungur Besar 17, RW 01, Gunung Sahari Selatan, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10620, Indonesia', 'latitude': -6.1617033, 'longitude': 106.8414012},
+	'31.71.03.1002': {'nama': 'Kebon Kosong', 'fullname': 'Kebon Kosong, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10630, Indonesia', 'latitude': -6.158496, 'longitude': 106.8538351},
+	'31.71.03.1003': {'nama': 'Harapan Mulia', 'fullname': 'RPTRA Harapan Mulia Agung Sedayu Group, Harapan Mulya, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1699867, 'longitude': 106.8549307},
+	'31.71.03.1004': {'nama': 'Serdang', 'fullname': 'Serdang, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1589157, 'longitude': 106.8610356},
+	'31.71.03.1005': {'nama': 'Gunung Sahari Selatan', 'fullname': 'Gunung Sahari Selatan, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1611974, 'longitude': 106.8423541},
+	'31.71.03.1006': {'nama': 'Cempaka Baru', 'fullname': 'Cempaka Baru, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10640, Indonesia', 'latitude': -6.1679305, 'longitude': 106.8653146},
+	'31.71.03.1007': {'nama': 'Sumur Batu', 'fullname': 'Sumur Batu, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1628613, 'longitude': 106.87001},
+	'31.71.03.1008': {'nama': 'Utan Panjang', 'fullname': 'Utan Panjang, Kemayoran, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.165001, 'longitude': 106.8548049},
+	'31.71.04.1001': {'nama': 'Senen', 'fullname': 'Pasar Senen, Jalan Bungur Besar Raya, RW 04, Senen, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10410, Indonesia', 'latitude': -6.1744233, 'longitude': 106.8445744},
+	'31.71.04.1002': {'nama': 'Kenari', 'fullname': 'Kenari, Senen, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10430, Indonesia', 'latitude': -6.192932, 'longitude': 106.8466512},
+	'31.71.04.1003': {'nama': 'Paseban', 'fullname': 'Paseban, Senen, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10440, Indonesia', 'latitude': -6.1934034, 'longitude': 106.8526922},
+	'31.71.04.1004': {'nama': 'Kramat', 'fullname': 'Kramat, Jalan Percetakan Negara III, RW 01, Rawasari, Cempaka Putih, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10450, Indonesia', 'latitude': -6.1936203, 'longitude': 106.8565119},
+	'31.71.04.1005': {'nama': 'Kwitang', 'fullname': 'Kwitang, Senen, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1830735, 'longitude': 106.8398635},
+	'31.71.04.1006': {'nama': 'Bungur', 'fullname': 'Bungur, Senen, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1716401, 'longitude': 106.8480958},
+	'31.71.05.1001': {'nama': 'Cempaka Putih Timur', 'fullname': 'Cempaka Putih Timur, Cempaka Putih, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10540, Indonesia', 'latitude': -6.177633, 'longitude': 106.8704491},
+	'31.71.05.1002': {'nama': 'Cempaka Putih Barat', 'fullname': 'Cempaka Putih Barat, Cempaka Putih, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.178733, 'longitude': 106.8624855},
+	'31.71.05.1003': {'nama': 'Rawasari', 'fullname': 'Rawasari, Cempaka Putih, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1909053, 'longitude': 106.8662566},
+	'31.71.06.1001': {'nama': 'Menteng', 'fullname': 'Menteng, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1950265, 'longitude': 106.8322242},
+	'31.71.06.1002': {'nama': 'Pegangsaan', 'fullname': 'Pegangsaan, Menteng, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10320, Indonesia', 'latitude': -6.2019693, 'longitude': 106.8475947},
+	'31.71.06.1003': {'nama': 'Cikini', 'fullname': 'Cikini, Jalan Pegangsaan Timur, RW 05, Menteng, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10320, Indonesia', 'latitude': -6.1985052, 'longitude': 106.8412799},
+	'31.71.06.1004': {'nama': 'Gondangdia', 'fullname': 'Gondangdia, Jalan Srikaya I, RW 06, Kebon Sirih, Menteng, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10340, Indonesia', 'latitude': -6.1859109, 'longitude': 106.8325657},
+	'31.71.06.1005': {'nama': 'Kebon Sirih', 'fullname': 'Kebon Sirih, Menteng, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10340, Indonesia', 'latitude': -6.184971, 'longitude': 106.829893},
+	'31.71.07.1001': {'nama': 'Gelora', 'fullname': 'Gelora, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10270, Indonesia', 'latitude': -6.2149918, 'longitude': 106.8005721},
+	'31.71.07.1002': {'nama': 'Bendungan Hilir', 'fullname': 'Bendungan Hilir, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10210, Indonesia', 'latitude': -6.2085873, 'longitude': 106.8083837},
+	'31.71.07.1003': {'nama': 'Karet Tengsin', 'fullname': 'Karet Tengsin, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10220, Indonesia', 'latitude': -6.2080309, 'longitude': 106.8169514},
+	'31.71.07.1004': {'nama': 'Petamburan', 'fullname': 'Petamburan, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10260, Indonesia', 'latitude': -6.1964685, 'longitude': 106.8072894},
+	'31.71.07.1005': {'nama': 'Kebon Melati', 'fullname': 'Kebon Melati, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10230, Indonesia', 'latitude': -6.19685, 'longitude': 106.8159476},
+	'31.71.07.1006': {'nama': 'Kebon Kacang', 'fullname': 'Kebon Kacang, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10240, Indonesia', 'latitude': -6.1906091, 'longitude': 106.8157652},
+	'31.71.07.1007': {'nama': 'Kampung Bali', 'fullname': 'Kampung Bali, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10250, Indonesia', 'latitude': -6.1853115, 'longitude': 106.8168163},
+	'31.71.08.1001': {'nama': 'Johar Baru', 'fullname': 'Johar Baru, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1831251, 'longitude': 106.8553323},
+	'31.71.08.1002': {'nama': 'Kampung Rawa', 'fullname': 'Kampung Rawa, Johar Baru, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10550, Indonesia', 'latitude': -6.1796485, 'longitude': 106.8555866},
+	'31.71.08.1003': {'nama': 'Galur', 'fullname': 'Galur, Johar Baru, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10530, Indonesia', 'latitude': -6.1761462, 'longitude': 106.8550723},
+	'31.71.08.1004': {'nama': 'Tanah Tinggi', 'fullname': 'Tanah Tinggi, Johar Baru, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.179939, 'longitude': 106.8491612},
+	'31.72.01.1001': {'nama': 'Penjaringan', 'fullname': 'Penjaringan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1172651, 'longitude': 106.7674334},
+	'31.72.01.1002': {'nama': 'Kamal Muara', 'fullname': 'Kamal Muara, Penjaringan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14470, Indonesia', 'latitude': -6.1098554, 'longitude': 106.7337392},
+	'31.72.01.1003': {'nama': 'Kapuk Muara', 'fullname': 'Kapuk Muara, Penjaringan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14460, Indonesia', 'latitude': -6.1212545, 'longitude': 106.7629244},
+	'31.72.01.1004': {'nama': 'Pejagalan', 'fullname': 'Pejagalan, Penjaringan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14450, Indonesia', 'latitude': -6.1335221, 'longitude': 106.7849633},
+	'31.72.01.1005': {'nama': 'Pluit', 'fullname': 'Pluit, Penjaringan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14440, Indonesia', 'latitude': -6.1097837, 'longitude': 106.7856638},
+	'31.72.02.1001': {'nama': 'Tanjung Priok', 'fullname': 'Tanjung Priok, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1288579, 'longitude': 106.8707932},
+	'31.72.02.1002': {'nama': 'Sunter Jaya', 'fullname': 'Sunter Jaya, Tanjung Priok, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14350, Indonesia', 'latitude': -6.1511614, 'longitude': 106.8748757},
+	'31.72.02.1003': {'nama': 'Papanggo', 'fullname': 'Papanggo, Tanjung Priok, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14340, Indonesia', 'latitude': -6.1299925, 'longitude': 106.8719293},
+	'31.72.02.1004': {'nama': 'Sungai Bambu', 'fullname': 'Sungai Bambu, Tanjung Priok, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14330, Indonesia', 'latitude': -6.1267424, 'longitude': 106.8854884},
+	'31.72.02.1005': {'nama': 'Kebon Bawang', 'fullname': 'Kebon Bawang, Tanjung Priok, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14320, Indonesia', 'latitude': -6.1195405, 'longitude': 106.8889084},
+	'31.72.02.1006': {'nama': 'Sunter Agung', 'fullname': 'Sunter Agung, Tanjung Priok, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14350, Indonesia', 'latitude': -6.1359696, 'longitude': 106.8620476},
+	'31.72.02.1007': {'nama': 'Warakas', 'fullname': 'Warakas, Tanjung Priok, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14340, Indonesia', 'latitude': -6.1205405, 'longitude': 106.876881},
+	'31.72.03.1001': {'nama': 'Koja', 'fullname': 'Koja, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.12075, 'longitude': 106.9073669},
+	'31.72.03.1002': {'nama': 'Tugu Utara', 'fullname': 'Tugu Utara, Koja, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14260, Indonesia', 'latitude': -6.1246667, 'longitude': 106.9125193},
+	'31.72.03.1003': {'nama': 'Lagoa', 'fullname': 'Lagoa, Koja, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14270, Indonesia', 'latitude': -6.1136981, 'longitude': 106.9101507},
+	'31.72.03.1004': {'nama': 'Rawa Badak Utara', 'fullname': 'Rawa Badak Utara, Koja, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14230, Indonesia', 'latitude': -6.1214525, 'longitude': 106.8983856},
+	'31.72.03.1005': {'nama': 'Tugu Selatan', 'fullname': 'Tugu Selatan, Koja, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14260, Indonesia', 'latitude': -6.1363199, 'longitude': 106.9107847},
+	'31.72.03.1006': {'nama': 'Rawa Badak Selatan', 'fullname': 'Rawa Badak Selatan, Koja, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14230, Indonesia', 'latitude': -6.1308985, 'longitude': 106.8989306},
+	'31.72.04.1001': {'nama': 'Cilincing', 'fullname': 'Cilincing, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1290145, 'longitude': 106.9444538},
+	'31.72.04.1002': {'nama': 'Sukapura', 'fullname': 'Sukapura, Cilincing, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14140, Indonesia', 'latitude': -6.1524249, 'longitude': 106.9285742},
+	'31.72.04.1003': {'nama': 'Marunda', 'fullname': 'Marunda, Cilincing, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14150, Indonesia', 'latitude': -6.111876, 'longitude': 106.959497},
+	'31.72.04.1004': {'nama': 'Kalibaru', 'fullname': 'Kalibaru, Cilincing, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14110, Indonesia', 'latitude': -6.1025143, 'longitude': 106.9247264},
+	'31.72.04.1005': {'nama': 'Semper Timur', 'fullname': 'Semper Timur, Cilincing, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14130, Indonesia', 'latitude': -6.12071, 'longitude': 106.9333115},
+	'31.72.04.1006': {'nama': 'Rorotan', 'fullname': 'Rorotan, Cilincing, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14140, Indonesia', 'latitude': -6.1455005, 'longitude': 106.9563145},
+	'31.72.04.1007': {'nama': 'Semper Barat', 'fullname': 'Semper Barat, Cilincing, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14130, Indonesia', 'latitude': -6.1228545, 'longitude': 106.9242026},
+	'31.72.05.1001': {'nama': 'Pademangan Timur', 'fullname': 'Pademangan Timur, Pademangan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14410, Indonesia', 'latitude': -6.1405527, 'longitude': 106.845882},
+	'31.72.05.1002': {'nama': 'Pademangan Barat', 'fullname': 'Pademangan Barat, Pademangan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14420, Indonesia', 'latitude': -6.1368849, 'longitude': 106.8362784},
+	'31.72.05.1003': {'nama': 'Ancol', 'fullname': 'Ancol, Laksamana RE Martadinata, RW 10, Ancol, Pademangan, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14430, Indonesia', 'latitude': -6.128115, 'longitude': 106.8451374},
+	'31.72.06.1001': {'nama': 'Kelapa Gading Timur', 'fullname': 'Kelapa Gading Timur, Kelapa Gading, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14240, Indonesia', 'latitude': -6.1667483, 'longitude': 106.9036523},
+	'31.72.06.1002': {'nama': 'Pegangsaan Dua', 'fullname': 'Pegangsaan Dua, Jalan Gading Grande, RW 03, Pegangsaan Dua, Kelapa Gading, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14250, Indonesia', 'latitude': -6.1572135, 'longitude': 106.9142091},
+	'31.72.06.1003': {'nama': 'Kelapa Gading Barat', 'fullname': 'Kelapa Gading Barat, Kelapa Gading, Jakarta Utara, Daerah Khusus ibukota Jakarta, Jawa, 14240, Indonesia', 'latitude': -6.1559665, 'longitude': 106.8952996},
+	'31.73.01.1001': {'nama': 'Cengkareng Barat', 'fullname': 'Cengkareng Barat, Cengkareng, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.138481, 'longitude': 106.7233794},
+	'31.73.01.1002': {'nama': 'Duri Kosambi', 'fullname': 'Duri Kosambi, Cengkareng, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1688734, 'longitude': 106.7207928},
+	'31.73.01.1003': {'nama': 'Rawa Buaya', 'fullname': 'Rawa Buaya, Jalan Dharma Karya, RW 11, Duri Kosambi, Cengkareng, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11850, Indonesia', 'latitude': -6.1627437, 'longitude': 106.7227543},
+	'31.73.01.1004': {'nama': 'Kedaung Kali Angke', 'fullname': 'Kedaung Kali Angke, Cengkareng, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11710, Indonesia', 'latitude': -6.1505968, 'longitude': 106.7609486},
+	'31.73.01.1005': {'nama': 'Kapuk', 'fullname': 'Kapuk, Cengkareng, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11720, Indonesia', 'latitude': -6.139831, 'longitude': 106.7539417},
+	'31.73.01.1006': {'nama': 'Cengkareng Timur', 'fullname': 'Cengkareng Timur, Cengkareng, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1383694, 'longitude': 106.7359895},
+	'31.73.02.1001': {'nama': 'Grogol', 'fullname': 'Grogol, Jalan Profesor Dokter Latumeten I, RW 05, Jelambar, Grogol Petamburan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11450, Indonesia', 'latitude': -6.162071, 'longitude': 106.7888748},
+	'31.73.02.1002': {'nama': 'Tanjung Duren Utara', 'fullname': 'Tanjung Duren Utara, Grogol Petamburan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1751537, 'longitude': 106.781658},
+	'31.73.02.1003': {'nama': 'Tomang', 'fullname': 'Tomang, Grogol Petamburan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11440, Indonesia', 'latitude': -6.1727245, 'longitude': 106.7973014},
+	'31.73.02.1004': {'nama': 'Jelambar', 'fullname': 'Jelambar, Grogol Petamburan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1598968, 'longitude': 106.7854878},
+	'31.73.02.1005': {'nama': 'Tanjung Duren Selatan', 'fullname': 'Tanjung Duren Selatan, Grogol Petamburan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1791855, 'longitude': 106.7894993},
+	'31.73.02.1006': {'nama': 'Jelambar Baru', 'fullname': 'Jelambar Baru, Grogol Petamburan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11465, Indonesia', 'latitude': -6.1495137, 'longitude': 106.7867168},
+	'31.73.02.1007': {'nama': 'Wijaya Kusuma', 'fullname': 'Wijaya Kusuma, Grogol Petamburan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11460, Indonesia', 'latitude': -6.1543853, 'longitude': 106.775837},
+	'31.73.03.1001': {'nama': 'Taman Sari', 'fullname': 'Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1461423, 'longitude': 106.818499},
+	'31.73.03.1002': {'nama': 'Krukut', 'fullname': 'Krukut, Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11140, Indonesia', 'latitude': -6.1570096, 'longitude': 106.8147475},
+	'31.73.03.1003': {'nama': 'Maphar', 'fullname': 'Maphar, Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11160, Indonesia', 'latitude': -6.156314, 'longitude': 106.8204179},
+	'31.73.03.1004': {'nama': 'Tangki', 'fullname': 'Tangki, Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1460405, 'longitude': 106.8232785},
+	'31.73.03.1005': {'nama': 'Mangga Besar', 'fullname': 'Mangga Besar, Jalan Tamansari Raya, RW 01, Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 10740, Indonesia', 'latitude': -6.1498037, 'longitude': 106.8269826},
+	'31.73.03.1006': {'nama': 'Keagungan', 'fullname': 'Keagungan, Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11130, Indonesia', 'latitude': -6.151258, 'longitude': 106.8146026},
+	'31.73.03.1007': {'nama': 'Glodok', 'fullname': 'Glodok, Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11120, Indonesia', 'latitude': -6.1447085, 'longitude': 106.8130921},
+	'31.73.03.1008': {'nama': 'Pinangsia', 'fullname': 'Pinangsia, Taman Sari, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11110, Indonesia', 'latitude': -6.1359694, 'longitude': 106.8142641},
+	'31.73.04.1001': {'nama': 'Tambora', 'fullname': 'Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1466142, 'longitude': 106.8010456},
+	'31.73.04.1002': {'nama': 'Kali Anyar', 'fullname': 'Jalan Kali Anyar X, RW 08, Kalianyar, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11270, Indonesia', 'latitude': -6.1602446, 'longitude': 106.7994772},
+	'31.73.04.1003': {'nama': 'Duri Utara', 'fullname': 'Duri Utara, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11270, Indonesia', 'latitude': -6.1541092, 'longitude': 106.8046187},
+	'31.73.04.1004': {'nama': 'Tanah Sereal', 'fullname': 'Tanah Sereal, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11210, Indonesia', 'latitude': -6.154279, 'longitude': 106.8095048},
+	'31.73.04.1005': {'nama': 'Krendang', 'fullname': 'Krendang, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1508189, 'longitude': 106.8043637},
+	'31.73.04.1006': {'nama': 'Jembatan Besi', 'fullname': 'Jembatan Besi, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11320, Indonesia', 'latitude': -6.1521315, 'longitude': 106.7976066},
+	'31.73.04.1007': {'nama': 'Angke', 'fullname': 'Angke, Jalan Angke Barat, RW 01, Angke, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11250, Indonesia', 'latitude': -6.1447372, 'longitude': 106.8007792},
+	'31.73.04.1008': {'nama': 'Jembatan Lima', 'fullname': 'Jembatan Lima, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11250, Indonesia', 'latitude': -6.1451982, 'longitude': 106.8038946},
+	'31.73.04.1009': {'nama': 'Pekojan', 'fullname': 'Pekojan, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11240, Indonesia', 'latitude': -6.1369387, 'longitude': 106.804052},
+	'31.73.04.1010': {'nama': 'Roa Malaka', 'fullname': 'Roa Malaka, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1360918, 'longitude': 106.8096756},
+	'31.73.04.1011': {'nama': 'Duri Selatan', 'fullname': 'Duri Selatan, Tambora, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1591415, 'longitude': 106.8048406},
+	'31.73.05.1001': {'nama': 'Kebon Jeruk', 'fullname': 'Kebon Jeruk, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.192572, 'longitude': 106.7697255},
+	'31.73.05.1002': {'nama': 'Sukabumi Utara', 'fullname': 'Sukabumi Utara, Kebon Jeruk, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11540, Indonesia', 'latitude': -6.2091785, 'longitude': 106.777507},
+	'31.73.05.1003': {'nama': 'Sukabumi Selatan', 'fullname': 'Sukabumi Selatan, Kebon Jeruk, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11560, Indonesia', 'latitude': -6.221888, 'longitude': 106.7719855},
+	'31.73.05.1004': {'nama': 'Kelapa Dua', 'fullname': 'Kelapa Dua, Kebon Jeruk, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11550, Indonesia', 'latitude': -6.209606, 'longitude': 106.7682643},
+	'31.73.05.1005': {'nama': 'Duri Kepa', 'fullname': 'Duri Kepa, Kebon Jeruk, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11510, Indonesia', 'latitude': -6.1763875, 'longitude': 106.7736932},
+	'31.73.05.1006': {'nama': 'Kedoya Utara', 'fullname': 'Kedoya Utara, Kebon Jeruk, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11520, Indonesia', 'latitude': -6.1678202, 'longitude': 106.7606384},
+	'31.73.05.1007': {'nama': 'Kedoya Selatan', 'fullname': 'Kedoya Selatan, Kebon Jeruk, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1820225, 'longitude': 106.75942},
+	'31.73.06.1001': {'nama': 'Kalideres', 'fullname': 'Kalideres, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1370058, 'longitude': 106.7015938},
+	'31.73.06.1002': {'nama': 'Semanan', 'fullname': 'Semanan, Kalideres, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1666178, 'longitude': 106.7023827},
+	'31.73.06.1003': {'nama': 'Tegal Alur', 'fullname': 'Tegal Alur, Kalideres, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11820, Indonesia', 'latitude': -6.1159573, 'longitude': 106.7176021},
+	'31.73.06.1004': {'nama': 'Kamal', 'fullname': 'Kamal, Kalideres, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1138478, 'longitude': 106.6987947},
+	'31.73.06.1005': {'nama': 'Pegadungan', 'fullname': 'Pegadungan, Kalideres, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11830, Indonesia', 'latitude': -6.1314822, 'longitude': 106.7014172},
+	'31.73.07.1001': {'nama': 'Palmerah', 'fullname': 'Palmerah, Jalan Tentara Pelajar, RW 01, Gelora, Tanah Abang, Jakarta Pusat, Daerah Khusus ibukota Jakarta, Jawa, 10270, Indonesia', 'latitude': -6.2071372, 'longitude': 106.7975907},
+	'31.73.07.1002': {'nama': 'Slipi', 'fullname': 'Slipi, Palmerah, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 10260, Indonesia', 'latitude': -6.195084, 'longitude': 106.8012441},
+	'31.73.07.1003': {'nama': 'Kota Bambu Utara', 'fullname': 'Kota Bambu Utara, Palmerah, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1837155, 'longitude': 106.8035543},
+	'31.73.07.1004': {'nama': 'Jatipulo', 'fullname': 'SDN Jatipulo 08, Jalan Tomang Ancak, RW 01, Jati Pulo, Palmerah, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11440, Indonesia', 'latitude': -6.180282, 'longitude': 106.79911},
+	'31.73.07.1005': {'nama': 'Kemanggisan', 'fullname': 'Kemanggisan, Palmerah, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11420, Indonesia', 'latitude': -6.1890082, 'longitude': 106.7900595},
+	'31.73.07.1006': {'nama': 'Kota Bambu Selatan', 'fullname': 'Kota Bambu Selatan, Palmerah, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11260, Indonesia', 'latitude': -6.187458, 'longitude': 106.8037735},
+	'31.73.08.1001': {'nama': 'Kembangan Utara', 'fullname': 'Kembangan Utara, Kembangan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1718544, 'longitude': 106.7418053},
+	'31.73.08.1002': {'nama': 'Meruya Utara', 'fullname': 'Meruya Utara, Kembangan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1985231, 'longitude': 106.732613},
+	'31.73.08.1003': {'nama': 'Meruya Selatan', 'fullname': 'Meruya Selatan, Kembangan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11650, Indonesia', 'latitude': -6.2069777, 'longitude': 106.7340358},
+	'31.73.08.1004': {'nama': 'Srengseng', 'fullname': 'Srengseng, Kembangan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2095235, 'longitude': 106.7546797},
+	'31.73.08.1005': {'nama': 'Joglo', 'fullname': 'Joglo, Kembangan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11640, Indonesia', 'latitude': -6.219017, 'longitude': 106.7383023},
+	'31.73.08.1006': {'nama': 'Kembangan Selatan', 'fullname': 'Kembangan Selatan, Kembangan, Jakarta Barat, Daerah Khusus ibukota Jakarta, Jawa, 11610, Indonesia', 'latitude': -6.184008, 'longitude': 106.7460795},
+	'31.74.01.1001': {'nama': 'Tebet Timur', 'fullname': 'Tebet Timur, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12820, Indonesia', 'latitude': -6.2336231, 'longitude': 106.8556056},
+	'31.74.01.1002': {'nama': 'Tebet Barat', 'fullname': 'Tebet Barat, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12810, Indonesia', 'latitude': -6.233783, 'longitude': 106.8484978},
+	'31.74.01.1003': {'nama': 'Menteng Dalam', 'fullname': 'Menteng Dalam, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12870, Indonesia', 'latitude': -6.2320512, 'longitude': 106.8409966},
+	'31.74.01.1004': {'nama': 'Kebon Baru', 'fullname': 'Kebon Baru, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12830, Indonesia', 'latitude': -6.2343044, 'longitude': 106.8624921},
+	'31.74.01.1005': {'nama': 'Bukit Duri', 'fullname': 'Bukit Duri, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12840, Indonesia', 'latitude': -6.2201045, 'longitude': 106.8565986},
+	'31.74.01.1006': {'nama': 'Manggarai Selatan', 'fullname': 'Manggarai Selatan, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12860, Indonesia', 'latitude': -6.219532, 'longitude': 106.8491015},
+	'31.74.01.1007': {'nama': 'Manggarai', 'fullname': 'Manggarai, Jalan Manggarai Utara I, RW 04, Manggarai, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12850, Indonesia', 'latitude': -6.2101704, 'longitude': 106.849935},
+	'31.74.02.1001': {'nama': 'Setia Budi', 'fullname': 'Setiabudi, Jalan Hajjah R. Rasuna Said, RW 01, Guntur, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12980, Indonesia', 'latitude': -6.2093184, 'longitude': 106.8302209},
+	'31.74.02.1002': {'nama': 'Karet Semanggi', 'fullname': 'Karet Semanggi, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12930, Indonesia', 'latitude': -6.2228956, 'longitude': 106.8178823},
+	'31.74.02.1003': {'nama': 'Karet Kuningan', 'fullname': 'Karet Kuningan, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2202835, 'longitude': 106.8279612},
+	'31.74.02.1004': {'nama': 'Karet', 'fullname': 'Karet, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.213289, 'longitude': 106.8273273},
+	'31.74.02.1005': {'nama': 'Menteng Atas', 'fullname': 'Menteng Atas, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12960, Indonesia', 'latitude': -6.2177143, 'longitude': 106.840277},
+	'31.74.02.1006': {'nama': 'Pasar Manggis', 'fullname': 'Pasar Manggis, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12970, Indonesia', 'latitude': -6.2108757, 'longitude': 106.8423702},
+	'31.74.02.1007': {'nama': 'Guntur', 'fullname': 'Guntur, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12980, Indonesia', 'latitude': -6.2083826, 'longitude': 106.8335573},
+	'31.74.02.1008': {'nama': 'Kuningan Timur', 'fullname': 'Kuningan Timur, Setiabudi, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.232337, 'longitude': 106.8289389},
+	'31.74.03.1001': {'nama': 'Mampang Prapatan', 'fullname': 'Mampang Prapatan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2508777, 'longitude': 106.8230215},
+	'31.74.03.1002': {'nama': 'Bangka', 'fullname': 'Bangka, Mampang Prapatan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12730, Indonesia', 'latitude': -6.2640072, 'longitude': 106.8192923},
+	'31.74.03.1003': {'nama': 'Pela Mampang', 'fullname': 'Pela Mampang, Mampang Prapatan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.246913, 'longitude': 106.8171275},
+	'31.74.03.1004': {'nama': 'Tegal Parang', 'fullname': 'Tegal Parang, Mampang Prapatan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12790, Indonesia', 'latitude': -6.2491437, 'longitude': 106.8294876},
+	'31.74.03.1005': {'nama': 'Kuningan Barat', 'fullname': 'Kuningan Barat, Mampang Prapatan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2341311, 'longitude': 106.8204386},
+	'31.74.04.1001': {'nama': 'Pasar Minggu', 'fullname': 'Pasar Minggu, Jalan Pasar Minggu Raya, RW 07, Pejaten Timur, Pasar Minggu, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 13530, Indonesia', 'latitude': -6.2833322, 'longitude': 106.8448558},
+	'31.74.04.1002': {'nama': 'Jati Padang', 'fullname': 'Jati Padang, Pasar Minggu, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12540, Indonesia', 'latitude': -6.2890016, 'longitude': 106.8300844},
+	'31.74.04.1003': {'nama': 'Cilandak Timur', 'fullname': 'Cilandak Timur, Pasar Minggu, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12560, Indonesia', 'latitude': -6.2920769, 'longitude': 106.8112826},
+	'31.74.04.1004': {'nama': 'Ragunan', 'fullname': 'Ragunan, Pasar Minggu, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12550, Indonesia', 'latitude': -6.2968822, 'longitude': 106.8210113},
+	'31.74.04.1005': {'nama': 'Pejaten Timur', 'fullname': 'Pejaten Timur, Pasar Minggu, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2802301, 'longitude': 106.8475176},
+	'31.74.04.1006': {'nama': 'Pejaten Barat', 'fullname': 'Pejaten Barat, Pasar Minggu, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12510, Indonesia', 'latitude': -6.2726502, 'longitude': 106.8393437},
+	'31.74.04.1007': {'nama': 'Kebagusan', 'fullname': 'Kebagusan, Pasar Minggu, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12520, Indonesia', 'latitude': -6.309105, 'longitude': 106.831976},
+	'31.74.05.1001': {'nama': 'Kebayoran Lama Utara', 'fullname': 'Kebayoran Lama Utara, Kebayoran Lama, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2457077, 'longitude': 106.7785578},
+	'31.74.05.1002': {'nama': 'Pondok Pinang', 'fullname': 'Pondok Pinang, Kebayoran Lama, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2754792, 'longitude': 106.7804027},
+	'31.74.05.1003': {'nama': 'Cipulir', 'fullname': 'Cipulir, Kebayoran Lama, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12230, Indonesia', 'latitude': -6.2378986, 'longitude': 106.7725618},
+	'31.74.05.1004': {'nama': 'Grogol Utara', 'fullname': 'Grogol Utara, Kebayoran Lama, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12210, Indonesia', 'latitude': -6.2165491, 'longitude': 106.7866647},
+	'31.74.05.1005': {'nama': 'Grogol Selatan', 'fullname': 'Grogol Selatan, Kebayoran Lama, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12220, Indonesia', 'latitude': -6.2295375, 'longitude': 106.7800183},
+	'31.74.05.1006': {'nama': 'Kebayoran Lama Selatan', 'fullname': 'Kebayoran Lama Selatan, Kebayoran Lama, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12240, Indonesia', 'latitude': -6.2539746, 'longitude': 106.7777992},
+	'31.74.06.1001': {'nama': 'Cilandak Barat', 'fullname': 'Cilandak Barat, Cilandak, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12430, Indonesia', 'latitude': -6.290266, 'longitude': 106.7962151},
+	'31.74.06.1002': {'nama': 'Lebak Bulus', 'fullname': 'Lebak Bulus, Jalan Raya Pasar Jumat, RW 07, Lebak Bulus, Cilandak, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12310, Indonesia', 'latitude': -6.2892744, 'longitude': 106.7749355},
+	'31.74.06.1003': {'nama': 'Pondok Labu', 'fullname': 'Pondok Labu, Cilandak, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12450, Indonesia', 'latitude': -6.3091437, 'longitude': 106.7979382},
+	'31.74.06.1004': {'nama': 'Gandaria Selatan', 'fullname': 'Gandaria Selatan, Cilandak, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12420, Indonesia', 'latitude': -6.2715615, 'longitude': 106.7951717},
+	'31.74.06.1005': {'nama': 'Cipete Selatan', 'fullname': 'Cipete Selatan, Cilandak, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12410, Indonesia', 'latitude': -6.27254, 'longitude': 106.805768},
+	'31.74.07.1001': {'nama': 'Melawai', 'fullname': 'Melawai, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2461481, 'longitude': 106.8026558},
+	'31.74.07.1002': {'nama': 'Gunung', 'fullname': 'Gunung, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12120, Indonesia', 'latitude': -6.2354277, 'longitude': 106.7922012},
+	'31.74.07.1003': {'nama': 'Kramat Pela', 'fullname': 'Kramat Pela, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12130, Indonesia', 'latitude': -6.2455529, 'longitude': 106.7930591},
+	'31.74.07.1004': {'nama': 'Selong', 'fullname': 'Selong, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2343005, 'longitude': 106.8044293},
+	'31.74.07.1005': {'nama': 'Rawa Barat', 'fullname': 'Rawa Barat, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2361199, 'longitude': 106.8130175},
+	'31.74.07.1006': {'nama': 'Senayan', 'fullname': 'Senayan, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12190, Indonesia', 'latitude': -6.2269109, 'longitude': 106.8099197},
+	'31.74.07.1007': {'nama': 'Pulo', 'fullname': 'Pulo, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2526054, 'longitude': 106.8047095},
+	'31.74.07.1008': {'nama': 'Petogogan', 'fullname': 'Petogogan, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12170, Indonesia', 'latitude': -6.2442328, 'longitude': 106.8113369},
+	'31.74.07.1009': {'nama': 'Gandaria Utara', 'fullname': 'Gandaria Utara, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12140, Indonesia', 'latitude': -6.2566117, 'longitude': 106.7903387},
+	'31.74.07.1010': {'nama': 'Cipete Utara', 'fullname': 'Cipete Utara, Kebayoran Baru, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12150, Indonesia', 'latitude': -6.2610093, 'longitude': 106.8040539},
+	'31.74.08.1001': {'nama': 'Pancoran', 'fullname': 'Pancoran, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2580853, 'longitude': 106.8427326},
+	'31.74.08.1002': {'nama': 'Kalibata', 'fullname': 'Kalibata, Pancoran, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.265332, 'longitude': 106.8351642},
+	'31.74.08.1003': {'nama': 'Rawajati', 'fullname': 'Rawajati, Pancoran, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12750, Indonesia', 'latitude': -6.2588578, 'longitude': 106.8558262},
+	'31.74.08.1004': {'nama': 'Duren Tiga', 'fullname': 'Duren Tiga, Pancoran, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12760, Indonesia', 'latitude': -6.2561309, 'longitude': 106.8339148},
+	'31.74.08.1005': {'nama': 'Pengadegan', 'fullname': 'Pengadegan, Pancoran, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12770, Indonesia', 'latitude': -6.2502308, 'longitude': 106.8545672},
+	'31.74.08.1006': {'nama': 'Cikoko', 'fullname': 'Cikoko, Jalan Letnan Jenderal MT Haryono, RW 02, Cikoko, Pancoran, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12770, Indonesia', 'latitude': -6.2434846, 'longitude': 106.8570718},
+	'31.74.09.1001': {'nama': 'Jagakarsa', 'fullname': 'Jagakarsa, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3301011, 'longitude': 106.8222371},
+	'31.74.09.1002': {'nama': 'Srengseng Sawah', 'fullname': 'Srengseng Sawah, Jagakarsa, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12640, Indonesia', 'latitude': -6.3449388, 'longitude': 106.8262052},
+	'31.74.09.1003': {'nama': 'Ciganjur', 'fullname': 'Ciganjur, Jagakarsa, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 16431, Indonesia', 'latitude': -6.3334298, 'longitude': 106.8075366},
+	'31.74.09.1004': {'nama': 'Lenteng Agung', 'fullname': 'Lenteng Agung, Jalan Lenteng Agung Raya, RW 05, Lenteng Agung, Jagakarsa, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12620, Indonesia', 'latitude': -6.3303079, 'longitude': 106.8346791},
+	'31.74.09.1005': {'nama': 'Tanjung Barat', 'fullname': 'Tanjung Barat, Jalan Lenteng Agung Raya, RW 01, Tanjung Barat, Jagakarsa, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12530, Indonesia', 'latitude': -6.3080407, 'longitude': 106.8389492},
+	'31.74.09.1006': {'nama': 'Cipedak', 'fullname': 'Cipedak, Jagakarsa, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3518261, 'longitude': 106.8016288},
+	'31.74.10.1001': {'nama': 'Pesanggrahan', 'fullname': 'Pesanggrahan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2554579, 'longitude': 106.763112},
+	'31.74.10.1002': {'nama': 'Bintaro', 'fullname': 'Bintaro, Pesanggrahan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12310, Indonesia', 'latitude': -6.2713928, 'longitude': 106.7608618},
+	'31.74.10.1003': {'nama': 'Petukangan Utara', 'fullname': 'Petukangan Utara, Pesanggrahan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12260, Indonesia', 'latitude': -6.2300149, 'longitude': 106.7513002},
+	'31.74.10.1004': {'nama': 'Petukangan Selatan', 'fullname': 'Petukangan Selatan, Pesanggrahan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.243428, 'longitude': 106.7536421},
+	'31.74.10.1005': {'nama': 'Ulujami', 'fullname': 'Ulujami, Pesanggrahan, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2361505, 'longitude': 106.7638814},
+	'31.75.01.1001': {'nama': 'Pisangan Baru', 'fullname': 'Pisangan Baru, Matraman, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13110, Indonesia', 'latitude': -6.2120258, 'longitude': 106.868954},
+	'31.75.01.1002': {'nama': 'Utan Kayu Utara', 'fullname': 'Utan Kayu Utara, Matraman, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13120, Indonesia', 'latitude': -6.1960481, 'longitude': 106.8677498},
+	'31.75.01.1003': {'nama': 'Kayu Manis', 'fullname': 'Kayu Manis, Matraman, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2018835, 'longitude': 106.8619995},
+	'31.75.01.1004': {'nama': 'Palmeriam', 'fullname': 'Palmeriam, Matraman, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13140, Indonesia', 'latitude': -6.2038344, 'longitude': 106.8591858},
+	'31.75.01.1005': {'nama': 'Kebon Manggis', 'fullname': 'Kebon Manggis, Matraman, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2063482, 'longitude': 106.8563741},
+	'31.75.01.1006': {'nama': 'Utan Kayu Selatan', 'fullname': 'Utan Kayu Selatan, Matraman, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13130, Indonesia', 'latitude': -6.2037185, 'longitude': 106.8688374},
+	'31.75.02.1001': {'nama': 'Pulo Gadung', 'fullname': 'Pulo Gadung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1911085, 'longitude': 106.8906053},
+	'31.75.02.1002': {'nama': 'Pisangan Timur', 'fullname': 'Pisangan Timur, Pulo Gadung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13230, Indonesia', 'latitude': -6.208459, 'longitude': 106.8793966},
+	'31.75.02.1003': {'nama': 'Cipinang', 'fullname': 'Cipinang, Jalan Pisangan Lama Selatan, RW 08, Pisangan Timur, Pulo Gadung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13230, Indonesia', 'latitude': -6.213765, 'longitude': 106.8848573},
+	'31.75.02.1004': {'nama': 'Jatinegara Kaum', 'fullname': 'Jatinegara Kaum, Pulo Gadung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.19969, 'longitude': 106.9031019},
+	'31.75.02.1005': {'nama': 'Rawamangun', 'fullname': 'Rawamangun, Pulo Gadung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13220, Indonesia', 'latitude': -6.1948971, 'longitude': 106.8828642},
+	'31.75.02.1006': {'nama': 'Kayu Putih', 'fullname': 'Kayu Putih, Pulo Gadung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13210, Indonesia', 'latitude': -6.1781625, 'longitude': 106.884318},
+	'31.75.02.1007': {'nama': 'Jati', 'fullname': 'Jati, Pulo Gadung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.1942505, 'longitude': 106.8966023},
+	'31.75.03.1001': {'nama': 'Kampung Melayu', 'fullname': 'Kampung Melayu, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13320, Indonesia', 'latitude': -6.2184933, 'longitude': 106.8629903},
+	'31.75.03.1002': {'nama': 'Bidara Cina', 'fullname': 'Bidara Cina, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13330, Indonesia', 'latitude': -6.2347457, 'longitude': 106.8680942},
+	'31.75.03.1003': {'nama': 'Bali Mester', 'fullname': 'Bali Mester, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13310, Indonesia', 'latitude': -6.219198, 'longitude': 106.8665638},
+	'31.75.03.1004': {'nama': 'Rawa Bunga', 'fullname': 'Rawa Bunga, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13350, Indonesia', 'latitude': -6.2191685, 'longitude': 106.8715574},
+	'31.75.03.1005': {'nama': 'Cipinang Cempedak', 'fullname': 'Cipinang Cempedak, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13930, Indonesia', 'latitude': -6.2367005, 'longitude': 106.8738228},
+	'31.75.03.1006': {'nama': 'Cipinang Muara', 'fullname': 'Cipinang Muara, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13420, Indonesia', 'latitude': -6.2263455, 'longitude': 106.8884283},
+	'31.75.03.1007': {'nama': 'Cipinang Besar Selatan', 'fullname': 'Cipinang Besar Selatan, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13410, Indonesia', 'latitude': -6.229193, 'longitude': 106.8793625},
+	'31.75.03.1008': {'nama': 'Cipinang Besar Utara', 'fullname': 'Cipinang Besar Utara, Jatinegara, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.220258, 'longitude': 106.878419},
+	'31.75.04.1001': {'nama': 'Kramatjati', 'fullname': 'Kramat Jati, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2749122, 'longitude': 106.8624912},
+	'31.75.04.1002': {'nama': 'Tengah', 'fullname': 'Kampung Tengah, Kramat Jati, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13540, Indonesia', 'latitude': -6.2894344, 'longitude': 106.8653286},
+	'31.75.04.1003': {'nama': 'Dukuh', 'fullname': 'Dukuh, Kramat Jati, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13550, Indonesia', 'latitude': -6.2932913, 'longitude': 106.8770452},
+	'31.75.04.1004': {'nama': 'Batu Ampar', 'fullname': 'Batu Ampar, Kramat Jati, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2806538, 'longitude': 106.8616582},
+	'31.75.04.1005': {'nama': 'Balekambang', 'fullname': 'SD Negeri Balekambang 01 Pagi, Jalan Rawa Elok II, RW 01, Bale Kambang, Kramat Jati, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13530, Indonesia', 'latitude': -6.2749657, 'longitude': 106.8524025},
+	'31.75.04.1006': {'nama': 'Cililitan', 'fullname': 'Cililitan, Kramat Jati, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13640, Indonesia', 'latitude': -6.2622027, 'longitude': 106.8662674},
+	'31.75.04.1007': {'nama': 'Cawang', 'fullname': 'Cawang, Jalan Tebet Timur Dalam XI, RW 06, Tebet Timur, Tebet, Jakarta Selatan, Daerah Khusus ibukota Jakarta, Jawa, 12820, Indonesia', 'latitude': -6.2425517, 'longitude': 106.8586903},
+	'31.75.05.1001': {'nama': 'Gedong', 'fullname': 'Gedong, Pasar Rebo, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3038933, 'longitude': 106.861094},
+	'31.75.05.1002': {'nama': 'Baru', 'fullname': 'Baru, Pasar Rebo, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3230941, 'longitude': 106.8463024},
+	'31.75.05.1003': {'nama': 'Cijantung', 'fullname': 'Cijantung, Pasar Rebo, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13770, Indonesia', 'latitude': -6.3220385, 'longitude': 106.8581623},
+	'31.75.05.1004': {'nama': 'Kalisari', 'fullname': 'Kalisari, Pasar Rebo, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13790, Indonesia', 'latitude': -6.3360796, 'longitude': 106.8529734},
+	'31.75.05.1005': {'nama': 'Pekayon', 'fullname': 'Pekayon, Pasar Rebo, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13730, Indonesia', 'latitude': -6.3447406, 'longitude': 106.8642328},
+	'31.75.06.1001': {'nama': 'Jatinegara', 'fullname': 'Jatinegara, Cakung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2032345, 'longitude': 106.91593},
+	'31.75.06.1002': {'nama': 'Rawa Terate', 'fullname': 'Rawa Terate, Cakung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13920, Indonesia', 'latitude': -6.179497, 'longitude': 106.9248103},
+	'31.75.06.1003': {'nama': 'Penggilingan', 'fullname': 'Penggilingan, Cakung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13940, Indonesia', 'latitude': -6.202129, 'longitude': 106.9342476},
+	'31.75.06.1004': {'nama': 'Cakung Timur', 'fullname': 'Cakung Timur, Cakung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13910, Indonesia', 'latitude': -6.17428, 'longitude': 106.9533236},
+	'31.75.06.1005': {'nama': 'Pulo Gebang', 'fullname': 'Pulo Gebang, Cakung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.205659, 'longitude': 106.9532485},
+	'31.75.06.1006': {'nama': 'Ujung Menteng', 'fullname': 'Ujung Menteng, Cakung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13960, Indonesia', 'latitude': -6.1865521, 'longitude': 106.966587},
+	'31.75.06.1007': {'nama': 'Cakung Barat', 'fullname': 'Cakung Barat, Cakung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 14240, Indonesia', 'latitude': -6.172541, 'longitude': 106.9346036},
+	'31.75.07.1001': {'nama': 'Duren Sawit', 'fullname': 'Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2341378, 'longitude': 106.9192472},
+	'31.75.07.1002': {'nama': 'Pondok Bambu', 'fullname': 'Pondok Bambu, Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13430, Indonesia', 'latitude': -6.2353305, 'longitude': 106.9014511},
+	'31.75.07.1003': {'nama': 'Klender', 'fullname': 'Klender, Jalan I Gusti Ngurah Rai, RW 02, Klender, Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13470, Indonesia', 'latitude': -6.2133188, 'longitude': 106.8994133},
+	'31.75.07.1004': {'nama': 'Pondok Kelapa', 'fullname': 'Pondok Kelapa, Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2410395, 'longitude': 106.9331532},
+	'31.75.07.1005': {'nama': 'Malaka Sari', 'fullname': 'Malaka Sari, Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.224299, 'longitude': 106.9284449},
+	'31.75.07.1006': {'nama': 'Malaka Jaya', 'fullname': 'Malaka Jaya, Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.224824, 'longitude': 106.9355781},
+	'31.75.07.1007': {'nama': 'Pondok Kopi', 'fullname': 'Pondok Kopi, Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2278382, 'longitude': 106.941515},
+	'31.75.08.1001': {'nama': 'Makasar', 'fullname': 'Jalan Selat Makasar, RW 16, Duren Sawit, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13440, Indonesia', 'latitude': -6.2400117, 'longitude': 106.9141374},
+	'31.75.08.1002': {'nama': 'Pinangranti', 'fullname': 'Pinang Ranti, Makasar, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13560, Indonesia', 'latitude': -6.2860869, 'longitude': 106.8818251},
+	'31.75.08.1003': {'nama': 'Kebon Pala', 'fullname': 'Kebon Pala, Makasar, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2538239, 'longitude': 106.8766666},
+	'31.75.08.1004': {'nama': 'Halim Perdana Kusuma', 'fullname': 'Halim Perdana Kusuma, Makasar, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2656646, 'longitude': 106.8940605},
+	'31.75.08.1005': {'nama': 'Cipinang Melayu', 'fullname': 'Cipinang Melayu, Makasar, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.2494773, 'longitude': 106.911258},
+	'31.75.09.1001': {'nama': 'Ciracas', 'fullname': 'Ciracas, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3436047, 'longitude': 106.8770835},
+	'31.75.09.1002': {'nama': 'Cibubur', 'fullname': 'Cibubur, Ciracas, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13720, Indonesia', 'latitude': -6.3561085, 'longitude': 106.883563},
+	'31.75.09.1003': {'nama': 'Kelapa Dua Wetan', 'fullname': 'Kelapa Dua Wetan, Ciracas, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3401627, 'longitude': 106.8840948},
+	'31.75.09.1004': {'nama': 'Susukan', 'fullname': 'Susukan, Ciracas, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3134121, 'longitude': 106.8689417},
+	'31.75.09.1005': {'nama': 'Rambutan', 'fullname': 'Rambutan, Ciracas, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13830, Indonesia', 'latitude': -6.3031181, 'longitude': 106.8722738},
+	'31.75.10.1001': {'nama': 'Cipayung', 'fullname': 'Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, Indonesia', 'latitude': -6.3247473, 'longitude': 106.9021956},
+	'31.75.10.1002': {'nama': 'Cilangkap', 'fullname': 'Cilangkap, Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13870, Indonesia', 'latitude': -6.3337625, 'longitude': 106.9080579},
+	'31.75.10.1003': {'nama': 'Pondok Ranggon', 'fullname': 'Pondok Ranggon, Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13860, Indonesia', 'latitude': -6.3567077, 'longitude': 106.905687},
+	'31.75.10.1004': {'nama': 'Munjul', 'fullname': 'Munjul, Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13850, Indonesia', 'latitude': -6.3489759, 'longitude': 106.8957393},
+	'31.75.10.1005': {'nama': 'Setu', 'fullname': 'Setu, Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13880, Indonesia', 'latitude': -6.3133915, 'longitude': 106.9142946},
+	'31.75.10.1006': {'nama': 'Bambu Apus', 'fullname': 'Bambu Apus, Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13890, Indonesia', 'latitude': -6.3137921, 'longitude': 106.9001301},
+	'31.75.10.1007': {'nama': 'Lubang Buaya', 'fullname': 'Lubang Buaya, Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13810, Indonesia', 'latitude': -6.2940382, 'longitude': 106.8999121},
+	'31.75.10.1008': {'nama': 'Ceger', 'fullname': 'Ceger, Cipayung, Jakarta Timur, Daerah Khusus ibukota Jakarta, Jawa, 13820, Indonesia', 'latitude': -6.3125095, 'longitude': 106.8898853}
+	}
+
+	var map = L.map('map').setView([-5.950263, 106.737671], 10);
+	var baselayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+		maxZoom: 20,
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+	}).addTo(map);
+	// Google Satelite Basemap
 	var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
 		maxZoom: 20,
 		subdomains:['mt0','mt1','mt2','mt3'],
 		attribution: 'Tiles &copy; Google'
-		});
+	});
 		
-      L.control.layers({'Basemap':baselayer,"Satellite": googleSat}).addTo(map);
+	L.control.layers({'Basemap':baselayer,"Satellite": googleSat}).addTo(map);
 	let apiUrl = 'https://data.bmkg.go.id/datamkg/MEWS/DigitalForecast/DigitalForecast-Indonesia.xml';
 	let date = new Date();
 	let datetime = date.getFullYear()+''+
-				   (date.getMonth()+1).toString().padStart(2,'0')+''+
-				   (date.getDate()+1).toString().padStart(2,'0')+''+
-				   date.getHours().toString().padStart(2,'0')+'00';
+					(date.getMonth()+1).toString().padStart(2,'0')+''+
+					(date.getDate()+1).toString().padStart(2,'0')+''+
+					date.getHours().toString().padStart(2,'0')+'00';
 	let kodeCuaca = {
 		'0':['Cerah','clearskies.png'],
 		'1':['Cerah Berawan ','partlycloudy.png'],
@@ -100,48 +371,107 @@
 		'97':['Hujan Petir','severethunderstorm.png'],
 	};
 
-	
-	getData();
-	
-	async function getData(){
-		let response = await fetch(apiUrl);
-		let xmlStr = await response.text();
-		let parse = new DOMParser();
-		let xmlData = parse.parseFromString(xmlStr,'text/xml');
-		let areas = xmlData.querySelectorAll('area');
-		areas.forEach((area)=>{
-			let lat = area.getAttribute('latitude');
-			let lng = area.getAttribute('longitude');
-			let nama = area.getAttribute('description');
-			let weathers = area.querySelectorAll('parameter[id="weather"] timerange');
-			let getTime = false;
-			let idxprakiraan;
-			
-			weathers.forEach((weather,i)=>{
-				let getDateTime = weather.getAttribute('datetime');
-				if(getDateTime>datetime && getTime==false){
-					idxprakiraan = i;
-					getTime = true;
-				}
+	// Create Points
+	var markers = {}
+	Object.keys(data_kelurahan).forEach(key => {
+    let data = data_kelurahan[key]
+    //  console.log(key, value);
+		// let marker = L.marker([data["latitude"], data["longitude"]]).addTo(map);
+		// marker.bindPopup("<div id='popup'><b>"+ data["nama"] +"</b><br>I am a popup.</div>")
+		markers[key] = createPoint(key);
+	});
+	// markers['31.75.03.1007'] = createPoint('31.75.03.1007')
+	// getData();
+
+	// var popup = L.popup();
+
+	// function onMapClick(e) {
+	// 		popup
+	// 				.setLatLng(e.latlng)
+	// 				.setContent("You clicked the map at " + e.latlng.toString())
+	// 				.openOn(map);
+	// }
+
+	// map.on('click', onMapClick);
+
+	async function createPoint(id){
+		let response = await fetch("https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=" + id)
+			.then(response => response.json())
+			.then(data => {
+				// Process the JSON data here
+				// console.log(data.data[0].cuaca);
+				let data_cuaca = data.data[0].cuaca;
+				let data_point = data_kelurahan[id];
+				let marker = L.marker([data_point["latitude"], data_point["longitude"]],{
+					icon: L.icon({
+						iconUrl: data_cuaca[0][0]["image"],
+						iconSize: [40, 40],
+						iconAnchor: [20, 20],
+						popupAnchor: [0, 0],
+						// shadowUrl: 'my-icon-shadow.png',
+						// shadowSize: [68, 95],
+						// shadowAnchor: [22, 94]
+					})
+				}).addTo(map);
+				let desc = "<div style='text-align:center;'><b>"+ data_point["nama"] +"</b><br><br>"
+				desc += "<svg width='100' height='100'><image height='100' width='100' href='"+ data_cuaca[0][0]["image"] +"' /></svg></div><br>";
+				desc += "<strong>Jam:</strong> " + data_cuaca[0][0]["local_datetime"] + "<br>";
+				desc += "<strong>Cuaca:</strong> " + data_cuaca[0][0]["weather_desc_en"] + "<br>";
+				desc += "<strong>Suhu:</strong> " + data_cuaca[0][0]["t"] + "°C<br>";
+				desc += "<strong>Kelembapan:</strong> " + data_cuaca[0][0]["hu"] + "%<br>";
+				desc += "<strong>Kec. Angin:</strong> " + data_cuaca[0][0]["ws"] + "km/j<br>";
+				desc += "<strong>Arah Angin:</strong> dari " + data_cuaca[0][0]["wd"] + "<br>";
+				desc += "<strong>Jarak Pandang:</strong> dari " + data_cuaca[0][0]["vs_text"] + "<br>";
+				desc += ""
+				marker.bindPopup(desc);
+				return marker
 			})
-			let prakiraan = weathers[idxprakiraan].querySelector('value').textContent;
-			let iconUrl = 'assets/images/icons/'+kodeCuaca[prakiraan][1];
-			let deskripsi = kodeCuaca[prakiraan][0];
+			.catch(error => {
+				// Handle errors here
+				console.error('Error:', error);
+			});
+		// let json = response.json()
+		// let data = json["data"]
+		// console.log(json)
+		// let response = await fetch(apiUrl);
+
+		// let xmlStr = await response.text();
+		// let parse = new DOMParser();
+		// let xmlData = parse.parseFromString(xmlStr,'text/xml');
+		// let areas = xmlData.querySelectorAll('area');
+		// areas.forEach((area)=>{
+		// 	let lat = area.getAttribute('latitude');
+		// 	let lng = area.getAttribute('longitude');
+		// 	let nama = area.getAttribute('description');
+		// 	let weathers = area.querySelectorAll('parameter[id="weather"] timerange');
+		// 	let getTime = false;
+		// 	let idxprakiraan;
 			
-			let marker = L.marker([lat,lng],{
-					//icon: L.icon({
-					//	iconUrl: iconUrl,
-					//	iconSize: [38, 95],
-					//	iconAnchor: [22, 94],
-					//	popupAnchor: [-3, -76],
-					//	shadowUrl: 'my-icon-shadow.png',
-					//	shadowSize: [68, 95],
-					//	shadowAnchor: [22, 94]
-					//})
-				}).bindPopup('<strong>'+nama+'</strong> : '+deskripsi);
-			marker.addTo(map);
+		// 	weathers.forEach((weather,i)=>{
+		// 		let getDateTime = weather.getAttribute('datetime');
+		// 		if(getDateTime>datetime && getTime==false){
+		// 			idxprakiraan = i;
+		// 			getTime = true;
+		// 		}
+		// 	})
+		// 	let prakiraan = weathers[idxprakiraan].querySelector('value').textContent;
+		// 	let iconUrl = 'assets/images/icons/'+kodeCuaca[prakiraan][1];
+		// 	let deskripsi = kodeCuaca[prakiraan][0];
 			
-		})
+		// 	let marker = L.marker([lat,lng],{
+		// 			//icon: L.icon({
+		// 			//	iconUrl: iconUrl,
+		// 			//	iconSize: [38, 95],
+		// 			//	iconAnchor: [22, 94],
+		// 			//	popupAnchor: [-3, -76],
+		// 			//	shadowUrl: 'my-icon-shadow.png',
+		// 			//	shadowSize: [68, 95],
+		// 			//	shadowAnchor: [22, 94]
+		// 			//})
+		// 		}).bindPopup('<strong>'+nama+'</strong> : '+deskripsi);
+		// 	marker.addTo(map);
+			
+		// })
 	}
 	</script>
 </body>

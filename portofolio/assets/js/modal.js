@@ -5,6 +5,7 @@ var modal_footer = document.getElementById("modal-footer-text");
 var modal_img = document.getElementById("modal-img");
 var modal_link = document.getElementById("modal-link");
 var modal_text = document.getElementById("modal-text");
+var modal_date = document.getElementById("modal-date");
 var modal_tags = document.getElementById("modal-tags");
 var modal_klik = document.getElementById("modal-project");
 
@@ -31,6 +32,13 @@ function clickPorto(el) {
   // Change Body
   modal_img.src = "./assets/img/project/"+ portfolio[kode]["photo"] +".png";
   modal_text.innerHTML = portfolio[kode]["desc"]
+  // Date
+  let date = ""
+  if (portfolio[kode].hasOwnProperty("date")){
+    console.log("ada")
+    date = portfolio[kode]["date"]
+  }
+  modal_date.innerHTML = date
   // Tags
   let tag = ""
   tag += 'Tags:<br><div class="modal-tags">'

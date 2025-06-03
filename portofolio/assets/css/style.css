@@ -2,12 +2,10 @@
 :root {
   --main: #344354; /* background color */
   --lightmain: #E8EEF4;
-  --alternative: #F4F6F9;
-  --alternative-hover: #d5d7db;
-  --primary: #B8608C;
   --dark: #2D2D34;
   --secondary: #6B8199;
   --tertiary: #b6d1ef;
+  --personalsecondary: #81996b;
   --accent: #E8DAE1; /* for buttons and pops of color */
   --accent2: #9E1B70;
   --accent3: #EAAC8B;
@@ -146,7 +144,7 @@ h4 {
 } */
 
 /* Hide portofolio */
-.hide_portofolio {
+.portofolio.hide_portofolio {
   display: none;
 }
 
@@ -156,6 +154,10 @@ h4 {
   padding: 15px;
   max-width: 400px;
 }
+
+/* .portofolio.Personal_Project {
+  background-color: var(--personalsecondary);
+} */
 
 .portofolio :hover {
   cursor: pointer;
