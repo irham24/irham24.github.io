@@ -71,7 +71,7 @@ function load_filter_tag() {
   });
 
   for (var i = 0; i < filter_tag_skill.length; i++) {
-    let kode = filter_tag_skill[i].replace(" ","_")
+    let kode = filter_tag_skill[i].replace(" ","_").toLowerCase()
     let tag = 
     '<input type="checkbox" class="checkbox" onClick="toggleCheckbox()" value="'+ kode +'" id="check_'+ kode +'">' + 
     '<label for="check_'+ kode +'" class="skill_tag">' + filter_tag_skill[i] +'</label>'
@@ -135,4 +135,5 @@ function toggleCheckbox() {
       if (show == false) w3AddClass(portofolio[i], "hide_portofolio")
     }
   }  
+  updateURL();
 }
